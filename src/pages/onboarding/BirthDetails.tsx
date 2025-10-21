@@ -21,7 +21,7 @@ const BirthDetails = () => {
 
   return (
     <div className="min-h-screen flex flex-col animate-fade-in">
-      <ProgressBar currentStep={3} totalSteps={5} />
+      <ProgressBar currentStep={3} totalSteps={9} />
 
       <div className="flex-1 flex flex-col items-center justify-center p-6">
         <div className="w-full max-w-lg space-y-8">

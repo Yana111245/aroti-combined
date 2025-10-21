@@ -11,6 +11,10 @@ import PathType from "./pages/onboarding/PathType";
 import BirthDetails from "./pages/onboarding/BirthDetails";
 import Intentions from "./pages/onboarding/Intentions";
 import DailySummary from "./pages/onboarding/DailySummary";
+import PrivacySettings from "./pages/onboarding/PrivacySettings";
+import SubscriptionPlan from "./pages/onboarding/SubscriptionPlan";
+import CreateAccount from "./pages/onboarding/CreateAccount";
+import Finish from "./pages/onboarding/Finish";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +31,10 @@ const App = () => (
           <Route path="/onboarding/birth-details" element={<BirthDetails />} />
           <Route path="/onboarding/intentions" element={<Intentions />} />
           <Route path="/onboarding/daily-summary" element={<DailySummary />} />
+          <Route path="/onboarding/privacy" element={<PrivacySettings />} />
+          <Route path="/onboarding/subscription" element={<SubscriptionPlan />} />
+          <Route path="/onboarding/create-account" element={<CreateAccount />} />
+          <Route path="/onboarding/finish" element={<Finish />} />
           <Route path="/home" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
