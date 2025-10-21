@@ -17,7 +17,7 @@ const Index = () => {
           <Button 
             variant="pill" 
             size="lg"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/home")}
           >
             Start Your Journey
           </Button>
@@ -27,11 +27,17 @@ const Index = () => {
       {/* Tab Bar Navigation */}
       <nav className="glass-card border-t border-accent/10 px-6 py-4">
         <div className="max-w-lg mx-auto flex justify-around items-center">
-          <button className="flex flex-col items-center gap-1 text-accent">
+          <button 
+            onClick={() => navigate("/home")}
+            className="flex flex-col items-center gap-1 text-accent"
+          >
             <Home className="w-6 h-6" />
             <span className="text-xs font-medium">Home</span>
           </button>
-          <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-accent transition-colors">
+          <button 
+            onClick={() => navigate("/discovery")}
+            className="flex flex-col items-center gap-1 text-muted-foreground hover:text-accent transition-colors"
+          >
             <Compass className="w-6 h-6" />
             <span className="text-xs">Discovery</span>
           </button>
