@@ -1,0 +1,109 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { SerifTitle } from "@/components/profile/SerifTitle";
+import { SoftCard } from "@/components/profile/SoftCard";
+import { GradientButton } from "@/components/profile/GradientButton";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
+
+export default function EditIdentity() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "Alexandra Moon",
+    birthDate: "1990-09-12",
+    birthTime: "",
+    location: "San Francisco, CA, USA",
+  });
+
+  const handleSave = () => {
+    toast.success("Profile updated successfully");
+    navigate("/profile");
+  };
+
+  return (
+    <div className="min-h-screen pb-24 pt-6 px-4 max-w-[420px] mx-auto animate-fade-in">
+      {/* Header */}
+      <div className="mb-6 flex items-center gap-3">
+        <button
+          onClick={() => navigate("/profile/astrology")}
+          className="rounded-full p-2 hover:bg-white/50 transition-colors"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+        <SerifTitle>Edit Profile</SerifTitle>
+      </div>
+
+      <SoftCard className="mb-6">
+        <div className="space-y-6">
+          <div>
+            <Label htmlFor="name" className="text-sm font-medium mb-2 block">
+              Full Name
+            </Label>
+            <Input
+              id="name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              className="glass-card border-border"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="birthDate" className="text-sm font-medium mb-2 block">
+              Birth Date
+            </Label>
+            <Input
+              id="birthDate"
+              type="date"
+              value={formData.birthDate}
+              onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })}
+              className="glass-card border-border"
+            />
+            <p className="text-xs text-muted-foreground mt-1">Required for chart calculations</p>
+          </div>
+
+          <div>
+            <Label htmlFor="birthTime" className="text-sm font-medium mb-2 block">
+              Birth Time
+            </Label>
+            <Input
+              id="birthTime"
+              type="time"
+              value={formData.birthTime}
+              onChange={(e) => setFormData({ ...formData, birthTime: e.target.value })}
+              placeholder="Not sure"
+              className="glass-card border-border"
+            />
+            <p className="text-xs text-muted-foreground mt-1">
+              Optional • If unknown, Rising sign will be estimated
+            </p>
+          </div>
+
+          <div>
+            <Label htmlFor="location" className="text-sm font-medium mb-2 block">
+              Birth Location
+            </Label>
+            <Input
+              id="location"
+              value={formData.location}
+              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+              placeholder="City, State, Country"
+              className="glass-card border-border"
+            />
+            <p className="text-xs text-muted-foreground mt-1">Used for accurate chart positioning</p>
+          </div>
+        </div>
+      </SoftCard>
+
+      <div className="flex gap-3">
+        <GradientButton variant="outline" onClick={() => navigate("/profile/astrology")} className="flex-1">
+          Cancel
+        </GradientButton>
+        <GradientButton onClick={handleSave} className="flex-1">
+          Save Changes
+        </GradientButton>
+      </div>
+    </div>
+  );
+}
