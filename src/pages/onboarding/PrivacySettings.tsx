@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ProgressBar } from "@/components/onboarding/ProgressBar";
 import { useState } from "react";
 import { Switch } from "@/components/ui/switch";
 import { Shield, Sparkles } from "lucide-react";
+import { OnboardingLayout } from "@/components/layout/OnboardingLayout";
+import { CTAButton } from "@/components/ui/CTAButton";
 
 const PrivacySettings = () => {
   const navigate = useNavigate();
@@ -14,26 +14,35 @@ const PrivacySettings = () => {
     navigate("/onboarding/subscription");
   };
 
+  const handleBack = () => {
+    navigate("/onboarding/daily-summary");
+  };
+
   return (
-    <div className="min-h-screen flex flex-col animate-fade-in">
-      <ProgressBar currentStep={6} totalSteps={9} />
-
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-lg space-y-8">
-          <div className="text-center space-y-3">
-            <h2 className="font-serif text-3xl">Privacy & insights</h2>
-            <p className="text-muted-foreground">
-              Customize your experience while keeping your data secure
-            </p>
-          </div>
-
-          <div className="glass-card p-8 space-y-6">
-            <div className="flex items-start gap-4">
-              <Shield className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
+    <OnboardingLayout 
+      showBackButton={true}
+      onBack={handleBack}
+      currentStep={6}
+      totalSteps={9}
+      title="Privacy & insights"
+      subtitle="Customize your experience while keeping your data secure"
+      ctaButton={
+        <CTAButton
+          onClick={handleContinue}
+        >
+          Continue
+        </CTAButton>
+      }
+    >
+      <div className="animate-fade-in">
+        <div className="w-full max-w-lg mx-auto">
+          <div className="glass-card p-6 space-y-4">
+            <div className="flex items-start gap-3">
+              <Shield className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
               <div className="flex-1 space-y-2">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-semibold text-lg">Analytics</h3>
+                    <h3 className="font-semibold text-base">Analytics</h3>
                     <p className="text-sm text-muted-foreground mt-1">
                       Help us improve Aroti by sharing anonymous usage data
                     </p>
@@ -49,12 +58,12 @@ const PrivacySettings = () => {
 
             <div className="h-px bg-border" />
 
-            <div className="flex items-start gap-4">
-              <Sparkles className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
+            <div className="flex items-start gap-3">
+              <Sparkles className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
               <div className="flex-1 space-y-2">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-semibold text-lg">Personalized insights</h3>
+                    <h3 className="font-semibold text-base">Personalized insights</h3>
                     <p className="text-sm text-muted-foreground mt-1">
                       Get tailored guidance based on your patterns and preferences
                     </p>
@@ -69,23 +78,14 @@ const PrivacySettings = () => {
             </div>
           </div>
 
-          <div className="glass-card p-6">
+          <div className="glass-card p-4 mt-4">
             <p className="text-sm text-muted-foreground text-center leading-relaxed">
               Your birth details and readings are encrypted and private. We never share your personal information with third parties.
             </p>
           </div>
-
-          <Button
-            variant="pill"
-            size="lg"
-            onClick={handleContinue}
-            className="w-full"
-          >
-            Continue
-          </Button>
         </div>
       </div>
-    </div>
+    </OnboardingLayout>
   );
 };
 

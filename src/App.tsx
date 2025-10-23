@@ -19,6 +19,7 @@ import DailySummary from "./pages/onboarding/DailySummary";
 import PrivacySettings from "./pages/onboarding/PrivacySettings";
 import SubscriptionPlan from "./pages/onboarding/SubscriptionPlan";
 import CreateAccount from "./pages/onboarding/CreateAccount";
+import PaymentMethod from "./pages/onboarding/PaymentMethod";
 import Finish from "./pages/onboarding/Finish";
 
 // Home pages
@@ -76,6 +77,7 @@ const App = () => (
           <Route path="/onboarding/privacy" element={<PrivacySettings />} />
           <Route path="/onboarding/subscription" element={<SubscriptionPlan />} />
           <Route path="/onboarding/create-account" element={<CreateAccount />} />
+          <Route path="/onboarding/payment-method" element={<PaymentMethod />} />
           <Route path="/onboarding/finish" element={<Finish />} />
           
           {/* Home pages */}

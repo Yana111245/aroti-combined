@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ProgressBar } from "@/components/onboarding/ProgressBar";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { OnboardingLayout } from "@/components/layout/OnboardingLayout";
+import { CTAButton } from "@/components/ui/CTAButton";
 
 const BirthDetails = () => {
   const navigate = useNavigate();
@@ -17,22 +17,32 @@ const BirthDetails = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate("/onboarding/path");
+  };
+
   const isFormValid = birthDate && birthTime && birthLocation;
 
   return (
-    <div className="min-h-screen flex flex-col animate-fade-in">
-      <ProgressBar currentStep={3} totalSteps={9} />
-
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-lg space-y-8">
-          <div className="text-center space-y-3">
-            <h2 className="font-serif text-3xl">Your cosmic blueprint</h2>
-            <p className="text-muted-foreground">
-              We'll use this to create your personalized astrological profile
-            </p>
-          </div>
-
-          <div className="glass-card p-8 space-y-6">
+    <OnboardingLayout 
+      showBackButton={true}
+      onBack={handleBack}
+      currentStep={3}
+      totalSteps={9}
+      title="Your cosmic blueprint"
+      subtitle="We'll use this to create your personalized astrological profile"
+      ctaButton={
+        <CTAButton
+          onClick={handleContinue}
+          disabled={!isFormValid}
+        >
+          Continue
+        </CTAButton>
+      }
+    >
+      <div className="animate-fade-in">
+        <div className="w-full max-w-lg mx-auto">
+          <div className="glass-card p-6 space-y-4">
             <div className="space-y-2">
               <Label htmlFor="birthDate" className="text-sm font-medium">
                 Date of Birth
@@ -76,23 +86,13 @@ const BirthDetails = () => {
               />
             </div>
           </div>
-
-          <Button
-            variant="pill"
-            size="lg"
-            onClick={handleContinue}
-            disabled={!isFormValid}
-            className="w-full"
-          >
-            Continue
-          </Button>
-
-          <p className="text-xs text-center text-muted-foreground">
+          
+          <p className="text-xs text-center text-muted-foreground mt-4">
             Your data is encrypted and never shared
           </p>
         </div>
       </div>
-    </div>
+    </OnboardingLayout>
   );
 };
 

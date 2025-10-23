@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ProgressBar } from "@/components/onboarding/ProgressBar";
 import { useState } from "react";
 import { Check, Sparkles, Crown } from "lucide-react";
+import { OnboardingLayout } from "@/components/layout/OnboardingLayout";
+import { CTAButton } from "@/components/ui/CTAButton";
 
 const plans = [
   {
@@ -42,30 +42,40 @@ const SubscriptionPlan = () => {
   const [selectedPlan, setSelectedPlan] = useState<string>("free");
 
   const handleContinue = () => {
-    navigate("/onboarding/create-account");
+    localStorage.setItem('selectedPlan', selectedPlan);
+    navigate("/onboarding/create-account", { state: { selectedPlan } });
+  };
+
+  const handleBack = () => {
+    navigate("/onboarding/privacy");
   };
 
   return (
-    <div className="min-h-screen flex flex-col animate-fade-in">
-      <ProgressBar currentStep={7} totalSteps={9} />
-
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-2xl space-y-8">
-          <div className="text-center space-y-3">
-            <h2 className="font-serif text-3xl">Choose your journey</h2>
-            <p className="text-muted-foreground">
-              Start free, upgrade anytime for deeper insights
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
+    <OnboardingLayout 
+      showBackButton={true}
+      onBack={handleBack}
+      currentStep={7}
+      totalSteps={9}
+      title="Choose your journey"
+      subtitle="Start free, upgrade anytime for deeper insights"
+      ctaButton={
+        <CTAButton
+          onClick={handleContinue}
+        >
+          {selectedPlan === "premium" ? "Continue with Premium" : "Continue with Free"}
+        </CTAButton>
+      }
+    >
+      <div className="animate-fade-in">
+        <div className="w-full max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 gap-4">
             {plans.map(({ id, name, price, period, features, icon: Icon, highlighted }) => {
               const isSelected = selectedPlan === id;
               return (
                 <button
                   key={id}
                   onClick={() => setSelectedPlan(id)}
-                  className={`glass-card p-8 text-left transition-all duration-300 hover:scale-[1.02] relative ${
+                  className={`glass-card p-6 text-left transition-all duration-300 hover:scale-[1.02] relative ${
                     highlighted
                       ? "ring-2 ring-accent"
                       : ""
@@ -76,68 +86,45 @@ const SubscriptionPlan = () => {
                   }`}
                 >
                   {highlighted && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-secondary to-primary rounded-full">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-secondary to-primary rounded-full">
                       <span className="text-xs font-semibold text-white">Most Popular</span>
                     </div>
                   )}
 
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     <div className="flex items-center gap-3">
-                      <div className={`p-3 rounded-2xl ${highlighted ? 'bg-gradient-to-br from-secondary to-primary' : 'bg-muted'}`}>
-                        <Icon className={`w-6 h-6 ${highlighted ? 'text-white' : 'text-accent'}`} />
+                      <div className={`p-2 rounded-xl ${highlighted ? 'bg-gradient-to-br from-secondary to-primary' : 'bg-muted'}`}>
+                        <Icon className={`w-5 h-5 ${highlighted ? 'text-white' : 'text-accent'}`} />
                       </div>
                       <div>
-                        <h3 className="font-serif text-2xl">{name}</h3>
+                        <h3 className="font-serif text-xl">{name}</h3>
                         <div className="flex items-baseline gap-1">
-                          <span className="text-3xl font-bold">{price}</span>
+                          <span className="text-2xl font-bold">{price}</span>
                           <span className="text-sm text-muted-foreground">/ {period}</span>
                         </div>
                       </div>
                     </div>
 
-                    <ul className="space-y-3">
+                    <ul className="space-y-2">
                       {features.map((feature) => (
-                        <li key={feature} className="flex items-start gap-3">
-                          <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                        <li key={feature} className="flex items-start gap-2">
+                          <Check className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
                           <span className="text-sm">{feature}</span>
                         </li>
                       ))}
                     </ul>
-
-                    {highlighted && (
-                      <Button
-                        variant="pill"
-                        size="lg"
-                        className="w-full"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedPlan(id);
-                        }}
-                      >
-                        Upgrade to Premium
-                      </Button>
-                    )}
                   </div>
                 </button>
               );
             })}
           </div>
 
-          <Button
-            variant="pill"
-            size="lg"
-            onClick={handleContinue}
-            className="w-full"
-          >
-            {selectedPlan === "premium" ? "Continue with Premium" : "Continue with Free"}
-          </Button>
-
-          <p className="text-xs text-center text-muted-foreground">
+          <p className="text-xs text-center text-muted-foreground mt-4">
             Cancel anytime. 7-day free trial for Premium
           </p>
         </div>
       </div>
-    </div>
+    </OnboardingLayout>
   );
 };
 

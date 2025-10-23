@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ProgressBar } from "@/components/onboarding/ProgressBar";
 import { useState } from "react";
 import { Sunrise, Sun, Sunset } from "lucide-react";
+import { OnboardingLayout } from "@/components/layout/OnboardingLayout";
+import { CTAButton } from "@/components/ui/CTAButton";
 
 const times = [
   { id: "morning", label: "Morning", time: "7:00 AM", icon: Sunrise },
@@ -20,38 +20,48 @@ const DailySummary = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate("/onboarding/intentions");
+  };
+
   return (
-    <div className="min-h-screen flex flex-col animate-fade-in">
-      <ProgressBar currentStep={5} totalSteps={9} />
-
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-lg space-y-8">
-          <div className="text-center space-y-3">
-            <h2 className="font-serif text-3xl">Daily reflections</h2>
-            <p className="text-muted-foreground">
-              When would you like to receive your daily guidance?
-            </p>
-          </div>
-
-          <div className="space-y-4">
+    <OnboardingLayout 
+      showBackButton={true}
+      onBack={handleBack}
+      currentStep={5}
+      totalSteps={9}
+      title="Daily reflections"
+      subtitle="When would you like to receive your daily guidance?"
+      ctaButton={
+        <CTAButton
+          onClick={handleComplete}
+          disabled={!selectedTime}
+        >
+          Complete Setup
+        </CTAButton>
+      }
+    >
+      <div className="animate-fade-in">
+        <div className="w-full max-w-lg mx-auto">
+          <div className="space-y-3">
             {times.map(({ id, label, time, icon: Icon }) => {
               const isSelected = selectedTime === id;
               return (
                 <button
                   key={id}
                   onClick={() => setSelectedTime(id)}
-                  className={`glass-card w-full p-6 transition-all duration-300 hover:scale-[1.02] ${
+                  className={`glass-card w-full p-4 transition-all duration-300 hover:scale-[1.02] ${
                     isSelected
                       ? "ring-2 ring-accent bg-white/90"
                       : "hover:bg-white/80"
                   }`}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className={`p-3 rounded-2xl ${isSelected ? 'bg-gradient-to-br from-secondary to-primary' : 'bg-muted'}`}>
-                      <Icon className={`w-6 h-6 ${isSelected ? 'text-white' : 'text-accent'}`} />
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-xl ${isSelected ? 'bg-gradient-to-br from-secondary to-primary' : 'bg-muted'}`}>
+                      <Icon className={`w-5 h-5 ${isSelected ? 'text-white' : 'text-accent'}`} />
                     </div>
                     <div className="flex-1 text-left">
-                      <h3 className="font-semibold text-lg">{label}</h3>
+                      <h3 className="font-semibold text-base">{label}</h3>
                       <p className="text-sm text-muted-foreground">{time}</p>
                     </div>
                   </div>
@@ -60,22 +70,12 @@ const DailySummary = () => {
             })}
           </div>
 
-          <Button
-            variant="pill"
-            size="lg"
-            onClick={handleComplete}
-            disabled={!selectedTime}
-            className="w-full"
-          >
-            Complete Setup
-          </Button>
-
-          <p className="text-xs text-center text-muted-foreground">
+          <p className="text-xs text-center text-muted-foreground mt-4">
             You can always change this later in settings
           </p>
         </div>
       </div>
-    </div>
+    </OnboardingLayout>
   );
 };
 

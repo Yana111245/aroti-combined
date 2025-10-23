@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ProgressBar } from "@/components/onboarding/ProgressBar";
 import { useState } from "react";
+import { OnboardingLayout } from "@/components/layout/OnboardingLayout";
+import { CTAButton } from "@/components/ui/CTAButton";
 
 const intentions = [
   "Insight",
@@ -36,27 +36,37 @@ const Intentions = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate("/onboarding/birth-details");
+  };
+
   return (
-    <div className="min-h-screen flex flex-col animate-fade-in">
-      <ProgressBar currentStep={4} totalSteps={9} />
-
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-lg space-y-8">
-          <div className="text-center space-y-3">
-            <h2 className="font-serif text-3xl">Set your intentions</h2>
-            <p className="text-muted-foreground">
-              Choose what you'd like to cultivate in your life
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-3 justify-center">
+    <OnboardingLayout 
+      showBackButton={true}
+      onBack={handleBack}
+      currentStep={4}
+      totalSteps={9}
+      title="Set your intentions"
+      subtitle="Choose what you'd like to cultivate in your life"
+      ctaButton={
+        <CTAButton
+          onClick={handleContinue}
+          disabled={selectedIntentions.length === 0}
+        >
+          Continue
+        </CTAButton>
+      }
+    >
+      <div className="animate-fade-in">
+        <div className="w-full max-w-lg mx-auto">
+          <div className="flex flex-wrap gap-2 justify-center">
             {intentions.map((intention) => {
               const isSelected = selectedIntentions.includes(intention);
               return (
                 <button
                   key={intention}
                   onClick={() => toggleIntention(intention)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 ${
                     isSelected
                       ? "bg-gradient-to-r from-secondary to-primary text-primary-foreground shadow-[var(--shadow-glow)]"
                       : "glass-card border border-accent/20 text-foreground hover:border-accent/40"
@@ -68,22 +78,12 @@ const Intentions = () => {
             })}
           </div>
 
-          <div className="text-center text-sm text-muted-foreground">
+          <div className="text-center text-sm text-muted-foreground mt-4">
             Selected: {selectedIntentions.length}
           </div>
-
-          <Button
-            variant="pill"
-            size="lg"
-            onClick={handleContinue}
-            disabled={selectedIntentions.length === 0}
-            className="w-full"
-          >
-            Continue
-          </Button>
         </div>
       </div>
-    </div>
+    </OnboardingLayout>
   );
 };
 

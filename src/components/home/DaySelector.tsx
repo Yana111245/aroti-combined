@@ -1,15 +1,15 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
 
 interface DaySelectorProps {
-  selectedDay: "yesterday" | "today" | "tomorrow";
-  onDayChange: (day: "yesterday" | "today" | "tomorrow") => void;
+  selectedDay: "yesterday" | "today";
+  onDayChange: (day: "yesterday" | "today") => void;
+  onCalendarClick?: () => void;
 }
 
-export const DaySelector = ({ selectedDay, onDayChange }: DaySelectorProps) => {
+export const DaySelector = ({ selectedDay, onDayChange, onCalendarClick }: DaySelectorProps) => {
   const days = [
     { id: "yesterday" as const, label: "YESTERDAY" },
     { id: "today" as const, label: "TODAY" },
-    { id: "tomorrow" as const, label: "TOMORROW" },
   ];
 
   return (
@@ -37,8 +37,11 @@ export const DaySelector = ({ selectedDay, onDayChange }: DaySelectorProps) => {
         ))}
       </div>
 
-      <button className="p-2 text-accent hover:text-accent/80 transition-colors">
-        <ChevronRight className="w-5 h-5" />
+      <button 
+        onClick={onCalendarClick}
+        className="p-2 text-accent hover:text-accent/80 transition-colors"
+      >
+        <Calendar className="w-5 h-5" />
       </button>
     </div>
   );
