@@ -106,27 +106,37 @@ const HomeOverview = () => {
 
   return (
     <PageWrapper showBottomNav={false} showTabBar={true}>
-      <div className="animate-fade-in">
-        {/* Day Selector */}
+      {/* Day Selector - Fixed at top */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-background pt-[env(safe-area-inset-top)]">
         <DaySelector 
           selectedDate={selectedDate} 
           onDateChange={handleDateChange}
           onCalendarClick={handleCalendarClick}
         />
+      </div>
 
-        {/* Header Section */}
-        <div className="px-6 py-6 space-y-3">
-          <p className="text-sm text-muted-foreground">
+      {/* Content with top padding to account for fixed header */}
+      <div className="animate-fade-in pt-[80px]">
+        {/* Header Section - Elegant Layout */}
+        <div className="px-6 pt-2 pb-6 text-center space-y-1">
+          {/* Greeting - Small and subtle */}
+          <p className="text-xs font-sans text-muted-foreground">
             Hi {userData.name}, it's {getCurrentDate()}
           </p>
           
-          <p className="text-sm text-muted-foreground">
+          {/* Main Title - Large and prominent */}
+          <h1 className="text-[36px] font-title font-medium text-foreground leading-tight">
+            Today's Insights
+          </h1>
+          
+          {/* Subtitle - Smaller and accent color */}
+          <p className="text-sm font-sans text-accent pt-1">
             Under {userData.sunSign} skies • Energy Number {userData.energyNumber}
           </p>
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 px-6 pb-8 space-y-6">
+          {/* Main Content */}
+          <div className="px-6 pb-8 space-y-6">
           {/* Tarot Section */}
           {!isRevealed ? (
             <TarotPreReveal onReveal={handleReveal} isRevealing={isRevealing} />
@@ -161,8 +171,8 @@ const HomeOverview = () => {
             milestones={userData.milestones}
           />
           <RecentlyViewed items={userData.recentlyViewed} />
+          </div>
         </div>
-      </div>
       
       {/* Modals */}
       <ReflectionModal
