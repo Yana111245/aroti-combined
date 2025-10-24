@@ -16,13 +16,12 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import tarotMoon from "@/assets/tarot-moon.jpg";
 
 const HomeOverview = () => {
-  const [selectedDay, setSelectedDay] = useState<"yesterday" | "today">("today");
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [isRevealed, setIsRevealed] = useState(false);
   const [isRevealing, setIsRevealing] = useState(false);
   const [reflection, setReflection] = useState<string>("");
   const [showReflectionModal, setShowReflectionModal] = useState(false);
   const [showCalendarModal, setShowCalendarModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
 
   // Mock data - replace with real data
   const userData = {
@@ -83,6 +82,13 @@ const HomeOverview = () => {
     setShowCalendarModal(true);
   };
 
+  const handleDateChange = (date: Date) => {
+    setSelectedDate(date);
+    // Reset reveal state when changing dates
+    setIsRevealed(false);
+    setIsRevealing(false);
+  };
+
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
     // Reset reveal state when changing dates
@@ -103,8 +109,8 @@ const HomeOverview = () => {
       <div className="animate-fade-in">
         {/* Day Selector */}
         <DaySelector 
-          selectedDay={selectedDay} 
-          onDayChange={setSelectedDay}
+          selectedDate={selectedDate} 
+          onDateChange={handleDateChange}
           onCalendarClick={handleCalendarClick}
         />
 

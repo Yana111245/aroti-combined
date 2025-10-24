@@ -246,6 +246,15 @@ All colors MUST be HSL.
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   }
 
+  /* Scroll isolation for horizontal-only scrolling */
+  .scroll-x-only {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+  }
+
   /* Safe area utilities */
   .safe-top {
     padding-top: env(safe-area-inset-top);
