@@ -49,7 +49,7 @@ export default function SpecialistMessages() {
             {thread.unread && (
               <span className="absolute top-4 right-4 h-2 w-2 rounded-full bg-accent-gold" />
             )}
-            <div className="h-12 w-12 rounded-full gradient-accent flex items-center justify-center text-white font-subtitle text-xl">
+            <div className="h-12 w-12 rounded-full gradient-accent flex items-center justify-center text-white font-title text-xl">
               {thread.avatar}
             </div>
             <div className="flex-1">
@@ -68,7 +68,7 @@ export default function SpecialistMessages() {
           <div className="h-16 w-16 rounded-full gradient-accent flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl">💬</span>
           </div>
-          <h3 className="font-subtitle text-lg font-semibold mb-2">No messages yet</h3>
+          <h3 className="font-title text-lg font-semibold mb-2">No messages yet</h3>
           <p className="text-sm text-muted-foreground">Book a session to connect with specialists</p>
         </SoftCard>
       )}

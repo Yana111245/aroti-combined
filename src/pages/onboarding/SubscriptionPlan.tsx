@@ -97,7 +97,7 @@ const SubscriptionPlan = () => {
                         <Icon className={`w-5 h-5 ${highlighted ? 'text-white' : 'text-accent'}`} />
                       </div>
                       <div>
-                        <h3 className="font-subtitle text-xl">{name}</h3>
+                        <h3 className="font-title text-xl font-medium">{name}</h3>
                         <div className="flex items-baseline gap-1">
                           <span className="text-2xl font-bold">{price}</span>
                           <span className="text-sm text-muted-foreground">/ {period}</span>

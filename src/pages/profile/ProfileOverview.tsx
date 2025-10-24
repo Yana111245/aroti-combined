@@ -16,7 +16,7 @@ export default function ProfileOverview() {
       <div className="mb-8 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="relative">
-            <div className="h-16 w-16 rounded-full bg-gradient-accent flex items-center justify-center text-white text-2xl font-subtitle">
+            <div className="h-16 w-16 rounded-full bg-gradient-accent flex items-center justify-center text-white text-2xl font-title">
               A
             </div>
             <button className="absolute bottom-0 right-0 h-5 w-5 rounded-full bg-white shadow-md flex items-center justify-center">
@@ -39,7 +39,7 @@ export default function ProfileOverview() {
       {/* Cosmic Snapshot */}
       <SoftCard className="mb-6 animate-raise">
         <div className="mb-4">
-          <h3 className="font-subtitle text-lg font-semibold mb-1">Your Cosmic Snapshot</h3>
+          <h3 className="font-title text-lg font-semibold mb-1">Your Cosmic Snapshot</h3>
           <p className="text-xs text-muted-foreground">Updates as the sky moves</p>
         </div>
         <div className="flex items-center justify-around mb-4">
@@ -72,7 +72,7 @@ export default function ProfileOverview() {
       <SoftCard className="mb-6 animate-raise" style={{ animationDelay: "0.1s" }}>
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-subtitle text-lg font-semibold mb-1">Life Path 3</h3>
+            <h3 className="font-title text-lg font-semibold mb-1">Life Path 3</h3>
             <p className="text-sm text-muted-foreground">Connector • Creative</p>
           </div>
           <button
@@ -86,7 +86,7 @@ export default function ProfileOverview() {
 
       {/* Practice & Streaks */}
       <SoftCard className="mb-6 animate-raise" style={{ animationDelay: "0.2s" }}>
-        <h3 className="font-subtitle text-lg font-semibold mb-4">Practice & Streaks</h3>
+        <h3 className="font-title text-lg font-semibold mb-4">Practice & Streaks</h3>
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground">Reflection Streak</span>
@@ -134,7 +134,7 @@ export default function ProfileOverview() {
       <SoftCard className="mb-6 animate-raise" style={{ animationDelay: "0.5s" }}>
         <div className="flex items-center justify-between mb-3">
           <div>
-            <h3 className="font-subtitle text-lg font-semibold">Free Plan</h3>
+            <h3 className="font-title text-lg font-semibold">Free Plan</h3>
             <p className="text-xs text-muted-foreground mt-1">Limited access</p>
           </div>
           <span className="text-2xl">✨</span>

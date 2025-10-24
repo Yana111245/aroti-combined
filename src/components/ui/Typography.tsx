@@ -13,13 +13,13 @@ export const Heading1 = ({ children, className }: TypographyProps) => (
 );
 
 export const Heading2 = ({ children, className }: TypographyProps) => (
-  <h2 className={cn("font-subtitle text-title-lg font-normal", className)}>
+  <h2 className={cn("font-title text-title-lg font-medium", className)}>
     {children}
   </h2>
 );
 
 export const Heading3 = ({ children, className }: TypographyProps) => (
-  <h3 className={cn("font-subtitle text-title-md font-normal", className)}>
+  <h3 className={cn("font-title text-title-md font-medium", className)}>
     {children}
   </h3>
 );

@@ -60,17 +60,16 @@ export default {
         terracotta: "hsl(var(--terracotta))",
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
         title: ['DM Serif Text', 'Georgia', 'serif'],
-        subtitle: ['Cormorant Garamond', 'Georgia', 'serif'],
-        ui: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        body: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'], // Keep for Tailwind defaults
       },
       fontSize: {
-        'title-xl': ['34px', { lineHeight: '1.3', letterSpacing: '0.02em' }],
-        'title-lg': ['30px', { lineHeight: '1.3', letterSpacing: '0.02em' }],
-        'title-md': ['24px', { lineHeight: '1.3', letterSpacing: '0.01em' }],
-        'body-lg': ['16px', { lineHeight: '1.6' }],
-        'body-md': ['15px', { lineHeight: '1.6' }],
+        'h1': ['36px', { lineHeight: '1.2', fontWeight: '500' }],
+        'h2': ['28px', { lineHeight: '1.2', fontWeight: '500' }],
+        'h3': ['22px', { lineHeight: '1.2', fontWeight: '500' }],
+        'body': ['16px', { lineHeight: '1.5', fontWeight: '400' }],
+        'body-sm': ['14px', { lineHeight: '1.5', fontWeight: '400' }],
       },
       borderRadius: {
         lg: "var(--radius)",

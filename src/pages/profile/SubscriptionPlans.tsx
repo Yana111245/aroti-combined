@@ -45,11 +45,11 @@ export default function SubscriptionPlans() {
       <SoftCard className="mb-4">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="font-subtitle text-xl font-semibold">Free</h3>
+            <h3 className="font-title text-xl font-semibold">Free</h3>
             <p className="text-sm text-muted-foreground">Basic access</p>
           </div>
           <div className="text-right">
-            <p className="font-subtitle text-2xl font-semibold">$0</p>
+            <p className="font-title text-2xl font-semibold">$0</p>
             <p className="text-xs text-muted-foreground">forever</p>
           </div>
         </div>
@@ -73,11 +73,11 @@ export default function SubscriptionPlans() {
         </div>
         <div className="flex items-center justify-between mb-4 mt-2">
           <div>
-            <h3 className="font-subtitle text-xl font-semibold gradient-text">Premium</h3>
+            <h3 className="font-title text-xl font-semibold gradient-text">Premium</h3>
             <p className="text-sm text-muted-foreground">Full access</p>
           </div>
           <div className="text-right">
-            <p className="font-subtitle text-2xl font-semibold">$12</p>
+            <p className="font-title text-2xl font-semibold">$12</p>
             <p className="text-xs text-muted-foreground">per month</p>
           </div>
         </div>

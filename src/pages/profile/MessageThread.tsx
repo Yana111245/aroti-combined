@@ -50,7 +50,7 @@ export default function MessageThread() {
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
-            <div className="h-10 w-10 rounded-full gradient-accent flex items-center justify-center text-white font-subtitle">
+            <div className="h-10 w-10 rounded-full gradient-accent flex items-center justify-center text-white font-title">
               L
             </div>
             <div>

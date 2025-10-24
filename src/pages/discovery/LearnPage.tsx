@@ -66,7 +66,7 @@ const LearnPage = () => {
     <div className="min-h-screen flex flex-col animate-fade-in">
       {/* Header */}
       <div className="px-6 py-8 space-y-4">
-        <h1 className="font-subtitle text-4xl">Learn</h1>
+        <h1 className="font-title text-4xl font-medium">Learn</h1>
         <p className="text-muted-foreground">
           Deepen your spiritual practice with guides and wisdom
         </p>
