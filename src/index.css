@@ -43,6 +43,13 @@ All colors MUST be HSL.
 
     --radius: 1.75rem;
     
+    /* Border Radius System */
+    --radius-main: 20px;      /* Main cards */
+    --radius-pill: 24px;      /* Buttons & chips */
+    --radius-secondary: 16px; /* Secondary boxes */
+    --radius-nav: 28px;       /* Bottom navigation */
+    --radius-small: 12px;     /* Small elements */
+    
     /* Gradients */
     --gradient-bg: linear-gradient(180deg, hsl(35 20% 97%) 0%, hsl(30 15% 98%) 100%);
     --gradient-gold: linear-gradient(90deg, hsl(43 42% 75%) 0%, hsl(42 38% 63%) 100%);
@@ -146,7 +153,7 @@ All colors MUST be HSL.
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: var(--radius);
+    border-radius: var(--radius-main);
     box-shadow: var(--shadow-soft);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }

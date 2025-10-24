@@ -40,9 +40,9 @@ export const TarotSpreadsCarousel = () => {
         {spreads.map((spread) => (
           <FrostedCard
             key={spread.id}
-            className="flex-shrink-0 w-[85vw] max-w-[340px] snap-center cursor-pointer hover:shadow-glow transition-all hover:scale-[1.02] group"
+            className="flex-shrink-0 w-[85vw] max-w-[340px] snap-center cursor-pointer hover:shadow-glow transition-all hover:scale-[1.02] group rounded-[20px]"
           >
-            <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden rounded-t-[28px]">
+            <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden rounded-t-[20px]">
               <img
                 src={spread.image}
                 alt={spread.title}

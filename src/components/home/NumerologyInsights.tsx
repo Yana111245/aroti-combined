@@ -7,7 +7,7 @@ interface NumerologyInsightsProps {
 export const NumerologyInsights = ({ energyNumber, traits, guidance }: NumerologyInsightsProps) => {
   return (
     <div 
-      className="p-6 space-y-4 stagger-fade-up relative overflow-hidden"
+      className="p-6 space-y-4 stagger-fade-up relative overflow-hidden rounded-[20px]"
       style={{ background: 'rgba(255, 255, 255, 0.7)' }}
     >
       <h3 className="font-subtitle text-lg text-foreground text-left">

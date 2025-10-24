@@ -17,9 +17,9 @@ export const RecentlyViewed = ({ items }: RecentlyViewedProps) => {
         {items.map((item) => (
           <FrostedCard
             key={item.id}
-            className="flex-shrink-0 w-32 cursor-pointer hover:shadow-glow transition-all hover:scale-105"
+            className="flex-shrink-0 w-32 cursor-pointer hover:shadow-glow transition-all hover:scale-105 rounded-[20px]"
           >
-            <div className="relative h-20 -mx-4 -mt-4 mb-3 overflow-hidden rounded-t-[24px]">
+            <div className="relative h-20 -mx-4 -mt-4 mb-3 overflow-hidden rounded-t-[20px]">
               <img
                 src={item.image}
                 alt={item.title}

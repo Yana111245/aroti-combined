@@ -30,7 +30,7 @@ export const ReflectionModal = ({ isOpen, onClose, onSave, initialReflection = "
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="glass-card w-full max-w-lg p-6 space-y-6 animate-scale-in">
+      <div className="glass-card w-full max-w-lg p-6 space-y-6 animate-scale-in rounded-[20px]">
         {/* Header */}
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-subtitle text-foreground">Your Reflection</h2>

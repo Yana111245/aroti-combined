@@ -76,6 +76,10 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        'main': '20px',
+        'pill': '24px',
+        'secondary': '16px',
+        'nav': '28px',
       },
       keyframes: {
         "accordion-down": {

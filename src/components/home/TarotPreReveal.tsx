@@ -39,7 +39,7 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
         <img
           src={tarotBack}
           alt="Tarot card back"
-          className={`w-[70vw] h-[85vw] mx-auto rounded-2xl transition-all duration-700 ${
+          className={`w-[70vw] h-[85vw] mx-auto rounded-[20px] transition-all duration-700 ${
             isRevealing 
               ? 'reveal-flip scale-110' 
               : 'card-glow hover:scale-105 cursor-pointer shadow-glow'
