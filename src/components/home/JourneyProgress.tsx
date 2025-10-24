@@ -10,11 +10,11 @@ interface JourneyProgressProps {
 export const JourneyProgress = ({ streak, milestones }: JourneyProgressProps) => {
   return (
     <div className="glass-card p-6 space-y-4 stagger-fade-up">
-      <h3 className="text-xl font-serif text-foreground">Your Journey</h3>
+      <h3 className="text-xl font-subtitle text-foreground">Your Journey</h3>
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">Current Streak</span>
-          <span className="text-2xl font-serif text-accent">{streak} days</span>
+          <span className="text-2xl font-subtitle text-accent">{streak} days</span>
         </div>
         
         <div className="space-y-2">

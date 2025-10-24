@@ -12,7 +12,7 @@ export const SectionHeader = ({ title, description, onViewAll, className }: Sect
   return (
     <div className={cn("mb-4 flex items-start justify-between", className)}>
       <div>
-        <h2 className="font-serif text-xl font-semibold text-foreground">{title}</h2>
+        <h2 className="font-subtitle text-xl font-semibold text-foreground">{title}</h2>
         {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
       </div>
       {onViewAll && (

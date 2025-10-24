@@ -57,7 +57,7 @@ export const CalendarModal = ({ isOpen, onClose, onDateSelect, selectedDate }: C
       <div className="glass-card w-full max-w-md p-6 space-y-6 animate-scale-in">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-serif text-foreground">Past Days</h2>
+          <h2 className="text-xl font-subtitle text-foreground">Past Days</h2>
           <button
             onClick={onClose}
             className="p-2 text-muted-foreground hover:text-foreground transition-colors"

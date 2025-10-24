@@ -39,7 +39,7 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
         <img
           src={tarotBack}
           alt="Tarot card back"
-          className={`w-48 h-72 mx-auto rounded-2xl transition-all duration-700 ${
+          className={`w-[70vw] h-[85vw] mx-auto rounded-2xl transition-all duration-700 ${
             isRevealing 
               ? 'reveal-flip scale-110' 
               : 'card-glow hover:scale-105 cursor-pointer shadow-glow'
@@ -50,14 +50,14 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
         {!isRevealing && (
           <>
             {/* Pulsing glow ring */}
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-16 h-16 bg-accent/10 rounded-full animate-ping" />
             </div>
             
             {/* Tap indicator */}
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="bg-white/30 backdrop-blur-sm rounded-full p-4 animate-pulse">
-                <div className="w-4 h-4 bg-accent rounded-full animate-bounce" />
+                <div className="w-3 h-3 bg-accent rounded-full animate-bounce" />
               </div>
             </div>
           </>
@@ -71,7 +71,7 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
       </div>
       
       <div className="space-y-3">
-        <h3 className="text-xl font-serif text-foreground">
+        <h3 className="text-xl font-subtitle text-foreground">
           {isRevealing ? "Revealing your insight..." : "Tap to reveal your daily insight"}
         </h3>
         <p className="text-sm text-muted-foreground">

@@ -23,7 +23,7 @@ export default function AstrologyDetail() {
 
       {/* Birth Details */}
       <SoftCard className="mb-6">
-        <h3 className="font-serif text-lg font-semibold mb-4">Birth Details</h3>
+        <h3 className="font-subtitle text-lg font-semibold mb-4">Birth Details</h3>
         <div className="space-y-3">
           <div className="flex items-center gap-3">
             <Calendar className="h-4 w-4 text-muted-foreground" />
@@ -52,7 +52,7 @@ export default function AstrologyDetail() {
       
       <SoftCard className="mb-4">
         <div className="flex items-start gap-4">
-          <div className="h-12 w-12 rounded-full gradient-accent flex items-center justify-center text-white font-serif text-xl">
+          <div className="h-12 w-12 rounded-full gradient-accent flex items-center justify-center text-white font-subtitle text-xl">
             ♍
           </div>
           <div className="flex-1">
@@ -65,7 +65,7 @@ export default function AstrologyDetail() {
 
       <SoftCard className="mb-4">
         <div className="flex items-start gap-4">
-          <div className="h-12 w-12 rounded-full gradient-accent flex items-center justify-center text-white font-serif text-xl">
+          <div className="h-12 w-12 rounded-full gradient-accent flex items-center justify-center text-white font-subtitle text-xl">
             ♓
           </div>
           <div className="flex-1">
@@ -78,7 +78,7 @@ export default function AstrologyDetail() {
 
       <SoftCard className="mb-6">
         <div className="flex items-start gap-4">
-          <div className="h-12 w-12 rounded-full gradient-accent flex items-center justify-center text-white font-serif text-xl">
+          <div className="h-12 w-12 rounded-full gradient-accent flex items-center justify-center text-white font-subtitle text-xl">
             ♌
           </div>
           <div className="flex-1">

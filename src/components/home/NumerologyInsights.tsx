@@ -6,20 +6,18 @@ interface NumerologyInsightsProps {
 
 export const NumerologyInsights = ({ energyNumber, traits, guidance }: NumerologyInsightsProps) => {
   return (
-    <div className="glass-card p-6 space-y-4 stagger-fade-up relative overflow-hidden">
-      {/* Numerological symbols */}
-      <div className="absolute top-2 right-2 text-accent/30 text-lg">🔢</div>
-      <div className="absolute bottom-2 left-2 text-accent/30 text-sm">✨</div>
-      
-      <h3 className="text-xl font-serif text-foreground flex items-center gap-2">
-        <span className="text-accent">🔮</span>
+    <div 
+      className="p-6 space-y-4 stagger-fade-up relative overflow-hidden"
+      style={{ background: 'rgba(255, 255, 255, 0.7)' }}
+    >
+      <h3 className="font-subtitle text-lg text-foreground text-left">
         Life Path Influence
       </h3>
-      <div className="space-y-3">
-        <p className="text-sm text-muted-foreground font-medium">
-          Energy Number {energyNumber} — {traits.join(", ")}
+      <div className="space-y-4">
+        <p className="font-sans text-base text-muted-foreground font-medium">
+          Energy Number <span className="text-accent font-title text-xl">{energyNumber}</span> — {traits.join(", ")}
         </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p className="font-sans text-base text-muted-foreground leading-relaxed">
           {guidance}
         </p>
       </div>

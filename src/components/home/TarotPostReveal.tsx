@@ -22,33 +22,31 @@ export const TarotPostReveal = ({ card }: TarotPostRevealProps) => {
   }, []);
 
   return (
-    <div className="glass-card p-6 space-y-6 relative overflow-hidden">
-      {/* Magical sparkles */}
-      <div className="absolute top-4 right-4 text-accent text-lg animate-pulse">✨</div>
-      <div className="absolute top-8 left-4 text-accent text-sm animate-pulse" style={{ animationDelay: '0.5s' }}>⭐</div>
-      <div className="absolute bottom-8 right-8 text-accent text-base animate-pulse" style={{ animationDelay: '1s' }}>✨</div>
+    <div className="soft-depth p-8 space-y-8 relative overflow-hidden radial-vignette">
+      {/* Floating golden dust particles */}
+      <div className="absolute top-4 right-4 w-2 h-2 bg-accent/20 rounded-full golden-dust" />
+      <div className="absolute top-8 left-4 w-1 h-1 bg-accent/30 rounded-full golden-dust" style={{ animationDelay: '0.5s' }} />
+      <div className="absolute bottom-8 right-8 w-1.5 h-1.5 bg-accent/25 rounded-full golden-dust" style={{ animationDelay: '1s' }} />
 
       {/* Card Art & Title */}
-      <div className="text-center space-y-4">
+      <div className="text-center space-y-6">
         <div className="relative">
           <img
             src={tarotFool}
             alt={card.name}
-            className="w-32 h-48 mx-auto rounded-xl shadow-glow animate-scale-in"
+            className="w-[70vw] h-[85vw] mx-auto rounded-2xl breathing-glow animate-scale-in"
           />
-          {/* Card glow effect */}
-          <div className="absolute inset-0 w-32 h-48 mx-auto rounded-xl bg-accent/10 animate-pulse" />
         </div>
         
-        <div className="space-y-3">
-          <h3 className="text-2xl font-serif text-foreground animate-fade-in">{card.name}</h3>
+        <div className="space-y-4">
+          <h3 className="font-title text-[26px] text-foreground animate-fade-in">{card.name}</h3>
           
           {showContent && (
-            <div className="flex flex-wrap justify-center gap-2 animate-fade-in">
+            <div className="flex flex-wrap justify-center gap-3 animate-fade-in">
               {card.keywords.map((keyword, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-accent/10 text-accent text-sm font-medium rounded-full border border-accent/20 hover:bg-accent/20 transition-colors"
+                  className="px-4 py-2 glassmorphic-chip text-sm font-medium rounded-full transition-all duration-300 hover:bg-accent/20"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {keyword}
@@ -62,30 +60,28 @@ export const TarotPostReveal = ({ card }: TarotPostRevealProps) => {
       {showContent && (
         <>
           {/* Interpretation */}
-          <div className="space-y-3 animate-fade-in">
-            <h4 className="font-semibold text-foreground flex items-center gap-2">
-              <span className="text-accent">🔮</span>
+          <div className="space-y-4 animate-fade-in">
+            <h4 className="font-subtitle text-lg text-foreground text-left">
               Interpretation
             </h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="font-sans text-base text-muted-foreground leading-relaxed">
               {card.interpretation}
             </p>
           </div>
 
           {/* Today's Guidance */}
-          <div className="space-y-3 animate-fade-in">
-            <h4 className="font-semibold text-foreground flex items-center gap-2">
-              <span className="text-accent">💫</span>
+          <div className="space-y-4 animate-fade-in">
+            <h4 className="font-subtitle text-lg text-foreground text-left">
               Today's Guidance
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {card.guidance.map((tip, index) => (
                 <li 
                   key={index} 
-                  className="flex items-start gap-3 text-sm text-muted-foreground animate-fade-in"
+                  className="flex items-start gap-3 font-sans text-base text-muted-foreground animate-fade-in"
                   style={{ animationDelay: `${index * 150}ms` }}
                 >
-                  <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0 animate-pulse" />
+                  <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2.5 flex-shrink-0" />
                   <span className="leading-relaxed">{tip}</span>
                 </li>
               ))}

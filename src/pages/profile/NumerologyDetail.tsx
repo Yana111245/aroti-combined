@@ -22,7 +22,7 @@ export default function NumerologyDetail() {
       {/* Life Path */}
       <SoftCard className="mb-4">
         <div className="flex items-start gap-4">
-          <div className="h-16 w-16 rounded-full gradient-accent flex items-center justify-center text-white font-serif text-3xl">
+          <div className="h-16 w-16 rounded-full gradient-accent flex items-center justify-center text-white font-subtitle text-3xl">
             3
           </div>
           <div className="flex-1">
@@ -43,7 +43,7 @@ export default function NumerologyDetail() {
       {/* Destiny Number */}
       <SoftCard className="mb-4">
         <div className="flex items-start gap-4">
-          <div className="h-16 w-16 rounded-full gradient-accent flex items-center justify-center text-white font-serif text-3xl">
+          <div className="h-16 w-16 rounded-full gradient-accent flex items-center justify-center text-white font-subtitle text-3xl">
             8
           </div>
           <div className="flex-1">
@@ -64,7 +64,7 @@ export default function NumerologyDetail() {
       {/* Soul Urge */}
       <SoftCard className="mb-4">
         <div className="flex items-start gap-4">
-          <div className="h-16 w-16 rounded-full gradient-accent flex items-center justify-center text-white font-serif text-3xl">
+          <div className="h-16 w-16 rounded-full gradient-accent flex items-center justify-center text-white font-subtitle text-3xl">
             6
           </div>
           <div className="flex-1">
@@ -86,7 +86,7 @@ export default function NumerologyDetail() {
       <SoftCard>
         <div className="text-center py-4">
           <p className="text-sm text-muted-foreground mb-2">You're currently in</p>
-          <h3 className="font-serif text-2xl font-semibold gradient-text mb-2">Personal Year 5</h3>
+          <h3 className="font-subtitle text-2xl font-semibold gradient-text mb-2">Personal Year 5</h3>
           <p className="text-sm text-muted-foreground">
             A year of change, freedom, and adventure. Embrace new experiences and flexibility.
           </p>

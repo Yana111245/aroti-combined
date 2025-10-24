@@ -7,20 +7,18 @@ interface AstrologyInsightsProps {
 
 export const AstrologyInsights = ({ sunSign, moonSign, mercuryState, insight }: AstrologyInsightsProps) => {
   return (
-    <div className="glass-card p-6 space-y-4 stagger-fade-up relative overflow-hidden">
-      {/* Cosmic background elements */}
-      <div className="absolute top-2 right-2 text-accent/30 text-lg">🌙</div>
-      <div className="absolute bottom-2 left-2 text-accent/30 text-sm">☀️</div>
-      
-      <h3 className="text-xl font-serif text-foreground flex items-center gap-2">
-        <span className="text-accent">🌌</span>
+    <div 
+      className="py-10 px-6 stagger-fade-up relative overflow-hidden"
+      style={{ background: 'linear-gradient(90deg, #F8F7F4 0%, #FFF9F7 100%)' }}
+    >
+      <h3 className="font-subtitle text-lg text-accent/80 text-left mb-4">
         Your Cosmic Alignment
       </h3>
-      <div className="space-y-3">
-        <p className="text-sm text-muted-foreground font-medium">
+      <div className="space-y-4">
+        <p className="font-sans text-base text-muted-foreground font-medium">
           Sun in {sunSign} • Moon in {moonSign} • {mercuryState}
         </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p className="font-sans text-base text-muted-foreground leading-relaxed">
           {insight}
         </p>
       </div>

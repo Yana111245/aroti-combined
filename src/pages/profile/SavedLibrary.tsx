@@ -98,7 +98,7 @@ export default function SavedLibrary() {
           <div className="h-16 w-16 rounded-full gradient-accent flex items-center justify-center mx-auto mb-4">
             <IconComponent className="h-8 w-8 text-white" />
           </div>
-          <h3 className="font-serif text-lg font-semibold mb-2">Nothing saved yet</h3>
+          <h3 className="font-subtitle text-lg font-semibold mb-2">Nothing saved yet</h3>
           <p className="text-sm text-muted-foreground">Explore Discovery to find content to save</p>
         </SoftCard>
       )}

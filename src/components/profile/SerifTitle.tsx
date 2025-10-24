@@ -7,7 +7,7 @@ interface SerifTitleProps {
 
 export const SerifTitle = ({ children, className }: SerifTitleProps) => {
   return (
-    <h1 className={cn("font-serif text-3xl font-semibold tracking-tight text-foreground", className)}>
+    <h1 className={cn("font-title text-title-xl font-normal text-foreground", className)}>
       {children}
     </h1>
   );

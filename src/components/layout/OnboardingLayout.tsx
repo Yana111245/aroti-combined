@@ -77,10 +77,10 @@ export const OnboardingLayout = ({
         {(title || subtitle) && (
           <div className="flex-shrink-0 px-6 pb-4">
             {title && (
-              <h1 className="font-serif text-3xl font-bold mb-2">{title}</h1>
+              <h1 className="font-title text-title-xl font-normal mb-2">{title}</h1>
             )}
             {subtitle && (
-              <p className="text-muted-foreground leading-relaxed">{subtitle}</p>
+              <p className="text-muted-foreground text-body-lg">{subtitle}</p>
             )}
           </div>
         )}

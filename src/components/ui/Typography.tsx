@@ -7,31 +7,31 @@ interface TypographyProps {
 }
 
 export const Heading1 = ({ children, className }: TypographyProps) => (
-  <h1 className={cn("font-serif text-4xl font-bold tracking-tight", className)}>
+  <h1 className={cn("font-title text-title-xl font-normal", className)}>
     {children}
   </h1>
 );
 
 export const Heading2 = ({ children, className }: TypographyProps) => (
-  <h2 className={cn("font-serif text-3xl font-bold tracking-tight", className)}>
+  <h2 className={cn("font-subtitle text-title-lg font-normal", className)}>
     {children}
   </h2>
 );
 
 export const Heading3 = ({ children, className }: TypographyProps) => (
-  <h3 className={cn("font-serif text-2xl font-semibold", className)}>
+  <h3 className={cn("font-subtitle text-title-md font-normal", className)}>
     {children}
   </h3>
 );
 
 export const Body = ({ children, className }: TypographyProps) => (
-  <p className={cn("text-base leading-relaxed", className)}>
+  <p className={cn("text-body-lg", className)}>
     {children}
   </p>
 );
 
 export const BodySmall = ({ children, className }: TypographyProps) => (
-  <p className={cn("text-sm leading-relaxed", className)}>
+  <p className={cn("text-body-md", className)}>
     {children}
   </p>
 );

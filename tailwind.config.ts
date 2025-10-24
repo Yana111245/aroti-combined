@@ -61,7 +61,16 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['Playfair Display', 'Georgia', 'serif'],
+        title: ['DM Serif Text', 'Georgia', 'serif'],
+        subtitle: ['Cormorant Garamond', 'Georgia', 'serif'],
+        ui: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        'title-xl': ['34px', { lineHeight: '1.3', letterSpacing: '0.02em' }],
+        'title-lg': ['30px', { lineHeight: '1.3', letterSpacing: '0.02em' }],
+        'title-md': ['24px', { lineHeight: '1.3', letterSpacing: '0.01em' }],
+        'body-lg': ['16px', { lineHeight: '1.6' }],
+        'body-md': ['15px', { lineHeight: '1.6' }],
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -76,7 +76,7 @@ export default function SessionHistory() {
           {sessions.map((session) => (
             <SoftCard key={session.id}>
               <div className="flex items-start gap-4 mb-4">
-                <div className="h-12 w-12 rounded-full gradient-accent flex items-center justify-center text-white font-serif text-xl">
+                <div className="h-12 w-12 rounded-full gradient-accent flex items-center justify-center text-white font-subtitle text-xl">
                   {session.avatar}
                 </div>
                 <div className="flex-1">
@@ -126,7 +126,7 @@ export default function SessionHistory() {
           <div className="h-16 w-16 rounded-full gradient-accent flex items-center justify-center mx-auto mb-4">
             <Calendar className="h-8 w-8 text-white" />
           </div>
-          <h3 className="font-serif text-lg font-semibold mb-2">
+          <h3 className="font-subtitle text-lg font-semibold mb-2">
             {activeTab === "Upcoming" ? "No upcoming sessions" : "No past sessions"}
           </h3>
           <p className="text-sm text-muted-foreground mb-4">

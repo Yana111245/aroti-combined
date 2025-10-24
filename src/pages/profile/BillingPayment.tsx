@@ -55,7 +55,7 @@ export default function BillingPayment() {
 
       {/* Subscription Management */}
       <SoftCard className="mb-6">
-        <h3 className="font-serif text-lg font-semibold mb-4">Subscription</h3>
+        <h3 className="font-subtitle text-lg font-semibold mb-4">Subscription</h3>
         <div className="space-y-3 mb-4">
           <div className="flex items-center justify-between text-sm">
             <span className="text-muted-foreground">Current Plan</span>

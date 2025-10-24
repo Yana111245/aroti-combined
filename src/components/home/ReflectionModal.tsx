@@ -33,7 +33,7 @@ export const ReflectionModal = ({ isOpen, onClose, onSave, initialReflection = "
       <div className="glass-card w-full max-w-lg p-6 space-y-6 animate-scale-in">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-serif text-foreground">Your Reflection</h2>
+          <h2 className="text-xl font-subtitle text-foreground">Your Reflection</h2>
           <button
             onClick={handleCancel}
             className="p-2 text-muted-foreground hover:text-foreground transition-colors"

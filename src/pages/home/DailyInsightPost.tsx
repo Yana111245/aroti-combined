@@ -17,7 +17,7 @@ const DailyInsightPost = () => {
       <div className="px-6 py-8 space-y-4">
         <p className="text-sm text-muted-foreground">Daily Reading</p>
         
-        <h1 className="font-serif text-4xl">
+        <h1 className="font-subtitle text-4xl">
           The Fool
         </h1>
         

@@ -72,7 +72,7 @@ const UnlocksPage = () => {
     <div className="min-h-screen flex flex-col animate-fade-in">
       {/* Header */}
       <div className="px-6 py-8 space-y-4">
-        <h1 className="font-serif text-4xl">Your Journey</h1>
+        <h1 className="font-subtitle text-4xl">Your Journey</h1>
         <p className="text-muted-foreground">
           Track milestones and unlock rewards as you grow
         </p>
