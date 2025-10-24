@@ -13,7 +13,7 @@ export const RecentlyViewed = ({ items }: RecentlyViewedProps) => {
   return (
     <div className="space-y-4 stagger-fade-up">
       <h3 className="text-xl font-title font-medium text-foreground px-6">Recently Viewed</h3>
-      <div className="flex gap-4 overflow-x-auto px-6 pb-2 scrollbar-hide">
+      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
         {items.map((item) => (
           <FrostedCard
             key={item.id}

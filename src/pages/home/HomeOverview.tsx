@@ -44,6 +44,36 @@ const HomeOverview = () => {
         type: "Spread",
         image: tarotMoon,
       },
+      {
+        id: "2",
+        title: "The Fool",
+        type: "Card",
+        image: tarotMoon,
+      },
+      {
+        id: "3",
+        title: "Celtic Cross",
+        type: "Spread",
+        image: tarotMoon,
+      },
+      {
+        id: "4",
+        title: "Past Present Future",
+        type: "Spread",
+        image: tarotMoon,
+      },
+      {
+        id: "5",
+        title: "The Lovers",
+        type: "Card",
+        image: tarotMoon,
+      },
+      {
+        id: "6",
+        title: "Daily Reading",
+        type: "Spread",
+        image: tarotMoon,
+      },
     ],
   };
 
