@@ -5,15 +5,23 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-body font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 rounded-[24px]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-body font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-[var(--shadow-soft)]",
-        pill: "rounded-full bg-gradient-to-r from-secondary to-primary text-primary-foreground hover:shadow-[var(--shadow-glow)] hover:scale-105",
-        glass: "glass-card text-foreground hover:bg-white/80 border border-accent/20",
-        outline: "border-2 border-accent text-foreground hover:bg-accent/10",
-        ghost: "hover:bg-accent/10 text-foreground",
+        // Liquid Glass Primary (Copper filled)
+        default: "rounded-full bg-gradient-accent text-accent-foreground hover:shadow-[var(--shadow-copper-glow)] hover:scale-[1.02] shadow-[var(--shadow-glass)]",
+        
+        // Liquid Glass Secondary (Glass with copper border)
+        glass: "rounded-full glass-button text-foreground",
+        
+        // Liquid Glass Tertiary (Subtle glass)
+        outline: "rounded-full backdrop-blur-[12px] bg-glass-secondary/50 border border-glass-border text-foreground hover:bg-glass-primary hover:border-glass-highlight",
+        
+        // Ghost
+        ghost: "rounded-full hover:bg-glass-secondary/30 text-foreground",
+        
+        // Link
         link: "text-accent underline-offset-4 hover:underline",
       },
       size: {

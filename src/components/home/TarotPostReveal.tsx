@@ -22,7 +22,7 @@ export const TarotPostReveal = ({ card }: TarotPostRevealProps) => {
   }, []);
 
   return (
-    <div className="soft-depth p-8 space-y-8 relative overflow-hidden rounded-[12px]">
+    <div className="liquid-glass-card p-8 space-y-8 relative overflow-hidden">
       {/* Floating golden dust particles */}
       <div className="absolute top-4 right-4 w-2 h-2 bg-accent/20 rounded-full golden-dust" />
       <div className="absolute top-8 left-4 w-1 h-1 bg-accent/30 rounded-full golden-dust" style={{ animationDelay: '0.5s' }} />
@@ -34,12 +34,12 @@ export const TarotPostReveal = ({ card }: TarotPostRevealProps) => {
           <img
             src={tarotFool}
             alt={card.name}
-            className="w-[70vw] h-[85vw] mx-auto rounded-[12px] breathing-glow animate-scale-in"
+            className="w-[70vw] h-[85vw] mx-auto rounded-[12px] breathing-glow animate-scale-in liquid-glass-glow"
           />
         </div>
         
         <div className="space-y-4">
-          <h3 className="font-title text-[26px] font-medium text-foreground animate-fade-in">{card.name}</h3>
+          <h3 className="text-title-1 text-foreground animate-fade-in">{card.name}</h3>
           
           {showContent && (
             <div className="flex flex-wrap justify-center gap-3 animate-fade-in">
@@ -61,28 +61,28 @@ export const TarotPostReveal = ({ card }: TarotPostRevealProps) => {
         <>
           {/* Interpretation */}
           <div className="space-y-4 animate-fade-in">
-            <h4 className="font-title text-lg font-medium text-foreground text-left">
+            <h4 className="text-headline text-foreground text-left">
               Interpretation
             </h4>
-            <p className="font-body text-base text-muted-foreground leading-relaxed">
+            <p className="text-body text-muted-foreground">
               {card.interpretation}
             </p>
           </div>
 
           {/* Today's Guidance */}
           <div className="space-y-4 animate-fade-in">
-            <h4 className="font-title text-lg font-medium text-foreground text-left">
+            <h4 className="text-headline text-foreground text-left">
               Today's Guidance
             </h4>
             <ul className="space-y-4">
               {card.guidance.map((tip, index) => (
                 <li 
                   key={index} 
-                  className="flex items-start gap-3 font-body text-base text-muted-foreground animate-fade-in"
+                  className="flex items-start gap-3 text-body text-muted-foreground animate-fade-in"
                   style={{ animationDelay: `${index * 150}ms` }}
                 >
                   <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2.5 flex-shrink-0" />
-                  <span className="leading-relaxed">{tip}</span>
+                  <span>{tip}</span>
                 </li>
               ))}
             </ul>

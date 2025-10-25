@@ -111,7 +111,7 @@ export const DaySelector = ({ selectedDate, onDateChange, onCalendarClick }: Day
   }, []);
 
   return (
-    <div className="flex items-center justify-between px-6 py-4">
+    <div className="flex items-center justify-between px-6 py-4 backdrop-blur-[12px] bg-[rgba(30,26,40,0.65)] border-b border-[rgba(255,255,255,0.08)]">
       <button 
         onClick={scrollLeft}
         className={`p-2 transition-colors ${
@@ -149,7 +149,7 @@ export const DaySelector = ({ selectedDate, onDateChange, onCalendarClick }: Day
                 <button
                   key={date.toISOString()}
                   onClick={() => handleDateClick(date)}
-                  className={`snap-center text-sm font-medium transition-colors relative whitespace-nowrap min-w-[80px] text-center ${
+                  className={`snap-center text-subhead transition-colors relative whitespace-nowrap min-w-[80px] text-center ${
                     isSelected
                       ? "text-accent"
                       : "text-muted-foreground hover:text-foreground"

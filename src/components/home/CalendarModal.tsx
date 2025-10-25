@@ -23,7 +23,7 @@ export const CalendarModal = ({ isOpen, onClose, onDateSelect, selectedDate }: C
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="glass-card w-full max-w-md p-6 space-y-4 animate-scale-in rounded-[12px]">
+      <div className="liquid-glass-elevated w-full max-w-md p-6 space-y-4 animate-scale-in">
         {/* Header */}
         <div className="flex items-center justify-between">
           <h2 className="font-title text-xl text-foreground">Select Date</h2>

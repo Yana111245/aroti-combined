@@ -13,8 +13,8 @@ export const RecentlyViewed = ({ items }: RecentlyViewedProps) => {
   return (
     <div className="space-y-4">
       <div className="px-6 flex items-center justify-between">
-        <h3 className="text-xl font-title font-medium text-foreground">Recently Viewed</h3>
-        <button className="text-sm font-body text-accent hover:text-accent/80 transition-colors">
+        <h3 className="text-headline text-foreground">Recently Viewed</h3>
+        <button className="text-callout text-accent hover:text-accent/80 transition-colors">
           View All →
         </button>
       </div>
@@ -29,8 +29,8 @@ export const RecentlyViewed = ({ items }: RecentlyViewedProps) => {
               />
               <div className="absolute inset-0 bg-black/30" />
               <div className="absolute bottom-2 left-2 right-2">
-                <h4 className="text-[13px] font-body font-bold text-white leading-tight">{item.title}</h4>
-                <p className="text-[12px] text-white/80 mt-1">{item.type}</p>
+                <h4 className="text-caption-1 text-white leading-tight">{item.title}</h4>
+                <p className="text-caption-2 text-white/80 mt-1">{item.type}</p>
               </div>
             </div>
           </div>

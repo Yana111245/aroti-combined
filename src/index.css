@@ -359,3 +359,465 @@ All colors MUST be HSL.
     opacity: 0.3;
   }
 }
+
+/* Liquid Glass Material Classes */
+
+/* Base Glass */
+.glass-base {
+  background: var(--glass-background);
+  backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Strong Glass */
+.glass-strong {
+  background: var(--glass-background-strong);
+  backdrop-filter: blur(var(--blur-glass-strong)) saturate(200%);
+  -webkit-backdrop-filter: blur(var(--blur-glass-strong)) saturate(200%);
+  border: 1px solid var(--glass-highlight);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Glass Card */
+.glass-card {
+  background: var(--card-glass);
+  backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-main);
+  box-shadow: var(--shadow-glass);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glass Card with Gradient */
+.glass-card-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(25, 31, 46, 0.7) 0%,
+    rgba(30, 37, 52, 0.6) 100%
+  );
+  backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-main);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Glass Highlight Effect */
+.glass-highlight {
+  position: relative;
+}
+
+.glass-highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--glass-highlight) 50%,
+    transparent 100%
+  );
+}
+
+/* Elevated Glass (modals, popovers) */
+.glass-elevated {
+  background: var(--glass-background-strong);
+  backdrop-filter: blur(var(--blur-glass-strong)) saturate(200%);
+  -webkit-backdrop-filter: blur(var(--blur-glass-strong)) saturate(200%);
+  border: 1px solid var(--glass-highlight);
+  border-radius: var(--radius-secondary);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Vibrancy Effect */
+.glass-vibrant {
+  background: rgba(25, 31, 46, 0.5);
+  backdrop-filter: blur(var(--blur-glass)) saturate(200%) brightness(110%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(200%) brightness(110%);
+  border: 1px solid var(--glass-highlight);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Glass Button */
+.glass-button {
+  background: var(--glass-background);
+  backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: var(--glass-background-strong);
+  border-color: var(--glass-highlight);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+/* Glass with Accent Tint */
+.glass-accent {
+  background: var(--accent-glass);
+  backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  border: 1px solid rgba(125, 191, 179, 0.3);
+}
+
+/* Glass with Primary Tint */
+.glass-primary {
+  background: var(--primary-glass);
+  backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  border: 1px solid rgba(139, 154, 232, 0.3);
+}
+
+/* Subtle Glass (for overlays) */
+.glass-subtle {
+  background: rgba(25, 31, 46, 0.3);
+  backdrop-filter: blur(var(--blur-subtle)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--blur-subtle)) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Navigation Sticky Styles */
+.nav-sticky {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+  transform: translateZ(0); /* Force hardware acceleration */
+  will-change: transform; /* Optimize for animations */
+  -webkit-backdrop-filter: blur(60px) saturate(180%);
+  backdrop-filter: blur(60px) saturate(180%);
+  /* Background will be set inline for conditional styling */
+}
+
+/* Force navigation background to override any inherited styles */
+.nav-sticky[style*="background"] {
+  background: inherit !important;
+}
+
+/* Add safe area utility */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Navigation safe area background extensions */
+.nav-safe-area-dark::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-bottom);
+  background: rgba(12,10,18,0.92);
+  z-index: -1;
+}
+
+.nav-safe-area-light::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-bottom);
+  background: rgba(255,255,255,0.92);
+  z-index: -1;
+}
+
+/* Ensure navigation is always visible */
+nav[class*="fixed"] {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+}
+
+/* ============================================
+   CELESTIAL NOIR - HOME TAB LIQUID GLASS
+   ============================================ */
+
+.home-tab-celestial {
+  /* Base Colors */
+  --background: 235 35% 7%;
+  --background-elevated: 235 30% 11%;
+  --background-secondary: 235 25% 14%;
+  --foreground: 230 8% 96%;
+  
+  /* Glass Materials */
+  --glass-primary: rgba(23, 20, 31, 0.75);
+  --glass-secondary: rgba(30, 26, 40, 0.65);
+  --glass-elevated: rgba(23, 20, 31, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.12);
+  
+  /* Cards */
+  --card: 235 30% 11%;
+  --card-foreground: 230 8% 96%;
+  --card-glass: rgba(23, 20, 31, 0.75);
+  
+  /* Primary & Accent */
+  --primary: 230 15% 78%;
+  --primary-foreground: 235 35% 7%;
+  --accent: 20 55% 58%;
+  --accent-foreground: 230 8% 96%;
+  --accent-glow: 20 60% 63%;
+  --accent-muted: 20 30% 48%;
+  
+  /* Semantic Colors */
+  --muted: 235 20% 22%;
+  --muted-foreground: 230 10% 68%;
+  --border: 235 25% 16%;
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --input: 235 25% 16%;
+  --ring: 20 55% 58%;
+  --popover: 235 30% 11%;
+  --popover-foreground: 230 8% 96%;
+  --destructive: 0 70% 58%;
+  --destructive-foreground: 230 8% 96%;
+  
+  /* Gradients */
+  --gradient-cosmic: linear-gradient(180deg, hsl(235 35% 7%) 0%, hsl(240 30% 9%) 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(209, 122, 82, 0.12) 0%, rgba(188, 194, 209, 0.08) 100%);
+  --gradient-accent: linear-gradient(135deg, hsl(20 55% 58%) 0%, hsl(20 60% 63%) 100%);
+  --gradient-card: linear-gradient(135deg, hsl(235 30% 11%) 0%, hsl(240 28% 13%) 100%);
+  
+  /* Shadows */
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-elevated: 0 16px 48px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 24px rgba(209, 122, 82, 0.35);
+  --shadow-copper-glow: 0 0 32px rgba(209, 122, 82, 0.4), 0 0 16px rgba(209, 122, 82, 0.25);
+  
+  /* Blur */
+  --blur-glass: 24px;
+  --blur-glass-strong: 40px;
+  --blur-subtle: 12px;
+  
+  /* Apple Typography System - SF Pro Fonts */
+  --font-apple-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --font-apple-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  
+  /* Apple iOS Typography Scale */
+  --text-large-title: 34px;
+  --text-title-1: 28px;
+  --text-title-2: 22px;
+  --text-title-3: 20px;
+  --text-headline: 17px;
+  --text-body: 17px;
+  --text-callout: 16px;
+  --text-subhead: 15px;
+  --text-footnote: 13px;
+  --text-caption-1: 12px;
+  --text-caption-2: 11px;
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.3;
+  --line-height-relaxed: 1.4;
+}
+
+/* Apply the background color */
+.home-tab-celestial {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Ensure gradient background works */
+.bg-gradient-cosmic {
+  background: var(--gradient-cosmic);
+}
+
+/* Liquid Glass Card Component */
+.home-tab-celestial .liquid-glass-card {
+  background: var(--card-glass);
+  backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-main);
+  box-shadow: var(--shadow-glass);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-tab-celestial .liquid-glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--glass-highlight) 50%, transparent 100%);
+  opacity: 0.8;
+}
+
+/* Elevated Glass (Modals) */
+.home-tab-celestial .liquid-glass-elevated {
+  background: var(--glass-elevated);
+  backdrop-filter: blur(var(--blur-glass-strong)) saturate(200%);
+  -webkit-backdrop-filter: blur(var(--blur-glass-strong)) saturate(200%);
+  border: 1px solid var(--glass-highlight);
+  border-radius: var(--radius-secondary);
+  box-shadow: var(--shadow-elevated);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Copper Glow Effect */
+.home-tab-celestial .liquid-glass-glow {
+  box-shadow: var(--shadow-glass), var(--shadow-copper-glow);
+  transition: box-shadow 0.3s ease;
+}
+
+.home-tab-celestial .liquid-glass-glow:hover {
+  box-shadow: var(--shadow-glass), var(--shadow-copper-glow), 0 0 48px rgba(209, 122, 82, 0.5);
+}
+
+/* Secondary Glass */
+.home-tab-celestial .liquid-glass-secondary {
+  background: var(--glass-secondary);
+  backdrop-filter: blur(var(--blur-subtle)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--blur-subtle)) saturate(150%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-secondary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Glass Button (Apple Standard) */
+.home-tab-celestial .glass-button {
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background: var(--glass-primary);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-tab-celestial .glass-button:hover {
+  background: var(--glass-secondary);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-copper-glow);
+  transform: scale(1.02);
+}
+
+.home-tab-celestial .glass-button:active {
+  transform: scale(0.98);
+}
+
+/* Glass Input (Apple Standard) */
+.home-tab-celestial .glass-input {
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  background: rgba(30, 26, 40, 0.3);
+  border: 1px solid var(--glass-border);
+  transition: all 0.2s ease;
+}
+
+.home-tab-celestial .glass-input:focus {
+  background: var(--glass-primary);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(209, 122, 82, 0.15);
+}
+
+/* Navigation Item Active State */
+.home-tab-celestial .nav-item-active {
+  color: var(--accent);
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 8px rgba(209, 122, 82, 0.4));
+}
+
+/* Apple Typography Classes (Home Tab Only) */
+.home-tab-celestial .text-large-title {
+  font-family: var(--font-apple-display);
+  font-size: var(--text-large-title);
+  line-height: var(--line-height-tight);
+  font-weight: 400;
+  letter-spacing: 0.374px;
+}
+
+.home-tab-celestial .text-title-1 {
+  font-family: var(--font-apple-display);
+  font-size: var(--text-title-1);
+  line-height: var(--line-height-tight);
+  font-weight: 400;
+  letter-spacing: 0.364px;
+}
+
+.home-tab-celestial .text-title-2 {
+  font-family: var(--font-apple-display);
+  font-size: var(--text-title-2);
+  line-height: var(--line-height-tight);
+  font-weight: 400;
+  letter-spacing: 0.352px;
+}
+
+.home-tab-celestial .text-title-3 {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-title-3);
+  line-height: var(--line-height-tight);
+  font-weight: 400;
+  letter-spacing: 0.38px;
+}
+
+.home-tab-celestial .text-headline {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-headline);
+  line-height: var(--line-height-normal);
+  font-weight: 600;
+  letter-spacing: -0.408px;
+}
+
+.home-tab-celestial .text-body {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-body);
+  line-height: var(--line-height-relaxed);
+  font-weight: 400;
+  letter-spacing: -0.408px;
+}
+
+.home-tab-celestial .text-callout {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-callout);
+  line-height: var(--line-height-relaxed);
+  font-weight: 400;
+  letter-spacing: -0.32px;
+}
+
+.home-tab-celestial .text-subhead {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-subhead);
+  line-height: var(--line-height-relaxed);
+  font-weight: 400;
+  letter-spacing: -0.24px;
+}
+
+.home-tab-celestial .text-footnote {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-footnote);
+  line-height: var(--line-height-relaxed);
+  font-weight: 400;
+  letter-spacing: -0.078px;
+}
+
+.home-tab-celestial .text-caption-1 {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-caption-1);
+  line-height: var(--line-height-normal);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.home-tab-celestial .text-caption-2 {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-caption-2);
+  line-height: var(--line-height-tight);
+  font-weight: 400;
+  letter-spacing: 0.066px;
+}
+

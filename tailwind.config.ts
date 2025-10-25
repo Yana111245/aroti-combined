@@ -22,6 +22,9 @@ export default {
         '2xl': '4rem',     // 64px
         '3xl': '6rem',     // 96px
       },
+      backgroundImage: {
+        'gradient-cosmic': 'linear-gradient(180deg, hsl(235 35% 7%) 0%, hsl(240 30% 9%) 100%)',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

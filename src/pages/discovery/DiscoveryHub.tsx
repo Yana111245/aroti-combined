@@ -93,22 +93,61 @@ const DiscoveryHub = () => {
           />
           
           {/* Quick Actions */}
-          <div className="px-6 pb-8 space-y-4">
-            <button 
-              onClick={() => navigate("/guidance")}
-              className="w-full py-4 px-6 rounded-full bg-gradient-gold text-primary-foreground font-semibold shadow-glow hover:shadow-soft transition-all hover:scale-[1.02] flex items-center justify-center gap-2 group"
-            >
-              <MessageCircle className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-              Get Personal Guidance
-            </button>
-            
-            <button className="w-full py-4 px-6 rounded-full bg-gradient-gold text-primary-foreground font-semibold shadow-glow hover:shadow-soft transition-all hover:scale-[1.02] flex items-center justify-center gap-2 group">
-              <Shuffle className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-              Surprise Me
-            </button>
-            <p className="text-center text-xs text-muted-foreground mt-3">
-              Your journey expands every time you explore something new
-            </p>
+          <div className="px-6 pb-8 mt-6">
+            <div className="rounded-[16px] bg-gradient-to-br from-[#F8F7F4] to-[#F3F1ED] p-6 space-y-6 shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+              {/* Header */}
+              <div className="text-center space-y-2">
+                <h3 className="text-xl font-title font-medium text-foreground">Ready to Explore?</h3>
+                <p className="text-sm font-body text-muted-foreground">
+                  Choose your path to deeper insights
+                </p>
+              </div>
+              
+              {/* Buttons */}
+              <div className="space-y-3">
+                {/* Primary: Get Personal Guidance */}
+                <button 
+                  onClick={() => navigate("/guidance")}
+                  className="w-full py-5 px-6 rounded-full bg-gradient-gold text-foreground font-semibold shadow-glow hover:shadow-soft transition-all hover:scale-[1.02] flex flex-col items-center justify-center gap-1 group"
+                >
+                  <div className="flex items-center gap-2">
+                    <MessageCircle className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                    <span className="text-base">Get Personal Guidance</span>
+                  </div>
+                  <span className="text-xs font-normal text-muted-foreground">
+                    Chat with AI guides tailored to your journey
+                  </span>
+                </button>
+                
+                {/* Optional divider */}
+                <div className="relative py-2">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-accent/20"></div>
+                  </div>
+                  <div className="relative flex justify-center text-xs">
+                    <span className="bg-gradient-to-br from-[#F8F7F4] to-[#F3F1ED] px-2 text-muted-foreground">or</span>
+                  </div>
+                </div>
+                
+                {/* Secondary: Surprise Me */}
+                <button 
+                  className="w-full py-5 px-6 rounded-full bg-white border-2 border-accent/30 text-foreground font-semibold hover:bg-accent/5 hover:border-accent/50 transition-all hover:scale-[1.02] flex flex-col items-center justify-center gap-1 group"
+                >
+                  <div className="flex items-center gap-2">
+                    <Shuffle className="w-5 h-5 group-hover:rotate-12 transition-transform text-accent" />
+                    <span className="text-base">Surprise Me</span>
+                  </div>
+                  <span className="text-xs font-normal text-muted-foreground">
+                    Discover something unexpected
+                  </span>
+                </button>
+              </div>
+              
+              {/* Footer text */}
+              <p className="text-center text-xs text-muted-foreground pt-2">
+                Your journey expands every time you explore something new
+              </p>
+            </div>
           </div>
         </div>
       </div>

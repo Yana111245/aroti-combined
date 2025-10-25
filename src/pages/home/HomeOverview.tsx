@@ -11,7 +11,6 @@ import { RecentlyViewed } from "@/components/home/RecentlyViewed";
 import { ReflectionModal } from "@/components/home/ReflectionModal";
 import { CalendarModal } from "@/components/home/CalendarModal";
 import { RevealTransition } from "@/components/home/RevealTransition";
-import { TabBar } from "@/components/navigation/TabBar";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import tarotMoon from "@/assets/tarot-moon.jpg";
 
@@ -127,46 +126,49 @@ const HomeOverview = () => {
   };
 
   const getCurrentDate = () => {
-    return selectedDate.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      month: 'long', 
-      day: 'numeric' 
+    return selectedDate.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric'
     });
   };
 
   return (
     <PageWrapper showBottomNav={false} showTabBar={true}>
+      {/* Full-screen dark background wrapper */}
+      <div className="home-tab-celestial fixed inset-0 bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)]" />
+
       {/* Day Selector - Fixed at top */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-background pt-[env(safe-area-inset-top)]">
-        <DaySelector 
-          selectedDate={selectedDate} 
+      <div className="home-tab-celestial fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)]">
+        <DaySelector
+          selectedDate={selectedDate}
           onDateChange={handleDateChange}
           onCalendarClick={handleCalendarClick}
         />
       </div>
 
       {/* Content with top padding to account for fixed header */}
-      <div className="animate-fade-in pt-[80px]">
-        {/* Header Section - Elegant Layout */}
+      <div className="home-tab-celestial animate-fade-in pt-[80px] relative">
+        {/* Header Section - Apple Typography */}
         <div className="px-6 pt-2 pb-6 text-center space-y-1">
-          {/* Greeting - Small and subtle */}
-          <p className="text-xs font-sans text-muted-foreground">
+          {/* Greeting - Callout style */}
+          <p className="text-callout text-[hsl(230,10%,68%)]">
             Hi {userData.name}, it's {getCurrentDate()}
           </p>
-          
-          {/* Main Title - Large and prominent */}
-          <h1 className="text-[36px] font-title font-medium text-foreground leading-tight">
+
+          {/* Main Title - Large Title style */}
+          <h1 className="text-large-title text-[hsl(230,8%,96%)]">
             Today's Insights
           </h1>
-          
-          {/* Subtitle - Smaller and accent color */}
-          <p className="text-sm font-sans text-accent pt-1">
+
+          {/* Subtitle - Subhead style */}
+          <p className="text-subhead text-[hsl(20,55%,58%)] pt-1">
             Under {userData.sunSign} skies • Energy Number {userData.energyNumber}
           </p>
         </div>
 
-          {/* Main Content */}
-          <div className="px-6 pb-8 space-y-6">
+        {/* Main Content */}
+        <div className="px-6 pb-8 space-y-6">
           {/* Tarot Section */}
           {!isRevealed ? (
             <TarotPreReveal onReveal={handleReveal} isRevealing={isRevealing} />
@@ -174,18 +176,18 @@ const HomeOverview = () => {
             <RevealTransition isRevealed={isRevealed} isRevealing={isRevealing}>
               <div className="space-y-6">
                 <TarotPostReveal card={tarotCard} />
-                <AstrologyInsights 
+                <AstrologyInsights
                   sunSign={userData.sunSign}
                   moonSign={userData.moonSign}
                   mercuryState={userData.mercuryState}
                   insight="Your intuitive nature is heightened today, making it an excellent time for spiritual practices and trusting your inner guidance."
                 />
-                <NumerologyInsights 
+                <NumerologyInsights
                   energyNumber={userData.energyNumber}
                   traits={userData.traits}
                   guidance="Your spiritual energy is particularly strong today. Focus on meditation and connecting with your higher self."
                 />
-                <ReflectionSection 
+                <ReflectionSection
                   hasReflection={!!reflection}
                   reflection={reflection}
                   onAddReflection={handleAddReflection}
@@ -196,14 +198,14 @@ const HomeOverview = () => {
 
           {/* Below the fold content */}
           <DailyQuote quote={dailyQuote} />
-          <JourneyProgress 
+          <JourneyProgress
             streak={userData.streak}
             milestones={userData.milestones}
           />
           <RecentlyViewed items={userData.recentlyViewed} />
-          </div>
         </div>
-      
+      </div>
+
       {/* Modals */}
       <ReflectionModal
         isOpen={showReflectionModal}
@@ -211,15 +213,13 @@ const HomeOverview = () => {
         onSave={handleSaveReflection}
         initialReflection={reflection}
       />
-      
+
       <CalendarModal
         isOpen={showCalendarModal}
         onClose={() => setShowCalendarModal(false)}
         onDateSelect={handleDateSelect}
         selectedDate={selectedDate}
       />
-      
-      <TabBar />
     </PageWrapper>
   );
 };

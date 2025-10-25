@@ -21,7 +21,7 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
   }, []);
 
   return (
-    <div className="soft-depth p-8 text-center space-y-6 animate-fade-in relative overflow-hidden rounded-[12px]">
+    <div className="liquid-glass-card p-8 text-center space-y-6 animate-fade-in relative overflow-hidden">
       {/* Floating particles */}
       {!isRevealing && particles.map((particle) => (
         <div
@@ -42,7 +42,7 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
           className={`w-[70vw] h-[85vw] mx-auto rounded-[12px] transition-all duration-700 ${
             isRevealing 
               ? 'reveal-flip scale-110' 
-              : 'card-glow hover:scale-105 cursor-pointer shadow-glow'
+              : 'liquid-glass-glow hover:scale-105 cursor-pointer'
           }`}
           onClick={!isRevealing ? onReveal : undefined}
         />
@@ -71,10 +71,10 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
       </div>
       
       <div className="space-y-3">
-        <h3 className="text-xl font-title text-foreground">
+        <h3 className="text-title-2 text-foreground">
           {isRevealing ? "Revealing your insight..." : "Tap to reveal your daily insight"}
         </h3>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-body text-muted-foreground">
           {isRevealing ? "The universe is aligning your guidance" : "Your card awaits with guidance for today"}
         </p>
       </div>
