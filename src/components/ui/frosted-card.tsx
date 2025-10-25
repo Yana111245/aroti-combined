@@ -11,7 +11,7 @@ const FrostedCard = React.forwardRef<HTMLDivElement, FrostedCardProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-[28px] backdrop-blur-frosted shadow-soft",
+          "rounded-[16px] backdrop-blur-frosted shadow-soft",
           variant === "default" && "bg-card/70 p-6",
           variant === "minimal" && "bg-card/50 p-4",
           className

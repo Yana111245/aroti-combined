@@ -67,7 +67,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                   <button
                     key={index}
                     onClick={() => setSearchQuery(search)}
-                    className="w-full text-left p-3 rounded-[16px] bg-card hover:bg-card/80 transition-colors"
+                    className="w-full text-left p-3 rounded-[10px] bg-card hover:bg-card/80 transition-colors"
                   >
                     <span className="font-body text-foreground">{search}</span>
                   </button>

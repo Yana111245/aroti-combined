@@ -15,7 +15,7 @@ All colors MUST be HSL.
     
     /* Typography System */
     --font-title: 'DM Serif Text', Georgia, serif;
-    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
     
     /* Title Colors */
     --color-title: #1E1E1E;
@@ -52,11 +52,11 @@ All colors MUST be HSL.
     --radius: 1.75rem;
     
     /* Border Radius System */
-    --radius-main: 20px;      /* Main cards */
+    --radius-main: 12px;      /* Main cards */
     --radius-pill: 24px;      /* Buttons & chips */
-    --radius-secondary: 16px; /* Secondary boxes */
+    --radius-secondary: 10px; /* Secondary boxes */
     --radius-nav: 28px;       /* Bottom navigation */
-    --radius-small: 12px;     /* Small elements */
+    --radius-small: 8px;      /* Small elements */
     
     /* Gradients */
     --gradient-bg: linear-gradient(180deg, hsl(35 20% 97%) 0%, hsl(30 15% 98%) 100%);

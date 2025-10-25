@@ -9,7 +9,7 @@ interface ReflectionSectionProps {
 
 export const ReflectionSection = ({ hasReflection, reflection, onAddReflection }: ReflectionSectionProps) => {
   return (
-    <div className="p-6 space-y-4 stagger-fade-up relative overflow-hidden rounded-[20px]">
+    <div className="p-6 space-y-4 stagger-fade-up relative overflow-hidden rounded-[12px]">
       <h3 className="font-title text-lg font-medium text-foreground text-left">
         Your Reflection
       </h3>

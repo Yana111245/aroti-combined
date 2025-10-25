@@ -30,7 +30,7 @@ export const SpreadCard = ({
       className="flex-shrink-0 w-48 cursor-pointer group"
       onClick={onClick}
     >
-      <div className="relative h-32 rounded-[20px] overflow-hidden mb-3 group-hover:scale-105 transition-transform">
+      <div className="relative h-32 rounded-[12px] overflow-hidden mb-3 group-hover:scale-105 transition-transform">
         <img src={image} className="w-full h-full object-cover" alt={title} />
         <div className="absolute bottom-2 left-2 px-2 py-1 rounded-full bg-black/50 backdrop-blur">
           <span className="text-xs text-white font-body">{cardCount} cards</span>

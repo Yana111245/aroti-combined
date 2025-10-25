@@ -1,17 +1,20 @@
 import { DiscoveryHeader } from "@/components/discovery/DiscoveryHeader";
-import { FeaturedSpreads } from "@/components/discovery/FeaturedSpreads";
+import { ForYouCarousel } from "@/components/discovery/ForYouCarousel";
 import { BrowseByCategory } from "@/components/discovery/BrowseByCategory";
-import { ContinueLearning } from "@/components/discovery/ContinueLearning";
+import { CategoryGrid } from "@/components/discovery/CategoryGrid";
+import { DailyPractice } from "@/components/discovery/DailyPractice";
+import { DailyQuiz } from "@/components/discovery/DailyQuiz";
 import { Collections } from "@/components/discovery/Collections";
-import { DailyQuote } from "@/components/home/DailyQuote";
-import { JourneyProgress } from "@/components/home/JourneyProgress";
+import { YourJourney } from "@/components/discovery/YourJourney";
 import { RecentlyViewed } from "@/components/home/RecentlyViewed";
-import { Sparkles, MessageCircle, Shuffle } from "lucide-react";
+import { MessageCircle, Shuffle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { PageWrapper } from "@/components/layout/PageWrapper";
+import { useState } from "react";
 
 const DiscoveryHub = () => {
   const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   return (
     <PageWrapper showBottomNav={true} showTabBar={false}>
@@ -22,40 +25,32 @@ const DiscoveryHub = () => {
         </div>
 
         {/* Scrollable Content */}
-        <div className="animate-fade-in pt-[120px] space-y-8">
-          {/* Featured Spreads */}
-          <FeaturedSpreads />
+        <div className="animate-fade-in pt-[120px] space-y-6">
+          {/* 1. For You */}
+          <ForYouCarousel />
           
-          {/* Browse by Category */}
-          <BrowseByCategory />
+          {/* 2. Categories (Filter Row) */}
+          <BrowseByCategory 
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+          />
           
-          {/* Today's Wisdom - Reuse from Home */}
-          <div className="px-6">
-            <DailyQuote quote="Your journey begins with self-discovery" />
-          </div>
+          {/* 3. Category Results / Featured Cards */}
+          <CategoryGrid selectedCategory={selectedCategory} />
           
-          {/* Continue Learning */}
-          <ContinueLearning />
+          {/* 4. Daily Practice */}
+          <DailyPractice />
           
-          {/* Your Progress - Reuse from Home */}
-          <div className="px-6">
-            <JourneyProgress 
-              streak={7}
-              totalReadings={24}
-              nextMilestone={30}
-              milestones={[
-                { id: 1, title: "First Reading", completed: true },
-                { id: 2, title: "Week Streak", completed: true },
-                { id: 3, title: "Month Journey", completed: false },
-                { id: 4, title: "Master Reader", completed: false }
-              ]}
-            />
-          </div>
+          {/* 5. Daily Quiz */}
+          <DailyQuiz />
           
-          {/* Collections */}
+          {/* 6. Collections */}
           <Collections />
           
-          {/* Recently Viewed - Reuse from Home */}
+          {/* 7. Your Journey */}
+          <YourJourney />
+          
+          {/* 8. Recently Viewed */}
           <RecentlyViewed 
             items={[
               {

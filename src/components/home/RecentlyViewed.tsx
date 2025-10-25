@@ -11,26 +11,29 @@ interface RecentlyViewedProps {
 
 export const RecentlyViewed = ({ items }: RecentlyViewedProps) => {
   return (
-    <div className="space-y-4 stagger-fade-up">
-      <h3 className="text-xl font-title font-medium text-foreground px-6">Recently Viewed</h3>
-      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+    <div className="space-y-4">
+      <div className="px-6 flex items-center justify-between">
+        <h3 className="text-xl font-title font-medium text-foreground">Recently Viewed</h3>
+        <button className="text-sm font-body text-accent hover:text-accent/80 transition-colors">
+          View All →
+        </button>
+      </div>
+      <div className="flex gap-3 overflow-x-auto pl-6 pr-6 pb-2 scrollbar-hide">
         {items.map((item) => (
-          <FrostedCard
-            key={item.id}
-            className="flex-shrink-0 w-32 cursor-pointer hover:shadow-glow transition-all hover:scale-105 rounded-[20px]"
-          >
-            <div className="relative h-20 -mx-4 -mt-4 mb-3 overflow-hidden rounded-t-[20px]">
-              <img
-                src={item.image}
+          <div key={item.id} className="flex-shrink-0 w-[100px]">
+            <div className="relative h-[120px] rounded-[8px] overflow-hidden cursor-pointer hover:scale-105 transition-transform">
+              <img 
+                src={item.image} 
+                className="w-full h-full object-cover blur-sm" 
                 alt={item.title}
-                className="w-full h-full object-cover"
               />
+              <div className="absolute inset-0 bg-black/30" />
+              <div className="absolute bottom-2 left-2 right-2">
+                <h4 className="text-[13px] font-body font-bold text-white leading-tight">{item.title}</h4>
+                <p className="text-[12px] text-white/80 mt-1">{item.type}</p>
+              </div>
             </div>
-            <p className="text-xs text-primary font-medium mb-1">{item.type}</p>
-            <h4 className="text-sm font-semibold text-foreground line-clamp-2">
-              {item.title}
-            </h4>
-          </FrostedCard>
+          </div>
         ))}
       </div>
     </div>

@@ -1,47 +1,63 @@
 import { CategoryPill } from "./CategoryPill";
-import { useState } from "react";
 
 const categories = [
-  { icon: "🔮", label: "Tarot" },
-  { icon: "⭐", label: "Astrology" },
-  { icon: "🔢", label: "Numerology" },
-  { icon: "🌙", label: "Moon Phases" },
-  { icon: "📿", label: "Meditation" },
-  { icon: "✨", label: "Rituals" },
-  { icon: "🌿", label: "Crystals" },
-  { icon: "🕯️", label: "Candles" }
+  { label: "Tarot" },
+  { label: "Astrology" },
+  { label: "Numerology" },
+  { label: "Moon Phases" },
+  { label: "Meditation" },
+  { label: "Rituals" },
+  { label: "Crystals" },
+  { label: "Candles" },
+  { label: "Energy Work" },
+  { label: "Divination" },
+  { label: "Chakras" },
+  { label: "Manifestation" },
+  { label: "Spiritual Guides" },
+  { label: "Angel Numbers" }
 ];
 
-export const BrowseByCategory = () => {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+interface BrowseByCategoryProps {
+  selectedCategory: string | null;
+  onCategoryChange: (category: string | null) => void;
+}
 
+export const BrowseByCategory = ({ selectedCategory, onCategoryChange }: BrowseByCategoryProps) => {
   const handleCategoryClick = (label: string) => {
-    setActiveCategory(activeCategory === label ? null : label);
+    onCategoryChange(selectedCategory === label ? null : label);
   };
 
   return (
     <div className="px-6 space-y-4 stagger-fade-up">
       <h2 className="text-2xl font-title font-medium text-foreground">Browse by Category</h2>
       
-      <div className="flex flex-wrap gap-3">
-        {categories.map((category) => (
-          <CategoryPill
-            key={category.label}
-            icon={category.icon}
-            label={category.label}
-            isActive={activeCategory === category.label}
-            onClick={() => handleCategoryClick(category.label)}
-          />
-        ))}
+      <div className="overflow-x-auto scrollbar-hide" style={{ maxHeight: '100px' }}>
+        <div className="flex flex-col gap-2" style={{ width: 'max-content' }}>
+          {/* First row */}
+          <div className="flex gap-2">
+            {categories.slice(0, Math.ceil(categories.length / 2)).map((category) => (
+              <CategoryPill
+                key={category.label}
+                label={category.label}
+                isActive={selectedCategory === category.label}
+                onClick={() => handleCategoryClick(category.label)}
+              />
+            ))}
+          </div>
+          {/* Second row */}
+          <div className="flex gap-2">
+            {categories.slice(Math.ceil(categories.length / 2)).map((category) => (
+              <CategoryPill
+                key={category.label}
+                label={category.label}
+                isActive={selectedCategory === category.label}
+                onClick={() => handleCategoryClick(category.label)}
+              />
+            ))}
+          </div>
+        </div>
       </div>
       
-      {activeCategory && (
-        <div className="mt-4 p-3 rounded-[16px] bg-accent/5 border border-accent/20">
-          <p className="text-sm font-body text-accent">
-            Showing content for: <span className="font-medium">{activeCategory}</span>
-          </p>
-        </div>
-      )}
     </div>
   );
 };

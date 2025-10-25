@@ -79,8 +79,8 @@ export default function MessageThread() {
             <div
               className={`max-w-[80%] ${
                 msg.sender === "user"
-                  ? "glass-card rounded-[20px] rounded-br-md p-4"
-                  : "glass-card rounded-[20px] rounded-bl-md p-4"
+                  ? "glass-card rounded-[12px] rounded-br-md p-4"
+                  : "glass-card rounded-[12px] rounded-bl-md p-4"
               }`}
             >
               <p className="text-sm">{msg.content}</p>

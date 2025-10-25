@@ -61,8 +61,8 @@ export default {
       },
       fontFamily: {
         title: ['DM Serif Text', 'Georgia', 'serif'],
-        body: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'], // Keep for Tailwind defaults
+        body: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'], // Keep for Tailwind defaults
       },
       fontSize: {
         'h1': ['36px', { lineHeight: '1.2', fontWeight: '500' }],
@@ -75,9 +75,9 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-        'main': '20px',
+        'main': '12px',
         'pill': '24px',
-        'secondary': '16px',
+        'secondary': '10px',
         'nav': '28px',
       },
       keyframes: {

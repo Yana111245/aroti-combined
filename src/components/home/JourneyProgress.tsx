@@ -10,7 +10,7 @@ interface JourneyProgressProps {
 export const JourneyProgress = ({ streak, milestones }: JourneyProgressProps) => {
   return (
     <div 
-      className="p-6 space-y-4 stagger-fade-up rounded-[20px] shadow-soft"
+      className="p-6 space-y-4 stagger-fade-up rounded-[12px] shadow-soft"
       style={{ 
         background: 'linear-gradient(135deg, #F8F7F4 0%, #F3F1ED 100%)',
       }}

@@ -12,7 +12,7 @@ export const SpecialistCard = ({ specialist }: SpecialistCardProps) => {
   return (
     <div
       onClick={() => navigate(`/booking/specialist/${specialist.id}`)}
-      className="glass-card p-4 hover:scale-[1.02] transition-smooth cursor-pointer group rounded-[20px]"
+      className="glass-card p-4 hover:scale-[1.02] transition-smooth cursor-pointer group rounded-[12px]"
     >
       <div className="flex items-start gap-4">
         <img

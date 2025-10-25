@@ -13,7 +13,7 @@ export const SoftCard = ({ children, className, onClick, style }: SoftCardProps)
       onClick={onClick}
       style={style}
       className={cn(
-        "glass-card rounded-[28px] p-6 transition-all duration-300",
+        "glass-card rounded-[16px] p-6 transition-all duration-300",
         onClick && "cursor-pointer active:scale-[0.98] hover:shadow-lg",
         className
       )}
