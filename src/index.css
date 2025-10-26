@@ -939,6 +939,42 @@ nav[class*="fixed"] {
   100% { left: 100%; }
 }
 
+/* Spacing Scale Variables */
+:root {
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --card-pad: 12px;
+  --card-gap: 10px;
+  --card-gap-between: 12px;
+}
+
+/* Micro-interactions for Cards */
+.apple-material-card-interactive {
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.apple-material-card-interactive:active {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Modal Styling Override for Celestial Theme */
+.home-tab-celestial [data-radix-dialog-content] {
+  background: var(--glass-elevated) !important;
+  backdrop-filter: var(--material-elevated-blur) !important;
+  -webkit-backdrop-filter: var(--material-elevated-blur) !important;
+  border: 1px solid var(--glass-highlight) !important;
+  border-radius: var(--radius-main) !important;
+  box-shadow: var(--shadow-elevated) !important;
+}
+
+.home-tab-celestial [data-radix-dialog-overlay] {
+  background: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
 /* Apple Typography Classes (Home Tab Only) */
 .home-tab-celestial .text-large-title {
   font-family: var(--font-apple-display);
