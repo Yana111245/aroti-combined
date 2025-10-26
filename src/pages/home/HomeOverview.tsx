@@ -134,7 +134,7 @@ const HomeOverview = () => {
   };
 
   return (
-    <PageWrapper showBottomNav={false} showTabBar={true} className="home-tab-celestial">
+    <PageWrapper showBottomNav={true} showTabBar={true} className="home-tab-celestial">
       {/* Day Selector - Fixed at top */}
       <div className="home-tab-celestial fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)]">
         <DaySelector

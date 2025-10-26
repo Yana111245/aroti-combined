@@ -23,12 +23,12 @@ export const BottomNav = () => {
   }
 
   return (
-    <div className="nav-sticky backdrop-blur-[60px] nav-safe-area-light"
+    <div className="nav-sticky backdrop-blur-[60px] nav-safe-area-dark"
       style={{
-        background: 'rgba(255,255,255,0.92) !important',
+        background: 'rgba(12,10,18,0.92) !important',
         paddingBottom: 'env(safe-area-inset-bottom)',
       }}>
-      <nav className="px-6 border-t border-[rgba(0,0,0,0.08)]"
+      <nav className="px-6 border-t border-[rgba(255,255,255,0.08)]"
         style={{
           paddingTop: '12px',
           paddingBottom: '12px',
