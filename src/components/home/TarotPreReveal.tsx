@@ -8,6 +8,7 @@ interface TarotPreRevealProps {
 
 export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreRevealProps) => {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number }>>([]);
+  const [isPressed, setIsPressed] = useState(false);
 
   useEffect(() => {
     // Generate floating particles
@@ -21,7 +22,7 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
   }, []);
 
   return (
-    <div className="liquid-glass-card p-8 text-center space-y-6 animate-fade-in relative overflow-hidden">
+    <div className="apple-material-card-elevated p-8 text-center space-y-6 animate-fade-in relative overflow-hidden apple-material-glow">
       {/* Floating particles */}
       {!isRevealing && particles.map((particle) => (
         <div
@@ -39,12 +40,18 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
         <img
           src={tarotBack}
           alt="Tarot card back"
-          className={`w-[70vw] h-[85vw] mx-auto rounded-[12px] transition-all duration-700 ${
+          className={`w-[70vw] h-[85vw] mx-auto rounded-[12px] transition-all duration-700 apple-material-shimmer ${
             isRevealing 
               ? 'reveal-flip scale-110' 
-              : 'liquid-glass-glow hover:scale-105 cursor-pointer'
+              : `hover:scale-105 cursor-pointer ${isPressed ? 'scale-95' : ''}`
           }`}
           onClick={!isRevealing ? onReveal : undefined}
+          onTouchStart={() => setIsPressed(true)}
+          onTouchEnd={() => setIsPressed(false)}
+          onTouchCancel={() => setIsPressed(false)}
+          onMouseDown={() => setIsPressed(true)}
+          onMouseUp={() => setIsPressed(false)}
+          onMouseLeave={() => setIsPressed(false)}
         />
         
         {!isRevealing && (

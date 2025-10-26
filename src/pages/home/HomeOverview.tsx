@@ -176,6 +176,11 @@ const HomeOverview = () => {
             <RevealTransition isRevealed={isRevealed} isRevealing={isRevealing}>
               <div className="space-y-6">
                 <TarotPostReveal card={tarotCard} />
+                
+                {/* Cosmic Insights Section */}
+                <div className="apple-material-section-header">
+                  <h2 className="text-headline text-foreground">Cosmic Insights</h2>
+                </div>
                 <AstrologyInsights
                   sunSign={userData.sunSign}
                   moonSign={userData.moonSign}
@@ -197,11 +202,18 @@ const HomeOverview = () => {
           )}
 
           {/* Below the fold content */}
+          <div className="apple-material-section-header">
+            <h2 className="text-headline text-foreground">Daily Wisdom & Progress</h2>
+          </div>
           <DailyQuote quote={dailyQuote} />
           <JourneyProgress
             streak={userData.streak}
             milestones={userData.milestones}
           />
+          
+          <div className="apple-material-section-header">
+            <h2 className="text-headline text-foreground">Recently Viewed</h2>
+          </div>
           <RecentlyViewed items={userData.recentlyViewed} />
         </div>
       </div>

@@ -6,7 +6,7 @@ interface NumerologyInsightsProps {
 
 export const NumerologyInsights = ({ energyNumber, traits, guidance }: NumerologyInsightsProps) => {
   return (
-    <div className="liquid-glass-card p-6 space-y-4 stagger-fade-up relative overflow-hidden">
+    <div className="apple-material-card-subtle p-6 space-y-4 stagger-fade-up relative overflow-hidden">
       <h3 className="text-headline text-foreground text-left">
         Life Path Influence
       </h3>

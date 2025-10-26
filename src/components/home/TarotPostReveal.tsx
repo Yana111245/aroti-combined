@@ -22,7 +22,7 @@ export const TarotPostReveal = ({ card }: TarotPostRevealProps) => {
   }, []);
 
   return (
-    <div className="liquid-glass-card p-8 space-y-8 relative overflow-hidden">
+    <div className="apple-material-card-elevated p-8 space-y-8 relative overflow-hidden apple-material-glow">
       {/* Floating golden dust particles */}
       <div className="absolute top-4 right-4 w-2 h-2 bg-accent/20 rounded-full golden-dust" />
       <div className="absolute top-8 left-4 w-1 h-1 bg-accent/30 rounded-full golden-dust" style={{ animationDelay: '0.5s' }} />
@@ -34,7 +34,7 @@ export const TarotPostReveal = ({ card }: TarotPostRevealProps) => {
           <img
             src={tarotFool}
             alt={card.name}
-            className="w-[70vw] h-[85vw] mx-auto rounded-[12px] breathing-glow animate-scale-in liquid-glass-glow"
+            className="w-[70vw] h-[85vw] mx-auto rounded-[12px] breathing-glow animate-scale-in apple-material-shimmer"
           />
         </div>
         

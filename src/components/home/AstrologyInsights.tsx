@@ -7,7 +7,7 @@ interface AstrologyInsightsProps {
 
 export const AstrologyInsights = ({ sunSign, moonSign, mercuryState, insight }: AstrologyInsightsProps) => {
   return (
-    <div className="liquid-glass-card py-10 px-6 stagger-fade-up relative overflow-hidden">
+    <div className="apple-material-card-subtle py-10 px-6 stagger-fade-up relative overflow-hidden">
       <h3 className="text-headline text-accent/80 text-left mb-4">
         Your Cosmic Alignment
       </h3>

@@ -21,7 +21,7 @@ export const RecentlyViewed = ({ items }: RecentlyViewedProps) => {
       <div className="flex gap-3 overflow-x-auto pl-6 pr-6 pb-2 scrollbar-hide">
         {items.map((item) => (
           <div key={item.id} className="flex-shrink-0 w-[100px]">
-            <div className="relative h-[120px] rounded-[8px] overflow-hidden cursor-pointer hover:scale-105 transition-transform">
+            <div className="relative h-[120px] rounded-[8px] overflow-hidden cursor-pointer hover:scale-105 transition-transform apple-material-card-subtle">
               <img 
                 src={item.image} 
                 className="w-full h-full object-cover blur-sm" 

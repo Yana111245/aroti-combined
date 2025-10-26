@@ -9,7 +9,7 @@ interface JourneyProgressProps {
 
 export const JourneyProgress = ({ streak, milestones }: JourneyProgressProps) => {
   return (
-    <div className="liquid-glass-secondary p-6 space-y-4 stagger-fade-up">
+    <div className="apple-material-card-standard p-6 space-y-4 stagger-fade-up">
       <h3 className="text-title-3 text-foreground">Your Journey</h3>
       <div className="space-y-4">
         <div className="flex items-center justify-between">

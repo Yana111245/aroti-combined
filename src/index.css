@@ -732,6 +732,158 @@ nav[class*="fixed"] {
   filter: drop-shadow(0 0 8px rgba(209, 122, 82, 0.4));
 }
 
+/* Apple Material Design System (Home Tab Only) */
+.home-tab-celestial {
+  /* Apple Material Elevation Levels */
+  --material-elevated-bg: rgba(23, 20, 31, 0.85);
+  --material-elevated-blur: blur(40px) saturate(200%);
+  --material-elevated-border: rgba(255, 255, 255, 0.12);
+  --material-elevated-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(0, 0, 0, 0.45);
+  
+  --material-standard-bg: rgba(30, 26, 40, 0.75);
+  --material-standard-blur: blur(24px) saturate(180%);
+  --material-standard-border: rgba(255, 255, 255, 0.08);
+  --material-standard-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  
+  --material-subtle-bg: rgba(30, 26, 40, 0.65);
+  --material-subtle-blur: blur(12px) saturate(150%);
+  --material-subtle-border: rgba(255, 255, 255, 0.05);
+  --material-subtle-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  
+  --material-interactive-bg: rgba(30, 26, 40, 0.75);
+  --material-interactive-blur: blur(24px) saturate(180%);
+  --material-interactive-hover-bg: rgba(30, 26, 40, 0.85);
+  --material-interactive-hover-blur: blur(32px) saturate(200%);
+  --material-interactive-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Apple Material Card Classes */
+.home-tab-celestial .apple-material-card-elevated {
+  background: var(--material-elevated-bg);
+  backdrop-filter: var(--material-elevated-blur);
+  -webkit-backdrop-filter: var(--material-elevated-blur);
+  border: 1px solid var(--material-elevated-border);
+  box-shadow: var(--material-elevated-shadow);
+  border-radius: var(--radius-main);
+}
+
+.home-tab-celestial .apple-material-card-standard {
+  background: var(--material-standard-bg);
+  backdrop-filter: var(--material-standard-blur);
+  -webkit-backdrop-filter: var(--material-standard-blur);
+  border: 1px solid var(--material-standard-border);
+  box-shadow: var(--material-standard-shadow);
+  border-radius: var(--radius-main);
+}
+
+.home-tab-celestial .apple-material-card-subtle {
+  background: var(--material-subtle-bg);
+  backdrop-filter: var(--material-subtle-blur);
+  -webkit-backdrop-filter: var(--material-subtle-blur);
+  border: 1px solid var(--material-subtle-border);
+  box-shadow: var(--material-subtle-shadow);
+  border-radius: var(--radius-main);
+}
+
+.home-tab-celestial .apple-material-card-interactive {
+  background: var(--material-interactive-bg);
+  backdrop-filter: var(--material-interactive-blur);
+  -webkit-backdrop-filter: var(--material-interactive-blur);
+  border: 1px solid var(--material-standard-border);
+  box-shadow: var(--material-standard-shadow);
+  border-radius: var(--radius-main);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.home-tab-celestial .apple-material-card-interactive:hover {
+  background: var(--material-interactive-hover-bg);
+  backdrop-filter: var(--material-interactive-hover-blur);
+  -webkit-backdrop-filter: var(--material-interactive-hover-blur);
+  transform: translateY(-2px);
+  box-shadow: var(--material-interactive-shadow);
+}
+
+.home-tab-celestial .apple-material-card-interactive:active {
+  transform: translateY(0);
+  transition: all 0.1s ease;
+}
+
+.home-tab-celestial .scale-98 {
+  transform: scale(0.98);
+}
+
+/* Apple Material Section Headers */
+.home-tab-celestial .apple-material-section-header {
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.home-tab-celestial .apple-material-section-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.05) 50%, 
+    rgba(255, 255, 255, 0.2) 100%);
+}
+
+/* Apple Material Glow Effects */
+.home-tab-celestial .apple-material-glow {
+  position: relative;
+}
+
+.home-tab-celestial .apple-material-glow::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(199, 112, 126, 0.3) 0%, 
+    rgba(199, 112, 126, 0.1) 50%, 
+    rgba(199, 112, 126, 0.3) 100%);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.home-tab-celestial .apple-material-glow:hover::before {
+  opacity: 1;
+}
+
+/* Apple Material Shimmer Effect */
+.home-tab-celestial .apple-material-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-tab-celestial .apple-material-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 100%);
+  animation: apple-shimmer 2s infinite;
+}
+
+@keyframes apple-shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
 /* Apple Typography Classes (Home Tab Only) */
 .home-tab-celestial .text-large-title {
   font-family: var(--font-apple-display);
