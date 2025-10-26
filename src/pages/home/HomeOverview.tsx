@@ -134,10 +134,7 @@ const HomeOverview = () => {
   };
 
   return (
-    <PageWrapper showBottomNav={false} showTabBar={true}>
-      {/* Full-screen dark background wrapper */}
-      <div className="home-tab-celestial fixed inset-0 bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)]" />
-
+    <PageWrapper showBottomNav={false} showTabBar={true} className="home-tab-celestial">
       {/* Day Selector - Fixed at top */}
       <div className="home-tab-celestial fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)]">
         <DaySelector
@@ -147,40 +144,65 @@ const HomeOverview = () => {
         />
       </div>
 
-      {/* Content with top padding to account for fixed header */}
-      <div className="home-tab-celestial animate-fade-in pt-[80px] relative">
-        {/* Header Section - Apple Typography */}
+      {/* Main content container with background */}
+      <div className="home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
+        {/* Header Section - Apple HIG Navigation Pattern */}
         <div className="px-6 pt-2 pb-6 text-center space-y-1">
-          {/* Greeting - Callout style */}
-          <p className="text-callout text-[hsl(230,10%,68%)]">
-            Hi {userData.name}, it's {getCurrentDate()}
-          </p>
+          {/* Navigation Context - Apple Style */}
+          <nav aria-label="Daily insights navigation">
+            <p className="text-callout text-[hsl(230,10%,68%)]">
+              Hi {userData.name}, it's {getCurrentDate()}
+            </p>
+          </nav>
 
-          {/* Main Title - Large Title style */}
-          <h1 className="text-large-title text-[hsl(230,8%,96%)]">
-            Today's Insights
-          </h1>
+          {/* Main Title - Apple Large Title */}
+          <header>
+            <h1 className="text-large-title text-[hsl(230,8%,96%)]">
+              Today's Insights
+            </h1>
+          </header>
 
-          {/* Subtitle - Subhead style */}
-          <p className="text-subhead text-[hsl(20,55%,58%)] pt-1">
-            Under {userData.sunSign} skies • Energy Number {userData.energyNumber}
-          </p>
+          {/* Subtitle - Apple Subhead */}
+          <div>
+            <p className="text-subhead text-[hsl(20,55%,58%)]">
+              Under {userData.sunSign} skies • Energy Number {userData.energyNumber}
+            </p>
+          </div>
         </div>
 
-        {/* Main Content */}
-        <div className="px-6 pb-8 space-y-6">
-          {/* Tarot Section */}
-          {!isRevealed ? (
-            <TarotPreReveal onReveal={handleReveal} isRevealing={isRevealing} />
-          ) : (
-            <RevealTransition isRevealed={isRevealed} isRevealing={isRevealing}>
-              <div className="space-y-6">
+        {/* Main Content - Apple HIG Visual Hierarchy */}
+        <main className="px-6 pb-24" role="main" aria-label="Daily insights content">
+          {/* Primary Content - Highest Visual Weight */}
+          <section className="space-y-6" aria-labelledby="tarot-section">
+            <h2 id="tarot-section" className="sr-only">Daily Tarot Card</h2>
+            {!isRevealed ? (
+              <TarotPreReveal onReveal={handleReveal} isRevealing={isRevealing} />
+            ) : (
+              <RevealTransition isRevealed={isRevealed} isRevealing={isRevealing}>
                 <TarotPostReveal card={tarotCard} />
-                
-                {/* Cosmic Insights Section */}
-                <div className="apple-material-section-header">
-                  <h2 className="text-headline text-foreground">Cosmic Insights</h2>
-                </div>
+              </RevealTransition>
+            )}
+          </section>
+
+          {/* Secondary Content - Medium Visual Weight */}
+          <section className="mt-12 space-y-6" aria-labelledby="daily-wisdom-section">
+            <h2 id="daily-wisdom-section" className="sr-only">Daily Wisdom & Progress</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <DailyQuote quote={dailyQuote} />
+              <JourneyProgress
+                streak={userData.streak}
+                milestones={userData.milestones}
+              />
+            </div>
+          </section>
+
+          {/* Tertiary Content - Subtle Visual Weight */}
+          {isRevealed && (
+            <section className="mt-12 space-y-6" aria-labelledby="cosmic-insights-section">
+              <div className="apple-material-section-header">
+                <h2 id="cosmic-insights-section" className="text-headline text-foreground">Cosmic Insights</h2>
+              </div>
+              <div className="space-y-4">
                 <AstrologyInsights
                   sunSign={userData.sunSign}
                   moonSign={userData.moonSign}
@@ -198,24 +220,17 @@ const HomeOverview = () => {
                   onAddReflection={handleAddReflection}
                 />
               </div>
-            </RevealTransition>
+            </section>
           )}
 
-          {/* Below the fold content */}
-          <div className="apple-material-section-header">
-            <h2 className="text-headline text-foreground">Daily Wisdom & Progress</h2>
-          </div>
-          <DailyQuote quote={dailyQuote} />
-          <JourneyProgress
-            streak={userData.streak}
-            milestones={userData.milestones}
-          />
-          
-          <div className="apple-material-section-header">
-            <h2 className="text-headline text-foreground">Recently Viewed</h2>
-          </div>
-          <RecentlyViewed items={userData.recentlyViewed} />
-        </div>
+          {/* Supporting Content - Minimal Visual Weight */}
+          <section className="mt-12 space-y-6" aria-labelledby="recently-viewed-section">
+            <div className="apple-material-section-header">
+              <h2 id="recently-viewed-section" className="text-headline text-foreground">Recently Viewed</h2>
+            </div>
+            <RecentlyViewed items={userData.recentlyViewed} />
+          </section>
+        </main>
       </div>
 
       {/* Modals */}

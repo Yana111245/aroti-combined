@@ -28,6 +28,10 @@ export const ReflectionSection = ({ hasReflection, reflection, onAddReflection }
       onMouseDown={() => setIsPressed(true)}
       onMouseUp={() => setIsPressed(false)}
       onMouseLeave={() => setIsPressed(false)}
+      role="button"
+      tabIndex={0}
+      aria-label="Add or edit your daily reflection"
+      onClick={handleInteraction}
     >
       <h3 className="text-headline text-foreground text-left">
         Your Reflection
@@ -42,7 +46,7 @@ export const ReflectionSection = ({ hasReflection, reflection, onAddReflection }
             variant="outline"
             size="sm"
             onClick={handleInteraction}
-            className="w-full text-subhead border-accent/30 text-accent hover:border-accent hover:bg-accent/10 transition-all duration-300 rounded-[24px]"
+            className="w-full text-subhead border-accent/30 text-accent hover:border-accent hover:bg-accent/10 transition-all duration-300 rounded-[24px] apple-touch-target"
           >
             Edit Reflection
           </Button>
@@ -51,7 +55,7 @@ export const ReflectionSection = ({ hasReflection, reflection, onAddReflection }
         <Button
           variant="outline"
           onClick={handleInteraction}
-          className="w-full h-12 text-subhead border-accent/50 text-accent hover:border-accent hover:bg-accent/10 transition-all duration-300 rounded-[24px]"
+          className="w-full h-12 text-subhead border-accent/50 text-accent hover:border-accent hover:bg-accent/10 transition-all duration-300 rounded-[24px] apple-touch-target-comfortable"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Reflection

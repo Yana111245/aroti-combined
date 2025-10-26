@@ -39,8 +39,8 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
       <div className="relative">
         <img
           src={tarotBack}
-          alt="Tarot card back"
-          className={`w-[70vw] h-[85vw] mx-auto rounded-[12px] transition-all duration-700 apple-material-shimmer ${
+          alt="Tarot card back - Tap to reveal your daily insight"
+          className={`w-[70vw] h-[85vw] mx-auto rounded-[12px] transition-all duration-700 apple-material-shimmer apple-touch-target-comfortable ${
             isRevealing 
               ? 'reveal-flip scale-110' 
               : `hover:scale-105 cursor-pointer ${isPressed ? 'scale-95' : ''}`
@@ -52,6 +52,10 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
           onMouseDown={() => setIsPressed(true)}
           onMouseUp={() => setIsPressed(false)}
           onMouseLeave={() => setIsPressed(false)}
+          role="button"
+          tabIndex={0}
+          aria-label="Reveal your daily tarot card insight"
+          aria-describedby="tarot-description"
         />
         
         {!isRevealing && (
@@ -81,7 +85,7 @@ export const TarotPreReveal = ({ onReveal, isRevealing = false }: TarotPreReveal
         <h3 className="text-title-2 text-foreground">
           {isRevealing ? "Revealing your insight..." : "Tap to reveal your daily insight"}
         </h3>
-        <p className="text-body text-muted-foreground">
+        <p id="tarot-description" className="text-body text-muted-foreground">
           {isRevealing ? "The universe is aligning your guidance" : "Your card awaits with guidance for today"}
         </p>
       </div>

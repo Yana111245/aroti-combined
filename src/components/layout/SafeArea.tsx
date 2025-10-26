@@ -21,8 +21,8 @@ export const SafeArea = ({
     <div 
       className={cn(
         "w-full",
-        // Add background to match app
-        "bg-gradient-to-b from-background to-background-end",
+        // Only add background if not using celestial theme
+        !className?.includes('home-tab-celestial') && "bg-gradient-to-b from-background to-background-end",
         top && "pt-[env(safe-area-inset-top)]",
         bottom && "pb-[env(safe-area-inset-bottom)]",
         left && "pl-[env(safe-area-inset-left)]",

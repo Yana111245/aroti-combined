@@ -106,8 +106,9 @@ All colors MUST be HSL.
 
   html {
     background: var(--gradient-bg);
-    min-height: 100vh;
-    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
   }
 
   body {
@@ -117,9 +118,12 @@ All colors MUST be HSL.
     font-size: 16px;
     line-height: 1.5;
     color: var(--color-body);
-    min-height: 100vh;
+    height: 100vh;
     /* Fallback for browsers that don't support dvh */
-    min-height: 100dvh;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
     /* Ensure background extends to safe areas */
     background-attachment: fixed;
     background-size: cover;
@@ -755,6 +759,18 @@ nav[class*="fixed"] {
   --material-interactive-hover-bg: rgba(30, 26, 40, 0.85);
   --material-interactive-hover-blur: blur(32px) saturate(200%);
   --material-interactive-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+
+  /* Apple HIG Spacing System */
+  --spacing-xs: 4px;    /* Minimal spacing */
+  --spacing-sm: 8px;    /* Small spacing */
+  --spacing-md: 16px;   /* Medium spacing */
+  --spacing-lg: 24px;   /* Large spacing */
+  --spacing-xl: 32px;   /* Extra large spacing */
+  --spacing-2xl: 48px;  /* Section spacing */
+  
+  /* Apple HIG Touch Targets */
+  --touch-target-min: 44px; /* Minimum touch target size */
+  --touch-target-comfortable: 48px; /* Comfortable touch target */
 }
 
 /* Apple Material Card Classes */
@@ -811,6 +827,45 @@ nav[class*="fixed"] {
 
 .home-tab-celestial .scale-98 {
   transform: scale(0.98);
+}
+
+/* Apple HIG Spacing Utilities */
+.home-tab-celestial .apple-spacing-xs { margin: var(--spacing-xs); }
+.home-tab-celestial .apple-spacing-sm { margin: var(--spacing-sm); }
+.home-tab-celestial .apple-spacing-md { margin: var(--spacing-md); }
+.home-tab-celestial .apple-spacing-lg { margin: var(--spacing-lg); }
+.home-tab-celestial .apple-spacing-xl { margin: var(--spacing-xl); }
+.home-tab-celestial .apple-spacing-2xl { margin: var(--spacing-2xl); }
+
+.home-tab-celestial .apple-padding-xs { padding: var(--spacing-xs); }
+.home-tab-celestial .apple-padding-sm { padding: var(--spacing-sm); }
+.home-tab-celestial .apple-padding-md { padding: var(--spacing-md); }
+.home-tab-celestial .apple-padding-lg { padding: var(--spacing-lg); }
+.home-tab-celestial .apple-padding-xl { padding: var(--spacing-xl); }
+.home-tab-celestial .apple-padding-2xl { padding: var(--spacing-2xl); }
+
+/* Apple HIG Touch Target Utilities */
+.home-tab-celestial .apple-touch-target {
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+}
+
+.home-tab-celestial .apple-touch-target-comfortable {
+  min-height: var(--touch-target-comfortable);
+  min-width: var(--touch-target-comfortable);
+}
+
+/* Apple HIG Accessibility Utilities */
+.home-tab-celestial .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Apple Material Section Headers */

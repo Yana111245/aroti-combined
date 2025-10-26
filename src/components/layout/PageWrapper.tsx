@@ -18,10 +18,10 @@ export const PageWrapper = ({
   scrollable = true 
 }: PageWrapperProps) => {
   return (
-    <SafeArea className="min-h-screen">
+    <SafeArea className="h-screen">
       <div 
         className={cn(
-          "flex flex-col min-h-screen relative",
+          "flex flex-col h-full relative",
           scrollable && "overflow-y-auto",
           className
         )}

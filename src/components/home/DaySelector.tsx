@@ -114,12 +114,13 @@ export const DaySelector = ({ selectedDate, onDateChange, onCalendarClick }: Day
     <div className="flex items-center justify-between px-6 py-4 backdrop-blur-[12px] bg-[rgba(30,26,40,0.65)] border-b border-[rgba(255,255,255,0.08)]">
       <button 
         onClick={scrollLeft}
-        className={`p-2 transition-colors ${
+        className={`p-2 transition-colors apple-touch-target ${
           canScrollLeft 
             ? "text-muted-foreground hover:text-accent" 
             : "text-muted-foreground/30"
         }`}
         disabled={!canScrollLeft}
+        aria-label="Scroll to previous dates"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
@@ -149,11 +150,13 @@ export const DaySelector = ({ selectedDate, onDateChange, onCalendarClick }: Day
                 <button
                   key={date.toISOString()}
                   onClick={() => handleDateClick(date)}
-                  className={`snap-center text-subhead transition-colors relative whitespace-nowrap min-w-[80px] text-center ${
+                  className={`snap-center text-subhead transition-colors relative whitespace-nowrap min-w-[80px] text-center apple-touch-target ${
                     isSelected
                       ? "text-accent"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
+                  aria-label={`Select date ${formatDate(date)}`}
+                  aria-pressed={isSelected}
                 >
                   {formatDate(date)}
                   {isSelected && (
@@ -168,7 +171,8 @@ export const DaySelector = ({ selectedDate, onDateChange, onCalendarClick }: Day
 
       <button 
         onClick={onCalendarClick}
-        className="p-2 text-accent hover:text-accent/80 transition-colors"
+        className="p-2 text-accent hover:text-accent/80 transition-colors apple-touch-target"
+        aria-label="Open calendar picker"
       >
         <Calendar className="w-5 h-5" />
       </button>
