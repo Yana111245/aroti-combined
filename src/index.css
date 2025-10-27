@@ -959,7 +959,53 @@ nav[class*="fixed"] {
   box-shadow: var(--shadow-glass);
 }
 
-/* Modal Styling Override for Celestial Theme */
+/* Enhanced shimmer effects for better tap indication */
+.apple-material-card-interactive:hover {
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Enhanced glow effects */
+.apple-material-card-interactive:hover {
+  box-shadow: 
+    var(--shadow-elevated),
+    0 0 20px rgba(255, 255, 255, 0.1),
+    0 0 40px rgba(255, 255, 255, 0.05);
+}
+
+/* Subtle pulsing animation for tap indicators */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.apple-material-card-interactive:hover .tap-indicator {
+  animation: pulse-subtle 1.5s ease-in-out infinite;
+}
+
+/* Glowing effects for mystical cards */
+@keyframes gentle-glow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.apple-material-card-interactive .glow-effect {
+  animation: gentle-glow 4s ease-in-out infinite;
+}
+
+.apple-material-card-interactive:hover .glow-effect {
+  animation-duration: 2s;
+  opacity: 0.8;
+}
+
+/* Enhanced glow on hover */
+.apple-material-card-interactive:hover {
+  box-shadow: 
+    var(--shadow-elevated),
+    0 0 30px rgba(255, 255, 255, 0.1),
+    0 0 60px rgba(255, 255, 255, 0.05);
+}
+
+/* Enhanced Modal Styling Override for Celestial Theme */
 .home-tab-celestial [data-radix-dialog-content] {
   background: var(--glass-elevated) !important;
   backdrop-filter: var(--material-elevated-blur) !important;
@@ -967,6 +1013,10 @@ nav[class*="fixed"] {
   border: 1px solid var(--glass-highlight) !important;
   border-radius: var(--radius-main) !important;
   box-shadow: var(--shadow-elevated) !important;
+  margin: auto !important; /* Ensure centering */
+  max-width: 90vw !important; /* Responsive width */
+  position: relative !important;
+  transform: none !important; /* Override any transform that might affect centering */
 }
 
 .home-tab-celestial [data-radix-dialog-overlay] {
@@ -975,7 +1025,88 @@ nav[class*="fixed"] {
   -webkit-backdrop-filter: blur(20px) !important;
 }
 
-/* Apple Typography Classes (Home Tab Only) */
+/* Ensure proper centering for all screen sizes */
+@media (max-width: 768px) {
+  .home-tab-celestial [data-radix-dialog-content] {
+    max-width: 95vw !important;
+    margin: 1rem auto !important;
+  }
+}
+
+/* Global Apple Typography Classes */
+.text-large-title {
+  font-family: var(--font-apple-display);
+  font-size: var(--text-large-title);
+  line-height: var(--line-height-tight);
+  font-weight: 400;
+  letter-spacing: 0.374px;
+}
+
+.text-title-1 {
+  font-family: var(--font-apple-display);
+  font-size: var(--text-title-1);
+  line-height: var(--line-height-tight);
+  font-weight: 400;
+  letter-spacing: 0.364px;
+}
+
+.text-title-2 {
+  font-family: var(--font-apple-display);
+  font-size: var(--text-title-2);
+  line-height: var(--line-height-tight);
+  font-weight: 400;
+  letter-spacing: 0.364px;
+}
+
+.text-headline {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-headline);
+  line-height: var(--line-height-normal);
+  font-weight: 600;
+  letter-spacing: -0.408px;
+}
+
+.text-body {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-body);
+  line-height: var(--line-height-normal);
+  font-weight: 400;
+  letter-spacing: -0.408px;
+}
+
+.text-callout {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-callout);
+  line-height: var(--line-height-normal);
+  font-weight: 400;
+  letter-spacing: -0.32px;
+}
+
+.text-subhead {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-subhead);
+  line-height: var(--line-height-normal);
+  font-weight: 400;
+  letter-spacing: -0.24px;
+}
+
+.text-footnote {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-footnote);
+  line-height: var(--line-height-normal);
+  font-weight: 400;
+  letter-spacing: -0.08px;
+}
+
+.text-caption {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-caption);
+  line-height: var(--line-height-normal);
+  font-weight: 400;
+  letter-spacing: 0.352px;
+}
+
+/* Apple Typography Classes (Home Tab Only) - Keep for backward compatibility */
 .home-tab-celestial .text-large-title {
   font-family: var(--font-apple-display);
   font-size: var(--text-large-title);

@@ -52,13 +52,22 @@ export const TarotCardPreReveal = ({ onReveal }: TarotCardPreRevealProps) => {
       
       {/* Tighter text */}
       <div className="space-y-1.5">
-        <h3 className="text-base font-semibold text-foreground">Today's Tarot Card</h3>
-        <p className="text-sm text-muted-foreground opacity-75">Tap to reveal your guidance</p>
+        <h3 className="text-headline text-foreground">Today's Tarot Card</h3>
+        <p className="text-callout text-muted-foreground opacity-75">Tap to reveal your guidance</p>
       </div>
       
-      {/* Enhanced shimmer effect - more obvious tap indicator */}
-      <div className="absolute inset-0 rounded-[12px] bg-gradient-to-r from-transparent via-accent/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none" />
-      <div className="absolute inset-0 rounded-[12px] bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none" />
+      {/* Enhanced shimmer effect - much more visible tap indicator */}
+      <div className="absolute inset-0 rounded-[12px] bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none" />
+      <div className="absolute inset-0 rounded-[12px] bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none" />
+      
+      {/* Additional glow layer for more prominence */}
+      <div className="absolute inset-0 rounded-[12px] bg-gradient-to-t from-accent/10 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-all duration-600 pointer-events-none" />
+      
+      {/* Subtle pulsing border on hover */}
+      <div className="absolute inset-0 rounded-[12px] border-2 border-accent/40 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none" />
+      
+      {/* Tap indicator - subtle dot with pulsing animation */}
+      <div className="absolute top-3 right-3 w-2 h-2 bg-accent/70 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none tap-indicator" />
     </div>
   );
 };

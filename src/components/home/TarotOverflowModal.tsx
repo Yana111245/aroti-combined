@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Share2, Download, X } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { shareContent, downloadShareImage, ShareableContent } from "@/lib/shareUtils";
 
@@ -59,9 +59,9 @@ export const TarotOverflowModal = ({ isOpen, onClose, card }: TarotOverflowModal
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="home-tab-celestial liquid-glass-elevated max-w-md mx-4 p-0 overflow-hidden rounded-[12px]">
+      <DialogContent className="home-tab-celestial liquid-glass-elevated max-w-sm mx-auto p-0 overflow-hidden rounded-[12px]">
         {/* Shareable Header */}
-        <div className="p-6 pb-4 text-center space-y-4">
+        <div className="px-6 pt-14 pb-4 text-center space-y-4">
           <div className="w-24 h-36 mx-auto">
             <img 
               src={card.image} 

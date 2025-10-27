@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Share2, Download } from "lucide-react";
+import { Share2, Download, X } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { shareContent, downloadShareImage, ShareableContent } from "@/lib/shareUtils";
@@ -55,9 +55,9 @@ export const NumerologyOverflowModal = ({ isOpen, onClose, content }: Numerology
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="home-tab-celestial liquid-glass-elevated max-w-md mx-4 p-0 overflow-hidden rounded-[12px]">
+      <DialogContent className="home-tab-celestial liquid-glass-elevated max-w-sm mx-auto p-0 overflow-hidden rounded-[12px]">
         {/* Header */}
-        <div className="p-6 pb-4 text-center space-y-4">
+        <div className="px-6 pt-14 pb-4 text-center space-y-4">
           <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center">
             <span className="text-white font-bold text-2xl">{content.energyNumber}</span>
           </div>
