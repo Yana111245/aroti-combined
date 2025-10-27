@@ -110,7 +110,7 @@ export default function ProfileOverview() {
           {[1, 2, 3].map((i) => (
             <SoftCard key={i} className="min-w-[140px] p-4">
               <Bookmark className="h-6 w-6 text-accent-gold mb-2" />
-              <p className="text-sm font-medium line-clamp-2">Celtic Cross Spread</p>
+              <p className="text-sm font-medium line-clamp-1">Celtic Cross Spread</p>
             </SoftCard>
           ))}
         </div>

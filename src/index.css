@@ -51,12 +51,16 @@ All colors MUST be HSL.
 
     --radius: 1.75rem;
     
-    /* Border Radius System */
-    --radius-main: 12px;      /* Main cards */
-    --radius-pill: 24px;      /* Buttons & chips */
-    --radius-secondary: 10px; /* Secondary boxes */
-    --radius-nav: 28px;       /* Bottom navigation */
-    --radius-small: 8px;      /* Small elements */
+  /* Border Radius System */
+  --radius-main: 12px;      /* Main cards */
+  --radius-pill: 24px;      /* Buttons & chips */
+  --radius-secondary: 10px; /* Secondary boxes */
+  --radius-nav: 28px;       /* Bottom navigation */
+  --radius-small: 8px;      /* Small elements */
+  
+  /* Apple Concentric Radius System */
+  --radius-card: 12px;           /* Card radius (matches tarot cards) */
+  --radius-capsule: 50%;         /* Capsule radius (half height) */
     
     /* Gradients */
     --gradient-bg: linear-gradient(180deg, hsl(35 20% 97%) 0%, hsl(30 15% 98%) 100%);
@@ -853,6 +857,270 @@ nav[class*="fixed"] {
 .home-tab-celestial .apple-touch-target-comfortable {
   min-height: var(--touch-target-comfortable);
   min-width: var(--touch-target-comfortable);
+}
+
+/* Apple Tab Bar System */
+.apple-tab-bar {
+  /* Enhanced backdrop blur for Apple-style depth */
+  backdrop-filter: blur(60px) saturate(180%);
+  -webkit-backdrop-filter: blur(60px) saturate(180%);
+  
+  /* Apple-style shadow */
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.08), 
+              0 -8px 32px rgba(0, 0, 0, 0.4);
+  
+  /* Smooth transitions */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Apple Tab Item States */
+.apple-tab-item {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.apple-tab-item:hover {
+  transform: scale(1.02);
+}
+
+.apple-tab-item:active {
+  transform: scale(0.98);
+  transition: all 0.1s ease;
+}
+
+/* Apple-style active state with pill background */
+.apple-tab-item-active {
+  background: rgba(209, 122, 82, 0.15);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(209, 122, 82, 0.2);
+  box-shadow: 0 0 20px rgba(209, 122, 82, 0.1);
+}
+
+/* Apple-style notification badge */
+.apple-notification-badge {
+  background: #FF3B30;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: -0.08px;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  box-shadow: 0 2px 8px rgba(255, 59, 48, 0.4);
+  animation: apple-badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes apple-badge-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.4);
+  }
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.6);
+  }
+}
+
+/* Apple-style micro-interactions */
+.apple-scale-102 {
+  transform: scale(1.02);
+}
+
+.apple-scale-98 {
+  transform: scale(0.98);
+}
+
+/* Apple Tab Bar Typography */
+.apple-tab-label {
+  font-family: var(--font-apple-text);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.066px;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+.apple-tab-label-active {
+  font-weight: 600;
+  color: hsl(var(--accent));
+}
+
+/* Apple-style glow effects */
+.apple-glow-accent {
+  filter: drop-shadow(0 0 8px rgba(209, 122, 82, 0.4));
+}
+
+.apple-glow-accent-strong {
+  filter: drop-shadow(0 0 16px rgba(209, 122, 82, 0.6));
+}
+
+/* Apple Tab Bar Active Indicator */
+.apple-tab-indicator {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: hsl(var(--accent));
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: apple-indicator-glow 2s ease-in-out infinite;
+}
+
+@keyframes apple-indicator-glow {
+  0%, 100% { 
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: translateX(-50%) scale(1.2);
+  }
+}
+
+/* Enhanced Apple Tab Bar for Home Tab */
+.home-tab-celestial .apple-tab-bar {
+  background: rgba(12, 10, 18, 0.92) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.home-tab-celestial .apple-tab-item-active {
+  background: rgba(209, 122, 82, 0.2);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(209, 122, 82, 0.3);
+  box-shadow: 0 0 24px rgba(209, 122, 82, 0.15);
+}
+
+.home-tab-celestial .apple-tab-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.home-tab-celestial .apple-tab-label-active {
+  color: hsl(var(--accent));
+}
+
+/* Apple Tab Bar Hover States */
+.home-tab-celestial .apple-tab-item:hover .apple-tab-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.home-tab-celestial .apple-tab-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+/* Apple Tab Bar Focus States for Accessibility */
+.apple-tab-item:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 2px;
+  border-radius: 16px;
+}
+
+/* Apple Tab Bar Active State Enhancement */
+.apple-tab-item-active {
+  position: relative;
+  overflow: visible;
+}
+
+.apple-tab-item-active::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(209, 122, 82, 0.1) 0%, 
+    rgba(209, 122, 82, 0.05) 50%, 
+    rgba(209, 122, 82, 0.1) 100%);
+  border-radius: 18px;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+/* Apple Tab Bar Animation Improvements */
+.apple-tab-item {
+  will-change: transform, background-color, box-shadow;
+}
+
+.apple-tab-item:hover {
+  will-change: transform, background-color, box-shadow;
+}
+
+/* Apple Tab Bar Notification Badge Animation */
+.apple-notification-badge {
+  animation: apple-badge-entrance 0.3s ease-out;
+}
+
+@keyframes apple-badge-entrance {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Apple Tab Bar Icon Transitions */
+.apple-tab-item svg {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.apple-tab-item:hover svg {
+  transform: scale(1.05);
+}
+
+.apple-tab-item-active svg {
+  transform: scale(1.1);
+}
+
+/* Text clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Responsive text clamp - uses 2 lines when space allows, 1 line when constrained */
+.responsive-text-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Fallback for when container is too narrow */
+  max-height: calc(1.5em * 2); /* 2 lines worth of height */
+}
+
+/* On smaller containers, force single line */
+@media (max-width: 320px) {
+  .responsive-text-clamp {
+    -webkit-line-clamp: 1;
+    max-height: 1.5em; /* Single line height */
+  }
+}
+
+/* For very narrow cards, use single line */
+.responsive-text-clamp.narrow {
+  -webkit-line-clamp: 1;
+  max-height: 1.5em;
 }
 
 /* Apple HIG Accessibility Utilities */

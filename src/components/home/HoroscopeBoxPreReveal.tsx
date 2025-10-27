@@ -1,47 +1,61 @@
 interface HoroscopeBoxPreRevealProps {
   onReveal: () => void;
+  image?: string;
 }
 
-export const HoroscopeBoxPreReveal = ({ onReveal }: HoroscopeBoxPreRevealProps) => {
+export const HoroscopeBoxPreReveal = ({ onReveal, image }: HoroscopeBoxPreRevealProps) => {
   return (
     <div 
-      className="apple-material-card-interactive liquid-glass-card p-6 cursor-pointer group relative overflow-hidden"
+      className="flex apple-material-card-interactive liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group h-[120px]"
       onClick={onReveal}
     >
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden rounded-[12px]">
-        <div className="absolute -top-4 -right-4 w-16 h-16 bg-accent/5 rounded-full" />
-        <div className="absolute -bottom-2 -left-2 w-12 h-12 bg-accent/3 rounded-full" />
-        <div className="absolute top-1/2 right-8 w-6 h-6 border border-accent/10 rounded-full" />
+      {/* Text Content - Left Side */}
+      <div className="flex-1 p-6 flex flex-col justify-center relative">
+        {/* Subtle liquid glass highlight */}
+        <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
         
-        {/* Glowing effects */}
-        <div className="absolute -top-2 -right-2 w-20 h-20 bg-accent/10 rounded-full blur-xl opacity-60 glow-effect" />
-        <div className="absolute -bottom-1 -left-1 w-16 h-16 bg-accent/8 rounded-full blur-lg opacity-40 glow-effect" />
-        <div className="absolute top-1/2 right-6 w-8 h-8 bg-accent/6 rounded-full blur-md opacity-30 glow-effect" />
-      </div>
-
-      {/* Co-Star style: Clean, centered layout */}
-      <div className="text-center space-y-3 relative z-10">
-        <div className="w-12 h-12 bg-gradient-to-br from-accent to-accent/60 rounded-full flex items-center justify-center mx-auto">
-          <span className="text-white font-bold text-xl">♓</span>
+        {/* Category and Title - Centered vertically */}
+        <div className="space-y-2">
+          <h4 className="text-headline text-foreground font-semibold leading-tight">
+            Daily Horoscope
+          </h4>
+          <p className="text-footnote text-muted-foreground/70">
+            Intuitive nature heightened today
+          </p>
         </div>
-        <h3 className="text-headline text-foreground">Daily Horoscope</h3>
-        <p className="text-callout text-muted-foreground/70">Intuitive nature heightened today</p>
-        <p className="text-footnote text-muted-foreground/50">Tap to reveal your full forecast</p>
       </div>
       
-      {/* Enhanced shimmer effect - much more visible tap indicator */}
-      <div className="absolute inset-0 rounded-[12px] bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none" />
-      <div className="absolute inset-0 rounded-[12px] bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none" />
-      
-      {/* Additional glow layer for more prominence */}
-      <div className="absolute inset-0 rounded-[12px] bg-gradient-to-t from-accent/10 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-all duration-600 pointer-events-none" />
-      
-      {/* Subtle pulsing border on hover */}
-      <div className="absolute inset-0 rounded-[12px] border-2 border-accent/40 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none" />
-      
-      {/* Tap indicator - subtle dot with pulsing animation */}
-      <div className="absolute top-3 right-3 w-2 h-2 bg-accent/70 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none tap-indicator" />
+      {/* Visual Element - Right Side */}
+      <div className="w-[120px] h-[120px] relative">
+        <div className="w-full h-full flex items-center justify-center relative overflow-hidden liquid-glass-secondary rounded-[16px]">
+          {/* Background Image */}
+          {image && (
+            <img 
+              src={image} 
+              alt="Horoscope background"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          )}
+          
+          {/* Dark overlay for better contrast when image is present */}
+          {image && (
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-900/60 to-accent-800/60" />
+          )}
+          
+          {/* Fallback gradient when no image */}
+          {!image && (
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-500/30 to-accent-600/30" />
+          )}
+          
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-400/20 to-accent-500/20" />
+          <div className="absolute inset-0 liquid-glass-highlight" />
+          <div className="relative z-10 w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30 liquid-glass-glow">
+            <span className="text-white font-bold text-2xl drop-shadow-lg">♓</span>
+          </div>
+          <div className="absolute top-2 right-2 w-2 h-2 bg-white/40 rounded-full liquid-glass-shimmer" />
+          <div className="absolute bottom-2 left-2 w-1 h-1 bg-white/30 rounded-full" />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Share2, Download, X } from "lucide-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { LiquidGlassDialog, LiquidGlassDialogContent } from "@/components/ui/liquid-glass-dialog";
 import { Button } from "@/components/ui/button";
 import { shareContent, downloadShareImage, ShareableContent } from "@/lib/shareUtils";
 
@@ -54,14 +54,14 @@ export const HoroscopeOverflowModal = ({ isOpen, onClose, content }: HoroscopeOv
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="home-tab-celestial liquid-glass-elevated max-w-sm mx-auto p-0 overflow-hidden rounded-[12px]">
+    <LiquidGlassDialog open={isOpen} onOpenChange={onClose}>
+      <LiquidGlassDialogContent className="!max-w-sm mx-auto p-0 overflow-hidden">
         {/* Header */}
         <div className="px-6 pt-14 pb-4 text-center space-y-4">
           <div className="w-16 h-16 mx-auto bg-gradient-to-br from-accent to-accent/60 rounded-full flex items-center justify-center">
             <span className="text-white font-bold text-2xl">♓</span>
           </div>
-          <h2 className="text-title-2 text-foreground">Daily Horoscope</h2>
+          <h2 className="text-title-2 text-gray-200">Daily Horoscope</h2>
           <div className="px-4 py-2 bg-accent/20 text-accent text-callout rounded-full inline-block">
             {content.sign}
           </div>
@@ -70,19 +70,19 @@ export const HoroscopeOverflowModal = ({ isOpen, onClose, content }: HoroscopeOv
         {/* Content */}
         <div className="px-6 pb-6 space-y-4">
           <div className="space-y-3">
-            <h3 className="text-headline text-foreground">Today's Forecast</h3>
-            <p className="text-body text-muted-foreground">{content.forecast}</p>
+            <h3 className="text-headline text-gray-200">Today's Forecast</h3>
+            <p className="text-body text-gray-400">{content.forecast}</p>
           </div>
           
           <div className="space-y-3">
-            <h3 className="text-headline text-foreground">Advice</h3>
-            <p className="text-body text-muted-foreground">{content.advice}</p>
+            <h3 className="text-headline text-gray-200">Advice</h3>
+            <p className="text-body text-gray-400">{content.advice}</p>
           </div>
           
           {/* Share Buttons */}
-          <div className="flex gap-3 pt-4">
+          <div className="flex gap-3 pt-2">
             <Button 
-              className="flex-1 glass-button" 
+              className="flex-1 bg-[rgba(30,26,40,0.8)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.1)] text-gray-200 hover:bg-[rgba(30,26,40,0.9)] hover:border-[rgba(255,255,255,0.2)]" 
               onClick={handleShare}
               disabled={isSharing}
             >
@@ -90,8 +90,7 @@ export const HoroscopeOverflowModal = ({ isOpen, onClose, content }: HoroscopeOv
               {isSharing ? 'Sharing...' : 'Share'}
             </Button>
             <Button 
-              variant="outline" 
-              className="flex-1" 
+              className="flex-1 bg-[rgba(30,26,40,0.6)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.08)] text-gray-300 hover:bg-[rgba(30,26,40,0.8)] hover:border-[rgba(255,255,255,0.15)]" 
               onClick={handleDownloadImage}
             >
               <Download className="w-4 h-4 mr-2" />
@@ -99,7 +98,7 @@ export const HoroscopeOverflowModal = ({ isOpen, onClose, content }: HoroscopeOv
             </Button>
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </LiquidGlassDialogContent>
+    </LiquidGlassDialog>
   );
 };

@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { BottomNav } from "@/components/navigation/BottomNav";
+import { FloatingGuidanceButton } from "@/components/guidance/FloatingGuidanceButton";
 
 // Core pages
 import Index from "./pages/Index";
@@ -118,6 +119,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
         <BottomNav />
+        <FloatingGuidanceButton />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

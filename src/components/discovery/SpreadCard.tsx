@@ -42,7 +42,7 @@ export const SpreadCard = ({
         </div>
       </div>
       <h3 className="font-title text-base font-medium text-foreground mb-1 line-clamp-1">{title}</h3>
-      <p className="text-xs text-muted-foreground line-clamp-2 mb-2">{description}</p>
+      <p className="text-xs text-muted-foreground responsive-text-clamp mb-2">{description}</p>
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
         <span className="font-body">⏱️ {timeEstimate}</span>
       </div>

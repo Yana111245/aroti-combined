@@ -5,7 +5,7 @@ import { TarotPostReveal } from "@/components/home/TarotPostReveal";
 import { AstrologyInsights } from "@/components/home/AstrologyInsights";
 import { NumerologyInsights } from "@/components/home/NumerologyInsights";
 import { ReflectionSection } from "@/components/home/ReflectionSection";
-import { DailyQuote } from "@/components/home/DailyQuote";
+import { DailyAffirmation } from "@/components/home/DailyAffirmation";
 import { JourneyProgress } from "@/components/home/JourneyProgress";
 import { RecentlyViewed } from "@/components/home/RecentlyViewed";
 import { ReflectionModal } from "@/components/home/ReflectionModal";
@@ -15,6 +15,7 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 
 // New components
 import { TarotCardPreReveal } from "@/components/home/TarotCardPreReveal";
+import { TarotCardFront } from "@/components/home/TarotCardFront";
 import { HoroscopeBoxPreReveal } from "@/components/home/HoroscopeBoxPreReveal";
 import { NumerologyBoxPreReveal } from "@/components/home/NumerologyBoxPreReveal";
 import { RevealedInsightCard } from "@/components/home/RevealedInsightCard";
@@ -23,6 +24,11 @@ import { HoroscopeOverflowModal } from "@/components/home/HoroscopeOverflowModal
 import { NumerologyOverflowModal } from "@/components/home/NumerologyOverflowModal";
 
 import tarotMoon from "@/assets/tarot-moon.jpg";
+import tarotFool from "@/assets/tarot-fool.png";
+import tarotStar from "@/assets/tarot-star.jpg";
+import tarotSun from "@/assets/tarot-sun.jpg";
+import learnAstrology from "@/assets/learn-astrology.jpg";
+import learnMeditation from "@/assets/learn-meditation.jpg";
 
 // TypeScript interfaces for insight states
 interface TarotCard {
@@ -157,31 +163,31 @@ const HomeOverview = () => {
         id: "2",
         title: "The Fool",
         type: "Card",
-        image: tarotMoon,
+        image: tarotFool,
       },
       {
         id: "3",
         title: "Celtic Cross",
         type: "Spread",
-        image: tarotMoon,
+        image: tarotStar,
       },
       {
         id: "4",
         title: "Past Present Future",
         type: "Spread",
-        image: tarotMoon,
+        image: tarotSun,
       },
       {
         id: "5",
-        title: "The Lovers",
-        type: "Card",
-        image: tarotMoon,
+        title: "Astrology Basics",
+        type: "Learn",
+        image: learnAstrology,
       },
       {
         id: "6",
-        title: "Daily Reading",
-        type: "Spread",
-        image: tarotMoon,
+        title: "Meditation Guide",
+        type: "Learn",
+        image: learnMeditation,
       },
     ],
   };
@@ -213,7 +219,7 @@ const HomeOverview = () => {
     preview: "Energy number 7 - spiritual focus and introspection"
   };
 
-  const dailyQuote = "Every phase of your journey is an opportunity for growth and transformation.";
+  const dailyAffirmation = "Every phase of your journey is an opportunity for growth and transformation.";
 
   // Handler functions for new insight system
   const handleRevealInsight = (type: 'tarot' | 'horoscope' | 'numerology') => {
@@ -312,7 +318,7 @@ const HomeOverview = () => {
       {/* Main content container with background */}
       <div className="home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
         {/* Header Section - Apple HIG Navigation Pattern */}
-        <div className="px-6 pt-1 pb-4 text-center space-y-0.5">
+        <div className="px-6 pt-8 pb-4 text-center space-y-0.5">
           {/* Navigation Context - Apple Style */}
           <nav aria-label="Daily insights navigation">
             <p className="text-callout text-[hsl(230,10%,68%)]">
@@ -345,10 +351,9 @@ const HomeOverview = () => {
               <div className="liquid-glass-card p-3 space-y-2.5 cursor-pointer min-h-[240px]" onClick={() => handleViewInsight('tarot')}>
                 <div className="text-center space-y-2.5">
                   <div className="relative mx-auto" style={{ width: '72%', aspectRatio: '3/5' }}>
-                    <img 
-                      src={insightStates.tarot.card.image} 
-                      alt={insightStates.tarot.card.name}
-                      className="w-full h-full object-cover rounded-[12px] breathing-glow"
+                    <TarotCardFront 
+                      name={insightStates.tarot.card.name}
+                      keywords={insightStates.tarot.card.keywords}
                     />
                   </div>
                   <h3 className="text-headline text-foreground">{insightStates.tarot.card.name}</h3>
@@ -368,8 +373,8 @@ const HomeOverview = () => {
               <TarotCardPreReveal onReveal={() => handleRevealInsight('tarot')} />
             )}
             
-            {/* Horoscope & Numerology - Side by side */}
-            <div className="grid grid-cols-2 gap-3">
+            {/* Horoscope & Numerology - Stacked vertically */}
+            <div className="space-y-4">
               {/* Horoscope - Show revealed or pre-reveal */}
               {insightStates.horoscope.revealed && insightStates.horoscope.content ? (
                 <RevealedInsightCard
@@ -378,9 +383,13 @@ const HomeOverview = () => {
                   icon={<span className="text-lg">♓</span>}
                   preview={insightStates.horoscope.content.preview}
                   onView={() => handleViewInsight('horoscope')}
+                  image={learnAstrology}
                 />
               ) : (
-                <HoroscopeBoxPreReveal onReveal={() => handleRevealInsight('horoscope')} />
+                <HoroscopeBoxPreReveal 
+                  onReveal={() => handleRevealInsight('horoscope')} 
+                  image={learnAstrology}
+                />
               )}
               
               {/* Numerology - Show revealed or pre-reveal */}
@@ -391,18 +400,22 @@ const HomeOverview = () => {
                   icon={<span className="font-bold text-lg">{insightStates.numerology.content.energyNumber}</span>}
                   preview={insightStates.numerology.content.preview}
                   onView={() => handleViewInsight('numerology')}
+                  image={learnMeditation}
                 />
               ) : (
-                <NumerologyBoxPreReveal onReveal={() => handleRevealInsight('numerology')} />
+                <NumerologyBoxPreReveal 
+                  onReveal={() => handleRevealInsight('numerology')} 
+                  image={learnMeditation}
+                />
               )}
             </div>
           </section>
 
           {/* Additional Content */}
-          <section className="mt-12 space-y-6" aria-labelledby="daily-wisdom-section">
-            <h2 id="daily-wisdom-section" className="sr-only">Daily Wisdom & Progress</h2>
+          <section className="mt-12 space-y-6" aria-labelledby="daily-affirmation-section">
+            <h2 id="daily-affirmation-section" className="sr-only">Daily Affirmation & Progress</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <DailyQuote quote={dailyQuote} />
+              <DailyAffirmation quote={dailyAffirmation} />
               <JourneyProgress
                 streak={userData.streak}
                 milestones={userData.milestones}

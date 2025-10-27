@@ -111,14 +111,24 @@ export const DaySelector = ({ selectedDate, onDateChange, onCalendarClick }: Day
   }, []);
 
   return (
-    <div className="flex items-center justify-between px-6 py-4 backdrop-blur-[12px] bg-[rgba(30,26,40,0.65)] border-b border-[rgba(255,255,255,0.08)]">
+    <div 
+      className="flex items-center justify-between px-6 py-4 border-b"
+      style={{
+        background: 'rgba(12, 10, 18, 0.92)',
+        backdropFilter: 'blur(60px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(60px) saturate(180%)',
+        borderBottomColor: 'rgba(255, 255, 255, 0.08)',
+        boxShadow: '0 -1px 0 rgba(255, 255, 255, 0.08), 0 -8px 32px rgba(0, 0, 0, 0.4)'
+      }}
+    >
       <button 
         onClick={scrollLeft}
-        className={`p-2 transition-colors apple-touch-target ${
+        className={`apple-touch-target-comfortable p-2 rounded-[16px] transition-all duration-300 ${
           canScrollLeft 
-            ? "text-muted-foreground hover:text-accent" 
-            : "text-muted-foreground/30"
+            ? "text-muted-foreground hover:text-accent hover:bg-white/5 hover:scale-105 active:scale-95" 
+            : "text-muted-foreground/30 cursor-not-allowed"
         }`}
+        style={{ color: canScrollLeft ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.3)' }}
         disabled={!canScrollLeft}
         aria-label="Scroll to previous dates"
       >
@@ -146,21 +156,34 @@ export const DaySelector = ({ selectedDate, onDateChange, onCalendarClick }: Day
           >
             {dates.map((date, index) => {
               const isSelected = date.toDateString() === selectedDate.toDateString();
+              const isToday = date.toDateString() === today.toDateString();
+              
               return (
                 <button
                   key={date.toISOString()}
                   onClick={() => handleDateClick(date)}
-                  className={`snap-center text-subhead transition-colors relative whitespace-nowrap min-w-[80px] text-center apple-touch-target ${
+                  className={`snap-center font-apple-text text-subhead transition-all duration-300 relative whitespace-nowrap min-w-[80px] text-center apple-touch-target-comfortable rounded-[12px] ${
                     isSelected
-                      ? "text-accent"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "text-accent scale-105"
+                      : "text-muted-foreground hover:text-foreground hover:scale-105 active:scale-95"
                   }`}
+                  style={{
+                    color: isSelected ? 'hsl(var(--accent))' : 'rgba(255, 255, 255, 0.6)',
+                    fontWeight: isToday ? '600' : '400',
+                    letterSpacing: '-0.24px'
+                  }}
                   aria-label={`Select date ${formatDate(date)}`}
                   aria-pressed={isSelected}
                 >
                   {formatDate(date)}
                   {isSelected && (
-                    <div className="absolute -bottom-2 left-0 right-0 h-0.5 bg-accent" />
+                    <div 
+                      className="absolute -bottom-2 left-0 right-0 h-0.5 rounded-full"
+                      style={{
+                        background: 'hsl(var(--accent))',
+                        boxShadow: '0 0 8px rgba(209, 122, 82, 0.4)'
+                      }}
+                    />
                   )}
                 </button>
               );
@@ -171,7 +194,11 @@ export const DaySelector = ({ selectedDate, onDateChange, onCalendarClick }: Day
 
       <button 
         onClick={onCalendarClick}
-        className="p-2 text-accent hover:text-accent/80 transition-colors apple-touch-target"
+        className="apple-touch-target-comfortable p-2 rounded-[16px] transition-all duration-300 hover:bg-white/5 hover:scale-105 active:scale-95"
+        style={{ 
+          color: 'hsl(var(--accent))',
+          filter: 'drop-shadow(0 0 8px rgba(209, 122, 82, 0.4))'
+        }}
         aria-label="Open calendar picker"
       >
         <Calendar className="w-5 h-5" />
