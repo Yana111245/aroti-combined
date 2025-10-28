@@ -1,52 +1,112 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Position {
   x: number;
   y: number;
 }
 
+type FabPosition =
+  | 'left-top'
+  | 'left-middle'
+  | 'left-bottom'
+  | 'right-top'
+  | 'right-middle'
+  | 'right-bottom';
+
+const DEFAULT_FAB_POSITION: FabPosition = 'right-bottom';
+
+const getSafeInset = (name: string): number => {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue(name) || '0';
+  const parsed = parseInt(raw);
+  return Number.isFinite(parsed) ? parsed : 0;
+};
+
+const positionToStyle = (key: FabPosition, fabSize: number) => {
+  const margin = 16;
+  const navHeight = 80; // bottom nav approx
+  const safeTop = getSafeInset('--safe-area-inset-top');
+  const safeBottom = getSafeInset('--safe-area-inset-bottom');
+
+  const isLeft = key.startsWith('left');
+  const vert = key.endsWith('top')
+    ? { top: `${margin + safeTop}px` }
+    : key.endsWith('middle')
+      ? { top: `${Math.max(margin + safeTop, (window.innerHeight - fabSize - navHeight - safeBottom) / 2)}px` }
+      : { top: `${window.innerHeight - fabSize - navHeight - safeBottom - margin}px` };
+
+  const horiz = isLeft
+    ? { left: `${margin}px` }
+    : { left: `${window.innerWidth - fabSize - margin}px` };
+
+  return { ...horiz, ...vert } as const;
+};
+
+const snapFromPoint = (x: number, y: number): FabPosition => {
+  const side: 'left' | 'right' = x < window.innerWidth / 2 ? 'left' : 'right';
+  const third = y < window.innerHeight / 3
+    ? 'top'
+    : y < (2 * window.innerHeight) / 3
+      ? 'middle'
+      : 'bottom';
+  return `${side}-${third}` as FabPosition;
+};
+
+const readFabPosition = async (): Promise<FabPosition | null> => {
+  const { data } = await supabase.auth.getUser();
+  if (data?.user) {
+    const meta = data.user.user_metadata as Record<string, unknown> | undefined;
+    const key = (meta?.fab_position as string) || '';
+    if (key && [
+      'left-top','left-middle','left-bottom',
+      'right-top','right-middle','right-bottom'
+    ].includes(key)) return key as FabPosition;
+    return null;
+  }
+  const local = localStorage.getItem('guidance-fab-position-key');
+  return (local as FabPosition) || null;
+};
+
+const writeFabPosition = async (key: FabPosition) => {
+  const { data } = await supabase.auth.getUser();
+  if (data?.user) {
+    // In mock mode this is a no-op; in real mode this would update user metadata or a table
+    // Keep a local mirror to survive refreshes in UI-only mode
+    localStorage.setItem('guidance-fab-position-key', key);
+    return;
+  }
+  localStorage.setItem('guidance-fab-position-key', key);
+};
+
 export const FloatingGuidanceButton = () => {
   const navigate = useNavigate();
+  // Pixel position while dragging
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState<Position>({ x: 0, y: 0 });
+  const [fabKey, setFabKey] = useState<FabPosition>(DEFAULT_FAB_POSITION);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const FAB_SIZE = 56; // 14rem = 56px
 
-  // Load saved position on mount
+  // Load saved fixed position on mount
   useEffect(() => {
-    const savedPosition = localStorage.getItem('guidance-fab-position');
-    if (savedPosition) {
-      try {
-        const parsed = JSON.parse(savedPosition);
-        setPosition(parsed);
-      } catch (error) {
-        console.error('Error parsing saved FAB position:', error);
-        setDefaultPosition();
+    (async () => {
+      const key = await readFabPosition();
+      if (key) {
+        setFabKey(key);
+      } else {
+        setFabKey(DEFAULT_FAB_POSITION);
       }
-    } else {
-      setDefaultPosition();
-    }
+      // Initialize pixel position to current fixed style for smooth pick-up when dragging
+      const style = positionToStyle(key ?? DEFAULT_FAB_POSITION, FAB_SIZE);
+      setPosition({
+        x: parseFloat((style as any).left.replace('px','')),
+        y: parseFloat((style as any).top.replace('px','')),
+      });
+    })();
   }, []);
-
-  const setDefaultPosition = () => {
-    // Default position: bottom-right with safe margins
-    const margin = 20;
-    const navHeight = 80; // Approximate navigation bar height
-    const safeAreaBottom = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-bottom') || '0');
-    
-    setPosition({
-      x: window.innerWidth - FAB_SIZE - margin,
-      y: window.innerHeight - FAB_SIZE - navHeight - safeAreaBottom - margin
-    });
-  };
-
-  // Save position to localStorage
-  const savePosition = (pos: Position) => {
-    localStorage.setItem('guidance-fab-position', JSON.stringify(pos));
-  };
 
   // Constrain position to viewport bounds
   const constrainPosition = (pos: Position): Position => {
@@ -89,7 +149,15 @@ export const FloatingGuidanceButton = () => {
   const handleMouseUp = () => {
     if (isDragging) {
       setIsDragging(false);
-      savePosition(position);
+      const key = snapFromPoint(position.x + FAB_SIZE / 2, position.y + FAB_SIZE / 2);
+      setFabKey(key);
+      // Snap pixel position to the fixed slot for visual consistency
+      const style = positionToStyle(key, FAB_SIZE);
+      setPosition({
+        x: parseFloat((style as any).left.replace('px','')),
+        y: parseFloat((style as any).top.replace('px','')),
+      });
+      void writeFabPosition(key);
     }
   };
 
@@ -126,7 +194,14 @@ export const FloatingGuidanceButton = () => {
   const handleTouchEnd = () => {
     if (isDragging) {
       setIsDragging(false);
-      savePosition(position);
+      const key = snapFromPoint(position.x + FAB_SIZE / 2, position.y + FAB_SIZE / 2);
+      setFabKey(key);
+      const style = positionToStyle(key, FAB_SIZE);
+      setPosition({
+        x: parseFloat((style as any).left.replace('px','')),
+        y: parseFloat((style as any).top.replace('px','')),
+      });
+      void writeFabPosition(key);
     }
   };
 
@@ -150,14 +225,17 @@ export const FloatingGuidanceButton = () => {
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
-      const constrainedPosition = constrainPosition(position);
-      setPosition(constrainedPosition);
-      savePosition(constrainedPosition);
+      // Recompute pixel position from current fixed key
+      const style = positionToStyle(fabKey, FAB_SIZE);
+      setPosition({
+        x: parseFloat((style as any).left.replace('px','')),
+        y: parseFloat((style as any).top.replace('px','')),
+      });
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [position]);
+  }, [fabKey]);
 
   const handleClick = () => {
     if (!isDragging) {
@@ -184,8 +262,9 @@ export const FloatingGuidanceButton = () => {
         apple-touch-target-comfortable
       `}
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
+        // While dragging, use pixel coordinates; otherwise, snap to fixed slot
+        left: isDragging ? `${position.x}px` : positionToStyle(fabKey, FAB_SIZE).left,
+        top: isDragging ? `${position.y}px` : positionToStyle(fabKey, FAB_SIZE).top,
         transform: isDragging ? 'none' : undefined,
       }}
       aria-label="Open Guidance"

@@ -1,4 +1,5 @@
 import { Compass, Sparkles, Star, BookOpen, Moon, Sun } from "lucide-react";
+import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
 interface RecentlyViewedProps {
   items: Array<{
@@ -11,50 +12,8 @@ interface RecentlyViewedProps {
 
 // Visual element generator based on type and image
 const getVisualElement = (type: string, title: string, image: string) => {
-  const getIconForType = (type: string) => {
-    switch(type) {
-      case 'Spread': return <Compass className="w-6 h-6 text-white/80 drop-shadow-lg" />;
-      case 'Card': return <Sparkles className="w-6 h-6 text-white/80 drop-shadow-lg" />;
-      case 'Learn': return <BookOpen className="w-6 h-6 text-white/80 drop-shadow-lg" />;
-      default: return <Star className="w-6 h-6 text-white/80 drop-shadow-lg" />;
-    }
-  };
-
-  const getOverlayGradient = (type: string) => {
-    switch(type) {
-      case 'Spread': return 'from-purple-900/60 to-indigo-900/60';
-      case 'Card': return 'from-amber-900/60 to-orange-900/60';
-      case 'Learn': return 'from-emerald-900/60 to-teal-900/60';
-      default: return 'from-slate-900/60 to-gray-900/60';
-    }
-  };
-
-  return (
-    <div 
-      className="w-full h-full flex items-center justify-center relative overflow-hidden liquid-glass-secondary"
-      style={{
-        backgroundImage: `url(${image})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
-    >
-      {/* Dark overlay for better contrast */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${getOverlayGradient(type)}`} />
-      
-      {/* Liquid glass highlight */}
-      <div className="absolute inset-0 liquid-glass-highlight opacity-30" />
-      
-      {/* Subtle icon overlay */}
-      <div className="relative z-10 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 liquid-glass-glow">
-        {getIconForType(type)}
-      </div>
-      
-      {/* Decorative elements */}
-      <div className="absolute top-2 right-2 w-2 h-2 bg-white/30 rounded-full liquid-glass-shimmer" />
-      <div className="absolute bottom-2 left-2 w-1 h-1 bg-white/20 rounded-full" />
-    </div>
-  );
+  // Use placeholder for all images
+  return <ImagePlaceholder width={120} height={120} category={type} />;
 };
 
 export const RecentlyViewed = ({ items }: RecentlyViewedProps) => {

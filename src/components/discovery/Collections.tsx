@@ -4,53 +4,58 @@ const collections = [
   {
     id: "1",
     title: "Beginner's Guide",
-    description: "Everything you need to start your spiritual journey",
-    icon: <BookOpen className="w-6 h-6 text-accent" />
+    description: "Everything you need to start your spiritual journey"
   },
   {
     id: "2",
     title: "Advanced Spreads",
-    description: "Complex spreads for experienced readers",
-    icon: <Star className="w-6 h-6 text-accent" />
+    description: "Complex spreads for experienced readers"
   },
   {
     id: "3",
     title: "Daily Practices",
-    description: "Rituals and practices for everyday spirituality",
-    icon: <Calendar className="w-6 h-6 text-accent" />
+    description: "Rituals and practices for everyday spirituality"
   },
   {
     id: "4",
     title: "Seasonal Wisdom",
-    description: "Guidance aligned with natural cycles",
-    icon: <Sparkles className="w-6 h-6 text-accent" />
+    description: "Guidance aligned with natural cycles"
   }
 ];
 
 export const Collections = () => {
   return (
     <div className="space-y-4 pt-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-title-3 font-title font-medium text-foreground">Collections</h2>
-        <button className="text-subhead font-body text-accent hover:text-accent/80 transition-colors">
+      <div className="flex items-end justify-between">
+        <div>
+          <h2 className="text-title-3 font-title font-medium text-foreground">Collections</h2>
+          <p className="text-footnote text-muted-foreground mt-1">Curated guides and spreads</p>
+        </div>
+        <button className="text-subhead font-body text-muted-foreground hover:text-foreground transition-colors">
           View All →
         </button>
       </div>
       
-      <div className="space-y-3">
-        {collections.map((collection) => (
+      <div className="grid gap-3">
+        {collections.map((collection, index) => (
           <div 
             key={collection.id}
-            className="flex gap-4 p-5 rounded-[12px] bg-white shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:brightness-105 hover:shadow-lg transition-all cursor-pointer"
+            className="flex apple-material-card-interactive liquid-glass-card rounded-[12px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group p-4 hover:border-glass-highlight"
+            style={{ animationDelay: `${index * 50}ms` }}
           >
-            <div className="flex-shrink-0">
-              {collection.icon}
+            <div className="flex items-center gap-3">
+              {/* Subtle liquid glass highlight */}
+              <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+              
+              <div className="flex-1 min-w-0">
+                <h3 className="text-headline font-medium text-foreground truncate">{collection.title}</h3>
+                <p className="text-footnote text-muted-foreground truncate">{collection.description}</p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-muted-foreground flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
+              
+              {/* Decorative shimmer element */}
+              <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white/40 rounded-full liquid-glass-shimmer" />
             </div>
-            <div className="flex-1">
-              <h3 className="text-base font-body font-medium text-foreground">{collection.title}</h3>
-              <p className="text-[13px] text-muted-foreground mt-1">{collection.description}</p>
-            </div>
-            <ChevronRight className="w-5 h-5 text-muted-foreground" />
           </div>
         ))}
       </div>

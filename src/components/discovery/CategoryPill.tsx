@@ -8,14 +8,13 @@ export const CategoryPill = ({ label, isActive = false, onClick }: CategoryPillP
   return (
     <button 
       onClick={onClick}
-      className={`px-4 py-1.5 rounded-full flex items-center justify-center whitespace-nowrap w-fit transition-all duration-200 ${
+      className={`px-4 py-2 rounded-full flex items-center justify-center whitespace-nowrap transition-all duration-300 backdrop-blur-sm ${
         isActive 
-          ? 'bg-transparent border border-accent text-accent shadow-[0_2px_8px_rgba(0,0,0,0.05)]' 
-          : 'bg-accent text-white hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.05)]'
+          ? 'bg-accent/20 border border-accent/50 text-accent shadow-glow' 
+          : 'bg-white/5 border border-white/10 text-muted-foreground hover:bg-white/10 hover:border-white/20 hover:text-foreground'
       }`}
-      style={{ fontFamily: 'Plus Jakarta Sans', fontSize: '12px', fontWeight: 500 }}
     >
-      <span>{label}</span>
+      <span className="text-footnote font-medium">{label}</span>
     </button>
   );
 };

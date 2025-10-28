@@ -1,5 +1,6 @@
 import { DiscoveryHeader } from "@/components/discovery/DiscoveryHeader";
 import { ForYouCarousel } from "@/components/discovery/ForYouCarousel";
+import { TarotSpreadsCarousel } from "@/components/discovery/TarotSpreadsCarousel";
 import { BrowseByCategory } from "@/components/discovery/BrowseByCategory";
 import { CategoryGrid } from "@/components/discovery/CategoryGrid";
 import { DailyPractice } from "@/components/discovery/DailyPractice";
@@ -13,14 +14,6 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
 import { useState } from "react";
 
-// Import the same assets as Home page
-import tarotMoon from "@/assets/tarot-moon.jpg";
-import tarotFool from "@/assets/tarot-fool.png";
-import tarotStar from "@/assets/tarot-star.jpg";
-import tarotSun from "@/assets/tarot-sun.jpg";
-import learnAstrology from "@/assets/learn-astrology.jpg";
-import learnMeditation from "@/assets/learn-meditation.jpg";
-
 const DiscoveryHub = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -31,13 +24,16 @@ const DiscoveryHub = () => {
       <DiscoveryHeader />
 
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
-        <main className="px-4 pb-24 mt-4" role="main" aria-label="Discovery content">
-          <section className="space-y-6" aria-labelledby="discovery-content">
+      <div className="discovery-page bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
+        <main className="px-4 pb-24 mt-4 max-w-full overflow-x-hidden" role="main" aria-label="Discovery content">
+          <section className="space-y-8" aria-labelledby="discovery-content">
             <h2 id="discovery-content" className="sr-only">Discovery Content</h2>
             
             {/* 1. For You */}
             <ForYouCarousel />
+            
+            {/* 1.5 Tarot Spreads */}
+            <TarotSpreadsCarousel />
             
             {/* 2. Categories (Filter Row) */}
             <BrowseByCategory 
@@ -48,16 +44,16 @@ const DiscoveryHub = () => {
             {/* 3. Category Results / Featured Cards */}
             <CategoryGrid selectedCategory={selectedCategory} />
             
-            {/* 4. Daily Practice */}
-            <DailyPractice />
+            {/* 4. Daily Practice & Quiz */}
+            <div className="space-y-4">
+              <DailyPractice />
+              <DailyQuiz />
+            </div>
             
-            {/* 5. Daily Quiz */}
-            <DailyQuiz />
-            
-            {/* 6. Collections */}
+            {/* 5. Collections */}
             <Collections />
             
-            {/* 7. Your Journey */}
+            {/* 6. Your Journey */}
             <YourJourney />
             
             {/* 8. Recently Viewed */}
@@ -70,37 +66,37 @@ const DiscoveryHub = () => {
                   id: "1",
                   title: "Moon Guidance",
                   type: "Spread",
-                  image: tarotMoon,
+                  image: "/placeholder.svg",
                 },
                 {
                   id: "2",
                   title: "The Fool",
                   type: "Card",
-                  image: tarotFool,
+                  image: "/placeholder.svg",
                 },
                 {
                   id: "3",
                   title: "Celtic Cross",
                   type: "Spread",
-                  image: tarotStar,
+                  image: "/placeholder.svg",
                 },
                 {
                   id: "4",
                   title: "Past Present Future",
                   type: "Spread",
-                  image: tarotSun,
+                  image: "/placeholder.svg",
                 },
                 {
                   id: "5",
                   title: "Astrology Basics",
                   type: "Learn",
-                  image: learnAstrology,
+                  image: "/placeholder.svg",
                 },
                 {
                   id: "6",
                   title: "Meditation Guide",
                   type: "Learn",
-                  image: learnMeditation,
+                  image: "/placeholder.svg",
                 },
               ]}
             />

@@ -4,8 +4,6 @@ const featuredItems = [
     title: "Three Card Spread",
     subtitle: "Past, present, future insights",
     tag: "Tarot",
-    bgImage: "/src/assets/tarot-star.jpg",
-    gradient: "from-[#FFFDF8] to-[#F6F2EB]",
     category: "Tarot"
   },
   {
@@ -13,8 +11,6 @@ const featuredItems = [
     title: "Birth Chart Basics",
     subtitle: "Discover your cosmic blueprint",
     tag: "Astrology",
-    bgImage: "/src/assets/learn-astrology.jpg",
-    gradient: "from-[#F8F7F4] to-[#F0EDE8]",
     category: "Astrology"
   },
   {
@@ -22,8 +18,6 @@ const featuredItems = [
     title: "Life Path Number",
     subtitle: "Numerology insights for guidance",
     tag: "Numerology",
-    bgImage: "/src/assets/tarot-fool.png",
-    gradient: "from-[#F5F3F0] to-[#F0EDE8]",
     category: "Numerology"
   },
   {
@@ -31,8 +25,6 @@ const featuredItems = [
     title: "Moon Phase Rituals",
     subtitle: "Align with lunar cycles",
     tag: "Moon Phases",
-    bgImage: "/src/assets/tarot-moon.jpg",
-    gradient: "from-[#F8F7F4] to-[#F3F1ED]",
     category: "Moon Phases"
   },
   {
@@ -40,8 +32,6 @@ const featuredItems = [
     title: "Mindful Breathing",
     subtitle: "Meditation practice for peace",
     tag: "Meditation",
-    bgImage: "/src/assets/learn-meditation.jpg",
-    gradient: "from-[#F0F8F0] to-[#E8F2E8]",
     category: "Meditation"
   },
   {
@@ -49,8 +39,6 @@ const featuredItems = [
     title: "Crystal Healing",
     subtitle: "Energy cleansing and balance",
     tag: "Crystals",
-    bgImage: "/src/assets/tarot-sun.jpg",
-    gradient: "from-[#F5F0F8] to-[#EEE8F2]",
     category: "Crystals"
   },
   {
@@ -58,8 +46,6 @@ const featuredItems = [
     title: "Celtic Cross",
     subtitle: "Comprehensive tarot reading",
     tag: "Tarot",
-    bgImage: "/src/assets/tarot-star.jpg",
-    gradient: "from-[#FFFDF8] to-[#F6F2EB]",
     category: "Tarot"
   },
   {
@@ -67,8 +53,6 @@ const featuredItems = [
     title: "Chakra Balancing",
     subtitle: "Energy centers alignment",
     tag: "Chakras",
-    bgImage: "/src/assets/learn-astrology.jpg",
-    gradient: "from-[#F8F3E6] to-[#FFF]",
     category: "Chakras"
   }
 ];
@@ -86,35 +70,37 @@ export const CategoryGrid = ({ selectedCategory }: CategoryGridProps) => {
   return (
     <div>
       {/* Horizontal scroll layout - matching For You format */}
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 px-4">
         {displayItems.map((item) => (
           <div 
             key={item.id}
-            className={`flex-shrink-0 w-[320px] h-[200px] rounded-[16px] bg-gradient-to-br ${item.gradient} p-6 relative overflow-hidden cursor-pointer hover:scale-105 transition-transform`}
+            className="flex-shrink-0 w-[320px] h-[200px] flex apple-material-card-interactive liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group p-6"
           >
-            {/* Ethereal background image */}
-            <div className="absolute inset-0 opacity-20">
-              <img src={item.bgImage} className="w-full h-full object-cover" alt={item.title} />
-            </div>
-            
             {/* Content */}
             <div className="relative z-10 flex flex-col h-full justify-between">
+              {/* Subtle liquid glass highlight */}
+              <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+              
               <div>
-                <span className="px-3 py-1 rounded-full bg-accent/20 text-accent text-footnote font-body font-medium">
+                <span className="px-3 py-1 rounded-full bg-white/5 text-muted-foreground text-footnote font-body font-medium border border-white/10">
                   {item.tag}
                 </span>
-                <h3 className="text-[22px] font-title text-foreground mt-4 leading-tight">{item.title}</h3>
+                
+                <h3 className="text-[22px] font-title font-medium text-foreground leading-tight mt-4">{item.title}</h3>
                 <p className="text-[15px] text-muted-foreground mt-2 leading-relaxed">{item.subtitle}</p>
               </div>
+              
+              {/* Decorative shimmer element */}
+              <div className="absolute top-2 right-2 w-2 h-2 bg-white/40 rounded-full liquid-glass-shimmer" />
             </div>
           </div>
         ))}
         
-        {/* View All Card */}
-        <div className="flex-shrink-0 w-[320px] h-[200px] rounded-[16px] bg-accent/10 border-2 border-dashed border-accent/30 flex items-center justify-center cursor-pointer hover:bg-accent/20 transition-all">
+        {/* Enhanced View All Card */}
+        <div className="flex-shrink-0 w-[320px] h-[200px] flex apple-material-card-interactive liquid-glass-card rounded-[16px] overflow-hidden border-2 border-dashed border-glass-border cursor-pointer hover:border-glass-highlight transition-all duration-300 group items-center justify-center">
           <div className="text-center">
-            <p className="text-headline font-body font-medium text-accent">View All</p>
-            <p className="text-subhead text-accent/70 mt-2">→</p>
+            <p className="text-headline font-body font-medium text-muted-foreground">View All</p>
+            <p className="text-subhead text-muted-foreground mt-1">Explore more</p>
           </div>
         </div>
       </div>
