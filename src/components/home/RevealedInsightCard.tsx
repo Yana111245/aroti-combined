@@ -40,14 +40,14 @@ export const RevealedInsightCard = ({ type, title, icon, preview, onView, image 
       onClick={onView}
     >
       {/* Text Content - Left Side */}
-      <div className="flex-1 p-6 flex flex-col justify-center relative">
+      <div className="flex-1 p-4 flex flex-col justify-center relative">
         {/* Subtle liquid glass highlight */}
         <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
         
         {/* Title and Preview - Centered vertically */}
         <div className="space-y-2">
           <h4 className="text-headline text-foreground font-semibold leading-tight">{title}</h4>
-          <p className="text-footnote text-muted-foreground/70">{preview}</p>
+          <p className="text-footnote text-muted-foreground">{preview}</p>
         </div>
       </div>
       

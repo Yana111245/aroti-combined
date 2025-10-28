@@ -8,10 +8,10 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Aroti Design System - Calm Luxury Palette */
-    --background: 35 20% 97%;
-    --background-end: 30 15% 98%;
-    --foreground: 0 0% 12%;
+    /* Aroti Design System - Unified Celestial Dark Theme */
+    --background: 235 35% 7%;
+    --background-end: 240 30% 9%;
+    --foreground: 35 20% 96%;
     
     /* Typography System */
     --font-title: 'DM Serif Text', Georgia, serif;
@@ -21,8 +21,8 @@ All colors MUST be HSL.
     --color-title: #1E1E1E;
     --color-body: #444444;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 12%;
+    --card: 235 30% 11%;
+    --card-foreground: 35 20% 96%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 12%;
@@ -45,8 +45,8 @@ All colors MUST be HSL.
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 35 15% 88%;
-    --input: 35 15% 88%;
+    --border: 235 25% 15%;
+    --input: 235 25% 15%;
     --ring: 42 38% 57%;
 
     --radius: 1.75rem;
@@ -63,11 +63,11 @@ All colors MUST be HSL.
   --radius-capsule: 50%;         /* Capsule radius (half height) */
     
     /* Gradients */
-    --gradient-bg: linear-gradient(180deg, hsl(35 20% 97%) 0%, hsl(30 15% 98%) 100%);
+    --gradient-bg: linear-gradient(180deg, hsl(235 35% 7%) 0%, hsl(240 30% 9%) 100%);
     --gradient-gold: linear-gradient(90deg, hsl(43 42% 75%) 0%, hsl(42 38% 63%) 100%);
     
     /* Glass effect */
-    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(12, 10, 18, 0.92);
     --glass-blur: 24px;
     
     /* Shadows */
@@ -92,14 +92,14 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 30 15% 15%;
-    --background-end: 30 20% 12%;
+    --background: 235 35% 7%;
+    --background-end: 240 30% 9%;
     --foreground: 35 20% 96%;
-    --card: 30 15% 18%;
+    --card: 235 30% 11%;
     --card-foreground: 35 20% 96%;
     --primary: 42 38% 63%;
     --muted-foreground: 0 0% 65%;
-    --border: 30 15% 25%;
+    --border: 235 25% 15%;
   }
 }
 
@@ -564,7 +564,7 @@ nav[class*="fixed"] {
   --glass-primary: rgba(23, 20, 31, 0.75);
   --glass-secondary: rgba(30, 26, 40, 0.65);
   --glass-elevated: rgba(23, 20, 31, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
   --glass-highlight: rgba(255, 255, 255, 0.12);
   
   /* Cards */
@@ -582,9 +582,9 @@ nav[class*="fixed"] {
   
   /* Semantic Colors */
   --muted: 235 20% 22%;
-  --muted-foreground: 230 10% 68%;
+  --muted-foreground: 230 15% 75%;
   --border: 235 25% 16%;
-  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass: rgba(255, 255, 255, 0.12);
   --input: 235 25% 16%;
   --ring: 20 55% 58%;
   --popover: 235 30% 11%;
@@ -605,8 +605,8 @@ nav[class*="fixed"] {
   --shadow-copper-glow: 0 0 32px rgba(209, 122, 82, 0.4), 0 0 16px rgba(209, 122, 82, 0.25);
   
   /* Blur */
-  --blur-glass: 24px;
-  --blur-glass-strong: 40px;
+  --blur-glass: 20px;
+  --blur-glass-strong: 32px;
   --blur-subtle: 12px;
   
   /* Apple Typography System - SF Pro Fonts */
@@ -643,16 +643,17 @@ nav[class*="fixed"] {
   background: var(--gradient-cosmic);
 }
 
-/* Liquid Glass Card Component */
+/* Liquid Glass Card Component - Optimized */
 .home-tab-celestial .liquid-glass-card {
   background: var(--card-glass);
-  backdrop-filter: blur(var(--blur-glass)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  backdrop-filter: blur(var(--blur-glass)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(150%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-main);
   box-shadow: var(--shadow-glass);
   position: relative;
   overflow: hidden;
+  will-change: transform, box-shadow;
 }
 
 .home-tab-celestial .liquid-glass-card::before {
@@ -1326,6 +1327,14 @@ nav[class*="fixed"] {
   letter-spacing: 0.364px;
 }
 
+.text-title-3 {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-title-3);
+  line-height: var(--line-height-tight);
+  font-weight: 400;
+  letter-spacing: 0.38px;
+}
+
 .text-headline {
   font-family: var(--font-apple-text);
   font-size: var(--text-headline);
@@ -1363,15 +1372,23 @@ nav[class*="fixed"] {
   font-size: var(--text-footnote);
   line-height: var(--line-height-normal);
   font-weight: 400;
-  letter-spacing: -0.08px;
+  letter-spacing: -0.078px;
 }
 
-.text-caption {
+.text-caption-1 {
   font-family: var(--font-apple-text);
-  font-size: var(--text-caption);
+  font-size: var(--text-caption-1);
   line-height: var(--line-height-normal);
   font-weight: 400;
-  letter-spacing: 0.352px;
+  letter-spacing: 0;
+}
+
+.text-caption-2 {
+  font-family: var(--font-apple-text);
+  font-size: var(--text-caption-2);
+  line-height: var(--line-height-tight);
+  font-weight: 400;
+  letter-spacing: 0.066px;
 }
 
 /* Apple Typography Classes (Home Tab Only) - Keep for backward compatibility */

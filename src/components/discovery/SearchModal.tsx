@@ -60,7 +60,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <Clock className="w-4 h-4 text-muted-foreground" />
-                <h3 className="font-title text-lg font-medium text-foreground">Recent</h3>
+                <h3 className="font-title text-headline font-medium text-foreground">Recent</h3>
               </div>
               <div className="space-y-2">
                 {recentSearches.map((search, index) => (
@@ -79,7 +79,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <Star className="w-4 h-4 text-muted-foreground" />
-                <h3 className="font-title text-lg font-medium text-foreground">Popular</h3>
+                <h3 className="font-title text-headline font-medium text-foreground">Popular</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {popularSearches.map((search, index) => (
@@ -88,7 +88,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                     onClick={() => setSearchQuery(search)}
                     className="px-3 py-2 rounded-[24px] bg-card border border-border hover:border-accent transition-colors"
                   >
-                    <span className="text-sm font-body text-foreground">{search}</span>
+                    <span className="text-subhead font-body text-foreground">{search}</span>
                   </button>
                 ))}
               </div>
@@ -96,7 +96,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
           </>
         ) : (
           <div>
-            <h3 className="font-title text-lg font-medium text-foreground mb-3">
+            <h3 className="font-title text-headline font-medium text-foreground mb-3">
               Results for "{searchQuery}"
             </h3>
             <div className="text-center py-8">

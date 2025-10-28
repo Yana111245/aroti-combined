@@ -84,7 +84,7 @@ export const CategoryGrid = ({ selectedCategory }: CategoryGridProps) => {
     : featuredItems;
 
   return (
-    <div className="px-6">
+    <div>
       {/* Horizontal scroll layout - matching For You format */}
       <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
         {displayItems.map((item) => (
@@ -100,7 +100,7 @@ export const CategoryGrid = ({ selectedCategory }: CategoryGridProps) => {
             {/* Content */}
             <div className="relative z-10 flex flex-col h-full justify-between">
               <div>
-                <span className="px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-body font-medium">
+                <span className="px-3 py-1 rounded-full bg-accent/20 text-accent text-footnote font-body font-medium">
                   {item.tag}
                 </span>
                 <h3 className="text-[22px] font-title text-foreground mt-4 leading-tight">{item.title}</h3>
@@ -113,8 +113,8 @@ export const CategoryGrid = ({ selectedCategory }: CategoryGridProps) => {
         {/* View All Card */}
         <div className="flex-shrink-0 w-[320px] h-[200px] rounded-[16px] bg-accent/10 border-2 border-dashed border-accent/30 flex items-center justify-center cursor-pointer hover:bg-accent/20 transition-all">
           <div className="text-center">
-            <p className="text-lg font-body font-medium text-accent">View All</p>
-            <p className="text-sm text-accent/70 mt-2">→</p>
+            <p className="text-headline font-body font-medium text-accent">View All</p>
+            <p className="text-subhead text-accent/70 mt-2">→</p>
           </div>
         </div>
       </div>

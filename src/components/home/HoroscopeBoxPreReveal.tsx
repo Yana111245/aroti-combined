@@ -10,7 +10,7 @@ export const HoroscopeBoxPreReveal = ({ onReveal, image }: HoroscopeBoxPreReveal
       onClick={onReveal}
     >
       {/* Text Content - Left Side */}
-      <div className="flex-1 p-6 flex flex-col justify-center relative">
+      <div className="flex-1 p-4 flex flex-col justify-center relative">
         {/* Subtle liquid glass highlight */}
         <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
         
@@ -19,7 +19,7 @@ export const HoroscopeBoxPreReveal = ({ onReveal, image }: HoroscopeBoxPreReveal
           <h4 className="text-headline text-foreground font-semibold leading-tight">
             Daily Horoscope
           </h4>
-          <p className="text-footnote text-muted-foreground/70">
+          <p className="text-footnote text-muted-foreground">
             Intuitive nature heightened today
           </p>
         </div>

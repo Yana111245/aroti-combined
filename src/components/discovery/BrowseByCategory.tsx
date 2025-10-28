@@ -28,8 +28,8 @@ export const BrowseByCategory = ({ selectedCategory, onCategoryChange }: BrowseB
   };
 
   return (
-    <div className="px-6 space-y-4 stagger-fade-up">
-      <h2 className="text-2xl font-title font-medium text-foreground">Browse by Category</h2>
+    <div className="space-y-4 stagger-fade-up">
+      <h2 className="text-title-2 font-title font-medium text-foreground">Browse by Category</h2>
       
       <div className="overflow-x-auto scrollbar-hide" style={{ maxHeight: '100px' }}>
         <div className="flex flex-col gap-2" style={{ width: 'max-content' }}>

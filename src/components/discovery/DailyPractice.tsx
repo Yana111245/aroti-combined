@@ -30,13 +30,13 @@ const practices = [
 export const DailyPractice = () => {
   return (
     <div className="space-y-4">
-      <div className="px-6 flex items-center justify-between">
-        <h2 className="text-xl font-title font-medium text-foreground">Daily Practice</h2>
-        <button className="text-sm font-body text-accent hover:text-accent/80 transition-colors">
+      <div className="flex items-center justify-between">
+        <h2 className="text-title-3 font-title font-medium text-foreground">Daily Practice</h2>
+        <button className="text-subhead font-body text-accent hover:text-accent/80 transition-colors">
           View All →
         </button>
       </div>
-      <div className="flex gap-4 overflow-x-auto pl-6 pr-6 pb-2 scrollbar-hide">
+      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
         {practices.map((practice) => (
           <div 
             key={practice.id}

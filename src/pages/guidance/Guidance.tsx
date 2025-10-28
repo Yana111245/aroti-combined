@@ -5,6 +5,7 @@ import { NewChatModal } from "@/components/guidance/NewChatModal";
 import { PointsBalance } from "@/components/guidance/PointsBalance";
 import { PersonaSelector } from "@/components/guidance/PersonaSelector";
 import { ChatHistory } from "@/components/guidance/ChatHistory";
+import { PageWrapper } from "@/components/layout/PageWrapper";
 
 export type GuidanceView = "overview" | "chat" | "points" | "history";
 export type Specialist = "astrologer" | "therapist" | "numerologist" | null;
@@ -71,24 +72,26 @@ const Guidance = () => {
   };
 
   return (
-    <div className="min-h-screen pb-20 bg-gradient-warm">
-      {renderView()}
-      
-      {showNewChatModal && (
-        <NewChatModal
-          onClose={() => setShowNewChatModal(false)}
-          onTopicSelected={handleTopicSelected}
-        />
-      )}
-      
-      {showPersonaSelector && (
-        <PersonaSelector
-          specialist={selectedSpecialist}
-          onClose={() => setShowPersonaSelector(false)}
-          onBeginSession={handleBeginSession}
-        />
-      )}
-    </div>
+    <PageWrapper showBottomNav={true} showTabBar={false}>
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] min-h-full pb-24">
+        {renderView()}
+        
+        {showNewChatModal && (
+          <NewChatModal
+            onClose={() => setShowNewChatModal(false)}
+            onTopicSelected={handleTopicSelected}
+          />
+        )}
+        
+        {showPersonaSelector && (
+          <PersonaSelector
+            specialist={selectedSpecialist}
+            onClose={() => setShowPersonaSelector(false)}
+            onBeginSession={handleBeginSession}
+          />
+        )}
+      </div>
+    </PageWrapper>
   );
 };
 

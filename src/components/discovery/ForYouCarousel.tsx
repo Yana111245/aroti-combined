@@ -37,10 +37,10 @@ const forYouItems = [
 
 export const ForYouCarousel = () => {
   return (
-    <div className="px-6 space-y-4">
+    <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-title font-medium text-foreground">For You</h2>
-        <button className="text-sm font-body text-accent hover:text-accent/80 transition-colors">
+        <h2 className="text-title-3 font-title font-medium text-foreground">For You</h2>
+        <button className="text-subhead font-body text-accent hover:text-accent/80 transition-colors">
           View All →
         </button>
       </div>
@@ -58,7 +58,7 @@ export const ForYouCarousel = () => {
             {/* Content */}
             <div className="relative z-10 flex flex-col h-full justify-between">
               <div>
-                <span className="px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-body font-medium">
+                <span className="px-3 py-1 rounded-full bg-accent/20 text-accent text-footnote font-body font-medium">
                   {item.tag}
                 </span>
                 <h3 className="text-[22px] font-title text-foreground mt-4 leading-tight">{item.title}</h3>

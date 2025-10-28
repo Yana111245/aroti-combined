@@ -63,9 +63,20 @@ export const RecentlyViewed = ({ items }: RecentlyViewedProps) => {
       <div className="flex gap-4 overflow-x-auto pr-6 pb-2 scrollbar-hide">
         {items.map((item) => (
           <div key={item.id} className="flex-shrink-0 w-[280px]">
-            <div className="flex liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group h-[120px]">
+            <div 
+              className="flex liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group h-[120px]"
+              role="button"
+              tabIndex={0}
+              aria-label={`View ${item.title} ${item.type}`}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  // Add navigation logic here
+                }
+              }}
+            >
               {/* Text Content - Left Side */}
-              <div className="flex-1 p-6 flex flex-col justify-center relative">
+              <div className="flex-1 p-4 flex flex-col justify-center relative">
                 {/* Subtle liquid glass highlight */}
                 <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
                 

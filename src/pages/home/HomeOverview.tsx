@@ -6,7 +6,6 @@ import { AstrologyInsights } from "@/components/home/AstrologyInsights";
 import { NumerologyInsights } from "@/components/home/NumerologyInsights";
 import { ReflectionSection } from "@/components/home/ReflectionSection";
 import { DailyAffirmation } from "@/components/home/DailyAffirmation";
-import { JourneyProgress } from "@/components/home/JourneyProgress";
 import { RecentlyViewed } from "@/components/home/RecentlyViewed";
 import { ReflectionModal } from "@/components/home/ReflectionModal";
 import { CalendarModal } from "@/components/home/CalendarModal";
@@ -146,12 +145,6 @@ const HomeOverview = () => {
     mercuryState: "Mercury Retrograde",
     energyNumber: 7,
     traits: ["Intuitive", "Spiritual"],
-    streak: 12,
-    milestones: [
-      { id: "1", title: "First Reading", completed: true },
-      { id: "2", title: "7-Day Streak", completed: true },
-      { id: "3", title: "30-Day Journey", completed: false },
-    ],
     recentlyViewed: [
       {
         id: "1",
@@ -318,38 +311,51 @@ const HomeOverview = () => {
       {/* Main content container with background */}
       <div className="home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
         {/* Header Section - Apple HIG Navigation Pattern */}
-        <div className="px-6 pt-8 pb-4 text-center space-y-0.5">
+        <div className="px-4 pt-8 pb-4 text-center space-y-1">
           {/* Navigation Context - Apple Style */}
           <nav aria-label="Daily insights navigation">
-            <p className="text-callout text-[hsl(230,10%,68%)]">
+            <p className="text-callout text-muted-foreground">
               Hi {userData.name}, it's {getCurrentDate()}
             </p>
           </nav>
 
           {/* Main Title - Apple Large Title */}
-          <header className="mt-1">
-            <h1 className="text-large-title text-[hsl(230,8%,96%)] leading-tight">
+          <header className="mt-2">
+            <h1 className="text-large-title text-foreground font-normal">
               Today's Insights
             </h1>
           </header>
 
           {/* Subtitle - Apple Subhead */}
-          <div className="mt-1.5">
-            <p className="text-subhead text-[hsl(20,55%,58%)] truncate">
+          <div className="mt-2">
+            <p className="text-subhead text-accent truncate">
               Under {userData.sunSign} skies • Energy Number {userData.energyNumber}
             </p>
           </div>
         </div>
 
         {/* Main Content - Apple HIG Visual Hierarchy */}
-        <main className="px-6 pb-24 mt-3" role="main" aria-label="Daily insights content">
-          <section className="space-y-3" aria-labelledby="daily-insights-section">
+        <main className="px-4 pb-24 mt-4" role="main" aria-label="Daily insights content">
+          <section className="space-y-4" aria-labelledby="daily-insights-section">
             <h2 id="daily-insights-section" className="sr-only">Daily Insights</h2>
             
             {/* Tarot Card - Show revealed or pre-reveal */}
             {insightStates.tarot.revealed && insightStates.tarot.card ? (
-              <div className="liquid-glass-card p-3 space-y-2.5 cursor-pointer min-h-[240px]" onClick={() => handleViewInsight('tarot')}>
-                <div className="text-center space-y-2.5">
+              <div 
+                className="liquid-glass-card p-4 space-y-3 cursor-pointer min-h-[240px]" 
+                onClick={() => handleViewInsight('tarot')}
+                role="button"
+                tabIndex={0}
+                aria-label={`View ${insightStates.tarot.card.name} tarot card details`}
+                aria-describedby="tarot-card-description"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleViewInsight('tarot');
+                  }
+                }}
+              >
+                <div className="text-center space-y-3">
                   <div className="relative mx-auto" style={{ width: '72%', aspectRatio: '3/5' }}>
                     <TarotCardFront 
                       name={insightStates.tarot.card.name}
@@ -357,16 +363,19 @@ const HomeOverview = () => {
                     />
                   </div>
                   <h3 className="text-headline text-foreground">{insightStates.tarot.card.name}</h3>
-                  <div className="flex flex-wrap justify-center gap-1.5">
+                  <div className="flex flex-wrap justify-center gap-2">
                     {insightStates.tarot.card.keywords.map((keyword, index) => (
                       <span 
                         key={index} 
-                        className="px-2.5 py-1 bg-accent/20 text-accent text-xs rounded-full"
+                        className="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full"
                       >
                         {keyword}
                       </span>
                     ))}
                   </div>
+                </div>
+                <div id="tarot-card-description" className="sr-only">
+                  Tarot card {insightStates.tarot.card.name} with keywords: {insightStates.tarot.card.keywords.join(', ')}
                 </div>
               </div>
             ) : (
@@ -411,16 +420,20 @@ const HomeOverview = () => {
             </div>
           </section>
 
-          {/* Additional Content */}
-          <section className="mt-12 space-y-6" aria-labelledby="daily-affirmation-section">
-            <h2 id="daily-affirmation-section" className="sr-only">Daily Affirmation & Progress</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <DailyAffirmation quote={dailyAffirmation} />
-              <JourneyProgress
-                streak={userData.streak}
-                milestones={userData.milestones}
-              />
-            </div>
+          {/* Daily Affirmation - Full Width */}
+          <section className="mt-12" aria-labelledby="daily-affirmation-section">
+            <h2 id="daily-affirmation-section" className="sr-only">Daily Affirmation</h2>
+            <DailyAffirmation quote={dailyAffirmation} />
+          </section>
+
+          {/* Reflection Section */}
+          <section className="mt-8" aria-labelledby="reflection-section">
+            <h2 id="reflection-section" className="sr-only">Daily Reflection</h2>
+            <ReflectionSection
+              hasReflection={!!reflection}
+              reflection={reflection}
+              onAddReflection={handleAddReflection}
+            />
           </section>
 
           {/* Supporting Content - Minimal Visual Weight */}

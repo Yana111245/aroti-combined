@@ -168,9 +168,11 @@ export const DaySelector = ({ selectedDate, onDateChange, onCalendarClick }: Day
                       : "text-muted-foreground hover:text-foreground hover:scale-105 active:scale-95"
                   }`}
                   style={{
-                    color: isSelected ? 'hsl(var(--accent))' : 'rgba(255, 255, 255, 0.6)',
+                    color: isSelected ? 'hsl(var(--accent))' : 'rgba(255, 255, 255, 0.75)',
                     fontWeight: isToday ? '600' : '400',
-                    letterSpacing: '-0.24px'
+                    letterSpacing: '-0.24px',
+                    minHeight: '48px',
+                    minWidth: '48px'
                   }}
                   aria-label={`Select date ${formatDate(date)}`}
                   aria-pressed={isSelected}

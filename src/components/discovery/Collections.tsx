@@ -29,10 +29,10 @@ const collections = [
 
 export const Collections = () => {
   return (
-    <div className="px-6 space-y-4 pt-6">
+    <div className="space-y-4 pt-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-title font-medium text-foreground">Collections</h2>
-        <button className="text-sm font-body text-accent hover:text-accent/80 transition-colors">
+        <h2 className="text-title-3 font-title font-medium text-foreground">Collections</h2>
+        <button className="text-subhead font-body text-accent hover:text-accent/80 transition-colors">
           View All →
         </button>
       </div>

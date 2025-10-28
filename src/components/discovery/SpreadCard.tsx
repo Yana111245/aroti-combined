@@ -33,17 +33,17 @@ export const SpreadCard = ({
       <div className="relative h-32 rounded-[12px] overflow-hidden mb-3 group-hover:scale-105 transition-transform">
         <img src={image} className="w-full h-full object-cover" alt={title} />
         <div className="absolute bottom-2 left-2 px-2 py-1 rounded-full bg-black/50 backdrop-blur">
-          <span className="text-xs text-white font-body">{cardCount} cards</span>
+          <span className="text-footnote text-white font-body">{cardCount} cards</span>
         </div>
         <div className="absolute top-2 right-2">
-          <span className={`px-2 py-1 rounded-full text-xs font-body ${difficultyColors[difficulty]}`}>
+          <span className={`px-2 py-1 rounded-full text-footnote font-body ${difficultyColors[difficulty]}`}>
             {difficulty}
           </span>
         </div>
       </div>
       <h3 className="font-title text-base font-medium text-foreground mb-1 line-clamp-1">{title}</h3>
-      <p className="text-xs text-muted-foreground responsive-text-clamp mb-2">{description}</p>
-      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+      <p className="text-footnote text-muted-foreground responsive-text-clamp mb-2">{description}</p>
+      <div className="flex items-center gap-2 text-footnote text-muted-foreground">
         <span className="font-body">⏱️ {timeEstimate}</span>
       </div>
     </div>

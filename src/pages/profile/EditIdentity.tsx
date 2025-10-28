@@ -7,6 +7,9 @@ import { GradientButton } from "@/components/profile/GradientButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { PageWrapper } from "@/components/layout/PageWrapper";
+import { BaseHeader } from "@/components/layout/BaseHeader";
+import { BaseCard } from "@/components/layout/BaseCard";
 
 export default function EditIdentity() {
   const navigate = useNavigate();
@@ -23,34 +26,34 @@ export default function EditIdentity() {
   };
 
   return (
-    <div className="min-h-screen pb-24 pt-6 px-4 max-w-[420px] mx-auto animate-fade-in">
-      {/* Header */}
-      <div className="mb-6 flex items-center gap-3">
-        <button
-          onClick={() => navigate("/profile/astrology")}
-          className="rounded-full p-2 hover:bg-white/50 transition-colors"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </button>
-        <SerifTitle>Edit Profile</SerifTitle>
-      </div>
-
-      <SoftCard className="mb-6">
+    <PageWrapper showBottomNav={true} showTabBar={false}>
+      <BaseHeader
+        title="Edit Profile"
+        leftAction={{
+          icon: <ArrowLeft className="w-5 h-5" />,
+          onClick: () => navigate("/profile/astrology"),
+          label: "Back to astrology"
+        }}
+      />
+      
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
+        <main className="px-4 max-w-[420px] mx-auto animate-fade-in pt-6" role="main" aria-label="Edit profile">
+          <BaseCard className="mb-6">
         <div className="space-y-6">
           <div>
-            <Label htmlFor="name" className="text-sm font-medium mb-2 block">
+            <Label htmlFor="name" className="text-subhead font-medium mb-2 block">
               Full Name
             </Label>
             <Input
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="glass-card border-border"
+              className="liquid-glass-card border-border"
             />
           </div>
 
           <div>
-            <Label htmlFor="birthDate" className="text-sm font-medium mb-2 block">
+            <Label htmlFor="birthDate" className="text-subhead font-medium mb-2 block">
               Birth Date
             </Label>
             <Input
@@ -58,13 +61,13 @@ export default function EditIdentity() {
               type="date"
               value={formData.birthDate}
               onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })}
-              className="glass-card border-border"
+              className="liquid-glass-card border-border"
             />
-            <p className="text-xs text-muted-foreground mt-1">Required for chart calculations</p>
+            <p className="text-footnote text-muted-foreground mt-1">Required for chart calculations</p>
           </div>
 
           <div>
-            <Label htmlFor="birthTime" className="text-sm font-medium mb-2 block">
+            <Label htmlFor="birthTime" className="text-subhead font-medium mb-2 block">
               Birth Time
             </Label>
             <Input
@@ -73,15 +76,15 @@ export default function EditIdentity() {
               value={formData.birthTime}
               onChange={(e) => setFormData({ ...formData, birthTime: e.target.value })}
               placeholder="Not sure"
-              className="glass-card border-border"
+              className="liquid-glass-card border-border"
             />
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-footnote text-muted-foreground mt-1">
               Optional • If unknown, Rising sign will be estimated
             </p>
           </div>
 
           <div>
-            <Label htmlFor="location" className="text-sm font-medium mb-2 block">
+            <Label htmlFor="location" className="text-subhead font-medium mb-2 block">
               Birth Location
             </Label>
             <Input
@@ -89,21 +92,23 @@ export default function EditIdentity() {
               value={formData.location}
               onChange={(e) => setFormData({ ...formData, location: e.target.value })}
               placeholder="City, State, Country"
-              className="glass-card border-border"
+              className="liquid-glass-card border-border"
             />
-            <p className="text-xs text-muted-foreground mt-1">Used for accurate chart positioning</p>
+            <p className="text-footnote text-muted-foreground mt-1">Used for accurate chart positioning</p>
           </div>
-        </div>
-      </SoftCard>
+          </div>
+          </BaseCard>
 
-      <div className="flex gap-3">
-        <GradientButton variant="outline" onClick={() => navigate("/profile/astrology")} className="flex-1">
-          Cancel
-        </GradientButton>
-        <GradientButton onClick={handleSave} className="flex-1">
-          Save Changes
-        </GradientButton>
+          <div className="flex gap-3">
+            <GradientButton variant="outline" onClick={() => navigate("/profile/astrology")} className="flex-1">
+              Cancel
+            </GradientButton>
+            <GradientButton onClick={handleSave} className="flex-1">
+              Save Changes
+            </GradientButton>
+          </div>
+        </main>
       </div>
-    </div>
+    </PageWrapper>
   );
 }

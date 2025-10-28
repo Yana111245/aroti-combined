@@ -1,6 +1,7 @@
 import { Star } from "lucide-react";
 import { Specialist } from "@/data/specialists";
 import { useNavigate } from "react-router-dom";
+import { BaseCard } from "@/components/layout/BaseCard";
 
 interface SpecialistCardProps {
   specialist: Specialist;
@@ -10,9 +11,11 @@ export const SpecialistCard = ({ specialist }: SpecialistCardProps) => {
   const navigate = useNavigate();
 
   return (
-    <div
+    <BaseCard
+      variant="interactive"
       onClick={() => navigate(`/booking/specialist/${specialist.id}`)}
-      className="glass-card p-4 hover:scale-[1.02] transition-smooth cursor-pointer group rounded-[12px]"
+      className="p-4 hover:scale-[1.02] transition-smooth group"
+      aria-label={`View ${specialist.name}'s profile`}
     >
       <div className="flex items-start gap-4">
         <img
@@ -22,15 +25,15 @@ export const SpecialistCard = ({ specialist }: SpecialistCardProps) => {
         />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="font-semibold text-foreground text-lg">
+            <h3 className="font-semibold text-foreground text-headline">
               {specialist.name}
             </h3>
-            <span className="text-sm">{specialist.countryFlag}</span>
+            <span className="text-body">{specialist.countryFlag}</span>
           </div>
-          <p className="text-sm text-muted-foreground mb-2">
+          <p className="text-body text-muted-foreground mb-2">
             {specialist.specialty}
           </p>
-          <div className="flex items-center gap-3 text-sm">
+          <div className="flex items-center gap-3 text-body">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 fill-primary text-primary" />
               <span className="font-medium text-foreground">
@@ -47,12 +50,12 @@ export const SpecialistCard = ({ specialist }: SpecialistCardProps) => {
           </div>
         </div>
         <div className="text-right">
-          <div className="text-xl font-semibold text-foreground mb-1">
+          <div className="text-title-3 font-semibold text-foreground mb-1">
             ${specialist.price}
           </div>
-          <div className="text-xs text-muted-foreground">per session</div>
+          <div className="text-footnote text-muted-foreground">per session</div>
         </div>
       </div>
-    </div>
+    </BaseCard>
   );
 };

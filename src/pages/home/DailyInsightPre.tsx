@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Sparkles } from "lucide-react";
+import { PageWrapper } from "@/components/layout/PageWrapper";
+import { BaseHeader } from "@/components/layout/BaseHeader";
 
 const DailyInsightPre = () => {
   const navigate = useNavigate();
@@ -15,22 +17,11 @@ const DailyInsightPre = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col animate-fade-in">
-      {/* Header */}
-      <div className="px-6 py-8 space-y-4">
-        <p className="text-sm text-muted-foreground">Daily Reading</p>
-        
-        <h1 className="font-title text-4xl font-medium">
-          Your Card Awaits
-        </h1>
-        
-        <p className="text-muted-foreground leading-relaxed">
-          Take a moment to center yourself. What question weighs on your heart today?
-        </p>
-      </div>
-
-      {/* Card Display */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6 pb-24">
+    <PageWrapper showBottomNav={true} showTabBar={false}>
+      <BaseHeader title="Your Card Awaits" subtitle="Take a moment to center yourself. What question weighs on your heart today?" />
+      
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
+        <main className="flex-1 flex flex-col items-center justify-center px-4 pb-24 animate-fade-in" role="main" aria-label="Daily insight content">
         <div className="relative">
           <div 
             className={`transition-all duration-700 ${
@@ -56,7 +47,7 @@ const DailyInsightPre = () => {
                   
                   {/* Main symbol circle */}
                   <div className="w-16 h-16 bg-gradient-to-br from-accent/40 to-accent/20 rounded-full flex items-center justify-center shadow-[0_0_24px_rgba(209,122,82,0.35)] border border-accent/30 backdrop-blur-sm">
-                    <div className="text-2xl text-accent font-bold leading-none">✦</div>
+                    <div className="text-title-2 text-accent font-bold leading-none">✦</div>
                   </div>
                   
                   {/* Inner glow */}
@@ -90,7 +81,7 @@ const DailyInsightPre = () => {
         </div>
 
         <div className="mt-12 text-center space-y-6 w-full max-w-md">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-subhead text-muted-foreground">
             Breathe deeply and tap when you&apos;re ready
           </p>
 
@@ -104,8 +95,9 @@ const DailyInsightPre = () => {
             {isRevealing ? "Revealing..." : "Reveal Your Card"}
           </Button>
         </div>
+        </main>
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 
