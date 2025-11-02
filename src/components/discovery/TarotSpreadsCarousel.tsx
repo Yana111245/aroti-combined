@@ -61,12 +61,20 @@ export const TarotSpreadsCarousel = () => {
         </button>
       </div>
       
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 px-4">
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 pl-0 pr-4">
         {tarotSpreads.map((spread) => (
           <div key={spread.id} className="flex-shrink-0" onClick={() => handleSpreadClick(spread.id)}>
-            <TarotCardBack
-              className="cursor-pointer hover:scale-105 transition-all duration-300"
-            />
+            {/* Card with overlay */}
+            <div className="relative">
+              <TarotCardBack
+                className="cursor-pointer hover:scale-105 transition-all duration-300"
+              />
+              {/* Title overlay at bottom of card */}
+              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/90 via-black/70 to-transparent rounded-b-[12px]">
+                <h3 className="text-headline font-medium text-foreground truncate">{spread.name}</h3>
+                <p className="text-caption-2 text-muted-foreground mt-0.5">{spread.cardCount} cards</p>
+              </div>
+            </div>
           </div>
         ))}
         

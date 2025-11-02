@@ -43,7 +43,7 @@ export const ForYouCarousel = () => {
           View All →
         </button>
       </div>
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 px-4">
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 pl-0 pr-4">
         {forYouItems.map((item) => (
           <div 
             key={item.id}

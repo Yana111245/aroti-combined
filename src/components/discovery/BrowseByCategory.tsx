@@ -36,8 +36,8 @@ export const BrowseByCategory = ({ selectedCategory, onCategoryChange }: BrowseB
         </div>
       </div>
       
-      <div className="overflow-x-auto scrollbar-hide px-4 snap-x snap-mandatory">
-        <div className="flex gap-2 py-2 snap-start">
+      <div className="overflow-x-auto scrollbar-hide pl-0 pr-4 snap-x snap-mandatory">
+        <div className="grid grid-rows-2 grid-flow-col gap-2 py-2 auto-cols-max">
           {categories.map((category) => (
             <CategoryPill
               key={category.label}

@@ -35,7 +35,7 @@ export const DailyPractice = () => {
           View All →
         </button>
       </div>
-      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide px-4">
+      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide pl-0 pr-4">
         {practices.map((practice) => (
           <div 
             key={practice.id}

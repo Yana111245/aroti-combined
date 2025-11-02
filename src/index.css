@@ -699,6 +699,29 @@ nav[class*="fixed"] {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
+/* Liquid Glass Highlight - Top border gradient */
+.home-tab-celestial .liquid-glass-highlight {
+  background: linear-gradient(90deg, transparent 0%, var(--glass-highlight) 50%, transparent 100%);
+  height: 1px;
+  opacity: 0.8;
+}
+
+/* Liquid Glass Shimmer - Animated shimmer effect for decorative dots */
+.home-tab-celestial .liquid-glass-shimmer {
+  animation: liquid-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes liquid-shimmer {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
 /* Glass Button (Apple Standard) */
 .home-tab-celestial .glass-button {
   backdrop-filter: blur(24px) saturate(180%);

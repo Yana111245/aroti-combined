@@ -60,7 +60,7 @@ A comprehensive React application that combines all Aroti features into a single
 - **Profile**: `/profile` - Personal settings and history
 
 ### Special Navigation
-- **Guidance**: Accessible from Discovery page via "Get Personal Guidance" button
+- **Guidance**: Accessible via bottom navigation
 - **Onboarding**: Full-screen flow without bottom navigation
 - **Login**: Entry point without navigation
 

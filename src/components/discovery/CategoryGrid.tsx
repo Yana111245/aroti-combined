@@ -70,7 +70,7 @@ export const CategoryGrid = ({ selectedCategory }: CategoryGridProps) => {
   return (
     <div>
       {/* Horizontal scroll layout - matching For You format */}
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 px-4">
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 pl-0 pr-4">
         {displayItems.map((item) => (
           <div 
             key={item.id}
