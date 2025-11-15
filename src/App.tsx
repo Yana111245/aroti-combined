@@ -32,6 +32,12 @@ import DailyInsightPost from "./pages/home/DailyInsightPost";
 import DiscoveryHub from "./pages/discovery/DiscoveryHub";
 import LearnPage from "./pages/discovery/LearnPage";
 import UnlocksPage from "./pages/discovery/UnlocksPage";
+import ArticleDetailPage from "./pages/discovery/ArticleDetailPage";
+import TarotSpreadDetailPage from "./pages/discovery/TarotSpreadDetailPage";
+import PracticeDetailPage from "./pages/discovery/PracticeDetailPage";
+import QuizPage from "./pages/discovery/QuizPage";
+import CourseDetailPage from "./pages/discovery/CourseDetailPage";
+import CoursesListingPage from "./pages/discovery/CoursesListingPage";
 
 // Guidance pages
 import Guidance from "./pages/guidance/Guidance";
@@ -90,8 +96,12 @@ const App = () => (
           <Route path="/discovery" element={<DiscoveryHub />} />
           <Route path="/discovery/learn" element={<LearnPage />} />
           <Route path="/discovery/unlocks" element={<UnlocksPage />} />
-          <Route path="/discovery/courses" element={<LearnPage />} />
-          <Route path="/discovery/courses/:id" element={<LearnPage />} />
+          <Route path="/discovery/article/:id" element={<ArticleDetailPage />} />
+          <Route path="/discovery/spread/:id" element={<TarotSpreadDetailPage />} />
+          <Route path="/discovery/practice/:id" element={<PracticeDetailPage />} />
+          <Route path="/discovery/quiz" element={<QuizPage />} />
+          <Route path="/discovery/courses" element={<CoursesListingPage />} />
+          <Route path="/discovery/courses/:id" element={<CourseDetailPage />} />
           
           {/* Guidance pages */}
           <Route path="/guidance" element={<Guidance />} />

@@ -67,3 +67,10 @@ export const TarotCardBack = ({ className = "" }: TarotCardBackProps) => {
 
 
 
+
+
+
+
+
+
+

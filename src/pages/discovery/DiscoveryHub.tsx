@@ -20,8 +20,8 @@ const DiscoveryHub = () => {
       <DiscoveryHeader />
 
       {/* Main Content */}
-      <div className="discovery-page home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-8">
-        <main className="px-4 mt-4 max-w-full overflow-x-hidden" role="main" aria-label="Discovery content">
+      <div className="discovery-page home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-nav pb-safe">
+        <main className="px-4 mt-4 max-w-full overflow-x-hidden pb-nav pb-safe" role="main" aria-label="Discovery content">
           <section className="space-y-8" aria-labelledby="discovery-content">
             <h2 id="discovery-content" className="sr-only">Discovery Content</h2>
             

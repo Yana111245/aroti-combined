@@ -1,4 +1,5 @@
 import { Compass, Sparkles, Star, BookOpen, Moon, Sun } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
 interface RecentlyViewedProps {
@@ -17,12 +18,28 @@ const getVisualElement = (type: string, title: string, image: string) => {
 };
 
 export const RecentlyViewed = ({ items }: RecentlyViewedProps) => {
+  const navigate = useNavigate();
+
+  const handleItemClick = (item: { id: string; type: string }) => {
+    // Navigate based on item type
+    const typeMap: Record<string, string> = {
+      "Spread": "spread",
+      "Card": "article",
+      "Learn": "article",
+      "Practice": "practice"
+    };
+    
+    const routeType = typeMap[item.type] || "article";
+    navigate(`/discovery/${routeType}/${item.id}`);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex gap-4 overflow-x-auto pr-6 pb-2 scrollbar-hide">
         {items.map((item) => (
           <div key={item.id} className="flex-shrink-0 w-[280px]">
             <div 
+              onClick={() => handleItemClick(item)}
               className="flex liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group h-[120px]"
               role="button"
               tabIndex={0}
@@ -30,7 +47,7 @@ export const RecentlyViewed = ({ items }: RecentlyViewedProps) => {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  // Add navigation logic here
+                  handleItemClick(item);
                 }
               }}
             >

@@ -26,7 +26,11 @@ export const PageWrapper = ({
           className
         )}
         style={{
-          paddingBottom: showBottomNav ? '5rem' : showTabBar ? '4rem' : '0',
+          paddingBottom: showBottomNav
+            ? 'calc(5rem + env(safe-area-inset-bottom))'
+            : showTabBar
+              ? 'calc(4rem + env(safe-area-inset-bottom))'
+              : 'env(safe-area-inset-bottom)',
         }}
       >
         {children}

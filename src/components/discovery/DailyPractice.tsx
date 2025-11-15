@@ -1,4 +1,5 @@
 import { Clock, Moon, Sun, Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const practices = [
   {
@@ -24,6 +25,12 @@ const practices = [
 ];
 
 export const DailyPractice = () => {
+  const navigate = useNavigate();
+
+  const handlePracticeClick = (practiceId: string) => {
+    navigate(`/discovery/practice/${practiceId}`);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-end justify-between">
@@ -35,10 +42,11 @@ export const DailyPractice = () => {
           View All →
         </button>
       </div>
-      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide pl-0 pr-4">
+      <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide pl-0 pr-4">
         {practices.map((practice) => (
           <div 
             key={practice.id}
+            onClick={() => handlePracticeClick(practice.id)}
             className="flex-shrink-0 w-[260px] flex apple-material-card-interactive liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group p-5"
           >
             <div className="flex items-center gap-3 mb-3 relative z-10">
@@ -46,7 +54,9 @@ export const DailyPractice = () => {
               <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
               
               <div>
-                <h3 className="text-base font-body font-bold text-foreground">{practice.title}</h3>
+                <h3 className="text-headline font-title font-medium text-foreground leading-tight">
+                  {practice.title}
+                </h3>
                 <p className="text-[13px] text-muted-foreground">{practice.duration}</p>
               </div>
               

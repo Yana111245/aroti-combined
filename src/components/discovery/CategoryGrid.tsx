@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 const featuredItems = [
   {
     id: "1",
@@ -62,10 +64,16 @@ interface CategoryGridProps {
 }
 
 export const CategoryGrid = ({ selectedCategory }: CategoryGridProps) => {
+  const navigate = useNavigate();
+  
   // Filter items based on selected category
   const displayItems = selectedCategory 
     ? featuredItems.filter(item => item.category === selectedCategory)
     : featuredItems;
+
+  const handleItemClick = (itemId: string) => {
+    navigate(`/discovery/article/${itemId}`);
+  };
 
   return (
     <div>
@@ -74,6 +82,7 @@ export const CategoryGrid = ({ selectedCategory }: CategoryGridProps) => {
         {displayItems.map((item) => (
           <div 
             key={item.id}
+            onClick={() => handleItemClick(item.id)}
             className="flex-shrink-0 w-[320px] h-[200px] flex apple-material-card-interactive liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group p-6"
           >
             {/* Content */}
@@ -86,7 +95,7 @@ export const CategoryGrid = ({ selectedCategory }: CategoryGridProps) => {
                   {item.tag}
                 </span>
                 
-                <h3 className="text-[22px] font-title font-medium text-foreground leading-tight mt-4">{item.title}</h3>
+                <h3 className="text-headline font-title font-medium text-foreground leading-tight mt-4">{item.title}</h3>
                 <p className="text-[15px] text-muted-foreground mt-2 leading-relaxed">{item.subtitle}</p>
               </div>
               
