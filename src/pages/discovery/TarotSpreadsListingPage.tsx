@@ -142,7 +142,7 @@ const TarotSpreadsListingPage = () => {
       />
       
       <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full">
-        <main className="px-4 mt-4 pb-24 max-w-2xl mx-auto space-y-4">
+        <main className="px-4 mt-4 pb-nav max-w-2xl mx-auto space-y-4">
           {/* Filter Section */}
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2">
             <Filter className="w-4 h-4 text-muted-foreground flex-shrink-0" />

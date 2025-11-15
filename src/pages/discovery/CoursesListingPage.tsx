@@ -138,7 +138,7 @@ const CoursesListingPage = () => {
       />
       
       <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full">
-        <main className="px-4 mt-4 pb-24 max-w-2xl mx-auto space-y-4">
+        <main className="px-4 mt-4 max-w-2xl mx-auto space-y-4">
           {courses.map((course, index) => (
             <div
               key={course.id}

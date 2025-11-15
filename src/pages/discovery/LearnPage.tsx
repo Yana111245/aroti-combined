@@ -68,8 +68,8 @@ const LearnPage = () => {
       <BaseHeader title="Learn" subtitle="Deepen your spiritual practice with guides and wisdom" />
       
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
-        <main className="px-4 pb-24 mt-4" role="main" aria-label="Learn content">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full">
+        <main className="px-4 mt-4" role="main" aria-label="Learn content">
           <section className="space-y-6" aria-labelledby="learn-content">
             <h2 id="learn-content" className="sr-only">Learn Content</h2>
 

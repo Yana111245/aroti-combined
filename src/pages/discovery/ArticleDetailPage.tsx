@@ -116,7 +116,7 @@ const ArticleDetailPage = () => {
             label: "Back"
           }}
         />
-        <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-screen pb-24">
+        <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full">
           <main className="px-4 mt-4 pb-6 max-w-2xl mx-auto">
             <div className="liquid-glass-card rounded-[12px] p-6 text-center">
               <p className="text-body text-muted-foreground">This article could not be found.</p>
@@ -157,8 +157,8 @@ const ArticleDetailPage = () => {
         }
       />
       
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-screen pb-24">
-        <main className="px-4 mt-4 pb-12 max-w-2xl mx-auto space-y-4">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full">
+        <main className="px-4 mt-4 pb-nav max-w-2xl mx-auto space-y-4">
           {/* Hero Section - Compact */}
           <div className="liquid-glass-card rounded-[12px] overflow-hidden border border-glass-border shadow-glass p-5">
             <div className="space-y-3">
@@ -217,7 +217,7 @@ const ArticleDetailPage = () => {
                             {related.category}
                           </span>
                           
-                          <h3 className="text-[22px] font-title font-medium text-foreground leading-tight mt-4">{related.title}</h3>
+                          <h3 className="text-headline font-title font-medium text-foreground leading-tight mt-4">{related.title}</h3>
                           <p className="text-[15px] text-muted-foreground mt-2 leading-relaxed">{related.subtitle}</p>
                         </div>
                         

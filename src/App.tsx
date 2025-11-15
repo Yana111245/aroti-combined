@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UnifiedBottomNav } from "@/components/navigation/UnifiedBottomNav";
 import { FloatingGuidanceButton } from "@/components/guidance/FloatingGuidanceButton";
+import { FloatingSearchButton } from "@/components/discovery/FloatingSearchButton";
 
 // Core pages
 import Index from "./pages/Index";
@@ -138,6 +139,7 @@ const App = () => (
         </Routes>
         <UnifiedBottomNav />
         <FloatingGuidanceButton />
+        <FloatingSearchButton />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

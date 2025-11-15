@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, X, Clock, Star } from "lucide-react";
+import { Search, X, Clock } from "lucide-react";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -13,39 +13,48 @@ const recentSearches = [
   "Three card spread"
 ];
 
-const popularSearches = [
-  "Daily tarot",
-  "Relationship spread",
-  "Moon phases",
-  "Crystal healing",
-  "Meditation guide",
-  "Birth chart"
-];
-
 export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   if (!isOpen) return null;
 
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  const handleContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
-      <div className="fixed top-0 left-0 right-0 bg-background border-b border-border pt-[env(safe-area-inset-top)]">
-        <div className="px-6 py-4">
+    <div 
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md"
+      onClick={handleBackdropClick}
+    >
+      {/* Header with Search Input */}
+      <div 
+        className="fixed top-0 left-0 right-0 liquid-glass-card border-b border-glass-border shadow-elevated pt-[env(safe-area-inset-top)]"
+        onClick={handleContentClick}
+      >
+        <div className="px-4 py-4">
           <div className="flex items-center gap-3">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-accent z-10" />
               <input
                 type="text"
                 placeholder="Search spreads, topics, guides..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 rounded-[24px] bg-card border border-border focus:border-accent focus:outline-none font-body"
+                className="w-full pl-12 pr-4 py-3.5 rounded-full border border-white/5 bg-card/80 backdrop-blur-[12px] text-base text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:bg-card focus-visible:border-accent/30 transition-all duration-200 font-body"
                 autoFocus
+                onClick={handleContentClick}
               />
             </div>
             <button
               onClick={onClose}
-              className="w-10 h-10 rounded-full bg-card flex items-center justify-center"
+              className="w-11 h-11 rounded-full liquid-glass-card border border-glass-border flex items-center justify-center hover:bg-glass-primary hover:border-accent/30 transition-all duration-200 apple-touch-target-comfortable"
             >
               <X className="w-5 h-5 text-foreground" />
             </button>
@@ -53,59 +62,48 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
         </div>
       </div>
 
-      <div className="pt-[120px] px-6 pb-6 space-y-6">
-        {searchQuery === "" ? (
-          <>
-            {/* Recent Searches */}
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Clock className="w-4 h-4 text-muted-foreground" />
-                <h3 className="font-title text-headline font-medium text-foreground">Recent</h3>
+      {/* Content Area */}
+      <div 
+        className="pt-[calc(80px+env(safe-area-inset-top))] px-4 pb-6 pb-safe overflow-y-auto h-full"
+        onClick={handleContentClick}
+      >
+        <div className="max-w-2xl mx-auto space-y-6">
+          {searchQuery === "" ? (
+            <>
+              {/* Recent Searches */}
+              <div className="mt-4">
+                <div className="flex items-center gap-4 mb-3">
+                  <Clock className="w-4 h-4 text-accent flex-shrink-0" />
+                  <h3 className="font-title text-title-3 font-medium text-foreground">Recent</h3>
+                </div>
+                <div className="space-y-1">
+                  {recentSearches.map((search, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSearchQuery(search)}
+                      className="w-full text-left px-3 py-2 rounded-[10px] bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 transition-all duration-200 group"
+                    >
+                      <span className="font-body text-subhead text-foreground group-hover:text-accent transition-colors">{search}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="space-y-2">
-                {recentSearches.map((search, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSearchQuery(search)}
-                    className="w-full text-left p-3 rounded-[10px] bg-card hover:bg-card/80 transition-colors"
-                  >
-                    <span className="font-body text-foreground">{search}</span>
-                  </button>
-                ))}
+            </>
+          ) : (
+            <div className="mt-4">
+              <h3 className="font-title text-title-3 font-medium text-foreground mb-4">
+                Results for "<span className="text-accent">{searchQuery}</span>"
+              </h3>
+              <div className="text-center py-12">
+                <div className="liquid-glass-card rounded-[16px] p-8 border border-glass-border">
+                  <p className="font-body text-body text-muted-foreground">
+                    Search functionality coming soon...
+                  </p>
+                </div>
               </div>
             </div>
-
-            {/* Popular Searches */}
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Star className="w-4 h-4 text-muted-foreground" />
-                <h3 className="font-title text-headline font-medium text-foreground">Popular</h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {popularSearches.map((search, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSearchQuery(search)}
-                    className="px-3 py-2 rounded-[24px] bg-card border border-border hover:border-accent transition-colors"
-                  >
-                    <span className="text-subhead font-body text-foreground">{search}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </>
-        ) : (
-          <div>
-            <h3 className="font-title text-headline font-medium text-foreground mb-3">
-              Results for "{searchQuery}"
-            </h3>
-            <div className="text-center py-8">
-              <p className="font-body text-muted-foreground">
-                Search functionality coming soon...
-              </p>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

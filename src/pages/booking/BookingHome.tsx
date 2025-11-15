@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { Search } from "lucide-react";
 import { specialists } from "@/data/specialists";
 import { SpecialistCard } from "@/components/booking/SpecialistCard";
 import { CategoryChip } from "@/components/booking/CategoryChip";
-import { Input } from "@/components/ui/input";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
 import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
@@ -39,18 +37,6 @@ export default function BookingHome() {
       <BaseHeader 
         title="Find Your Specialist"
         subtitle="Personal guidance starts with the right connection"
-        rightActions={
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Search by name or focus..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 h-12 rounded-full liquid-glass-card border-0 w-64"
-            />
-          </div>
-        }
       />
 
       {/* Main Content */}

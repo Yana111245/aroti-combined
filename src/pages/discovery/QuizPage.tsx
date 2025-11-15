@@ -120,7 +120,7 @@ const QuizPage = () => {
         }}
       />
       
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-screen pb-24">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full">
         <main className="px-4 mt-4 pb-6 max-w-2xl mx-auto space-y-4">
           {!showResults ? (
             <>

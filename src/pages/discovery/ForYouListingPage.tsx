@@ -118,7 +118,7 @@ const ForYouListingPage = () => {
       />
       
       <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full">
-        <main className="px-4 mt-4 pb-24 max-w-2xl mx-auto space-y-4">
+        <main className="px-4 mt-4 pb-nav max-w-2xl mx-auto space-y-4">
           {forYouItems.map((item, index) => (
             <div
               key={item.id}

@@ -120,8 +120,8 @@ const TarotSpreadDetailPage = () => {
             label: "Back"
           }}
         />
-        <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-screen pb-24">
-          <main className="px-4 mt-4 pb-6 max-w-2xl mx-auto">
+        <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full">
+          <main className="px-4 mt-4 pb-nav max-w-2xl mx-auto">
             <div className="liquid-glass-card rounded-[12px] p-6 text-center">
               <p className="text-body text-muted-foreground">This spread could not be found.</p>
             </div>
@@ -143,8 +143,8 @@ const TarotSpreadDetailPage = () => {
         }}
       />
       
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-screen pb-24">
-        <main className="px-4 mt-4 pb-6 max-w-2xl mx-auto space-y-4">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full">
+        <main className="px-4 mt-4 pb-nav max-w-2xl mx-auto space-y-4">
           {/* Hero Section */}
           <div className="liquid-glass-card rounded-[12px] overflow-hidden border border-glass-border shadow-glass p-5">
             <div className="flex items-start gap-4">

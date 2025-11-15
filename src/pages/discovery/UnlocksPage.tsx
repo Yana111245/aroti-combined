@@ -74,8 +74,8 @@ const UnlocksPage = () => {
       <BaseHeader title="Your Journey" subtitle="Track milestones and unlock rewards as you grow" />
       
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
-        <main className="px-4 pb-24 mt-4" role="main" aria-label="Unlocks content">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full">
+        <main className="px-4 mt-4" role="main" aria-label="Unlocks content">
           <section className="space-y-6" aria-labelledby="unlocks-content">
             <h2 id="unlocks-content" className="sr-only">Unlocks Content</h2>
 
