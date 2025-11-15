@@ -28,7 +28,11 @@ export const DailyPractice = () => {
   const navigate = useNavigate();
 
   const handlePracticeClick = (practiceId: string) => {
-    navigate(`/discovery/practice/${practiceId}`);
+    navigate(`/discovery/practice/${practiceId}`, { state: { referrer: "/discovery" } });
+  };
+
+  const handleViewAll = () => {
+    navigate("/discovery/practices");
   };
 
   return (
@@ -38,7 +42,10 @@ export const DailyPractice = () => {
           <h2 className="text-title-3 font-title font-medium text-foreground">Daily Practice</h2>
           <p className="text-footnote text-muted-foreground mt-1">Morning routines & evening rituals</p>
         </div>
-        <button className="text-subhead font-body text-muted-foreground hover:text-foreground transition-colors">
+        <button 
+          onClick={handleViewAll}
+          className="text-subhead font-body text-muted-foreground hover:text-foreground transition-colors"
+        >
           View All →
         </button>
       </div>

@@ -38,6 +38,9 @@ import PracticeDetailPage from "./pages/discovery/PracticeDetailPage";
 import QuizPage from "./pages/discovery/QuizPage";
 import CourseDetailPage from "./pages/discovery/CourseDetailPage";
 import CoursesListingPage from "./pages/discovery/CoursesListingPage";
+import ForYouListingPage from "./pages/discovery/ForYouListingPage";
+import TarotSpreadsListingPage from "./pages/discovery/TarotSpreadsListingPage";
+import DailyPracticesListingPage from "./pages/discovery/DailyPracticesListingPage";
 
 // Guidance pages
 import Guidance from "./pages/guidance/Guidance";
@@ -102,6 +105,9 @@ const App = () => (
           <Route path="/discovery/quiz" element={<QuizPage />} />
           <Route path="/discovery/courses" element={<CoursesListingPage />} />
           <Route path="/discovery/courses/:id" element={<CourseDetailPage />} />
+          <Route path="/discovery/for-you" element={<ForYouListingPage />} />
+          <Route path="/discovery/spreads" element={<TarotSpreadsListingPage />} />
+          <Route path="/discovery/practices" element={<DailyPracticesListingPage />} />
           
           {/* Guidance pages */}
           <Route path="/guidance" element={<Guidance />} />

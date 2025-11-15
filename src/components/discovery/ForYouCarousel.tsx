@@ -36,7 +36,11 @@ export const ForYouCarousel = () => {
   const navigate = useNavigate();
 
   const handleItemClick = (itemId: string) => {
-    navigate(`/discovery/article/${itemId}`);
+    navigate(`/discovery/article/${itemId}`, { state: { referrer: "/discovery" } });
+  };
+
+  const handleViewAll = () => {
+    navigate("/discovery/for-you");
   };
 
   return (
@@ -46,7 +50,10 @@ export const ForYouCarousel = () => {
           <h2 className="text-title-3 font-title font-medium text-foreground">For You</h2>
           <p className="text-footnote text-muted-foreground mt-1">Personalized recommendations</p>
         </div>
-        <button className="text-subhead font-body text-muted-foreground hover:text-foreground transition-colors">
+        <button 
+          onClick={handleViewAll}
+          className="text-subhead font-body text-muted-foreground hover:text-foreground transition-colors"
+        >
           View All →
         </button>
       </div>

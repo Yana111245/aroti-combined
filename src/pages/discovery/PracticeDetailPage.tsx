@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft, Play, Clock, Sparkles } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
@@ -108,6 +108,8 @@ const practices: Record<string, {
 const PracticeDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const referrer = (location.state as { referrer?: string })?.referrer || "/discovery";
   
   const practice = id ? practices[id] : null;
 
@@ -118,8 +120,8 @@ const PracticeDetailPage = () => {
           title="Practice Not Found"
           leftAction={{
             icon: <ChevronLeft className="w-5 h-5" />,
-            onClick: () => navigate("/discovery"),
-            label: "Back to Discovery"
+            onClick: () => navigate(referrer),
+            label: "Back"
           }}
         />
         <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-screen pb-24">
@@ -140,8 +142,8 @@ const PracticeDetailPage = () => {
         subtitle={practice.category}
         leftAction={{
           icon: <ChevronLeft className="w-5 h-5" />,
-          onClick: () => navigate("/discovery"),
-          label: "Back to Discovery"
+          onClick: () => navigate(referrer),
+          label: "Back"
         }}
       />
       
@@ -231,7 +233,7 @@ const PracticeDetailPage = () => {
                 .map((related) => (
                   <div
                     key={related.id}
-                    onClick={() => navigate(`/discovery/practice/${related.id}`)}
+                    onClick={() => navigate(`/discovery/practice/${related.id}`, { state: { referrer } })}
                     className="liquid-glass-card rounded-[12px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer p-4 hover:border-glass-highlight"
                   >
                     <div className="flex items-center gap-4">

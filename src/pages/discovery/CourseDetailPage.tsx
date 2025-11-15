@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft, Lock, BookOpen, Clock, CheckCircle, Play } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
@@ -140,6 +140,8 @@ const courses: Record<string, Course> = {
 const CourseDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const referrer = (location.state as { referrer?: string })?.referrer || "/discovery";
   
   const course = id ? courses[id] : null;
 
@@ -150,8 +152,8 @@ const CourseDetailPage = () => {
           title="Course Not Found"
           leftAction={{
             icon: <ChevronLeft className="w-5 h-5" />,
-            onClick: () => navigate("/discovery"),
-            label: "Back to Discovery"
+            onClick: () => navigate(referrer),
+            label: "Back"
           }}
         />
         <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-screen pb-24">
@@ -177,8 +179,8 @@ const CourseDetailPage = () => {
         subtitle={course.category}
         leftAction={{
           icon: <ChevronLeft className="w-5 h-5" />,
-          onClick: () => navigate("/discovery"),
-          label: "Back to Discovery"
+          onClick: () => navigate(referrer),
+          label: "Back"
         }}
       />
       

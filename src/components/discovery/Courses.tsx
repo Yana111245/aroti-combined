@@ -63,6 +63,56 @@ const courses: Course[] = [
     isLocked: true,
     category: "Moon Phases",
     duration: "2h 10m"
+  },
+  {
+    id: "6",
+    title: "Crystal Healing Essentials",
+    description: "Learn to use crystals for energy healing and balance",
+    lessonCount: 9,
+    price: 34.99,
+    isLocked: true,
+    category: "Crystals",
+    duration: "2h 45m"
+  },
+  {
+    id: "7",
+    title: "Chakra Balancing Guide",
+    description: "Master the art of aligning and balancing your energy centers",
+    lessonCount: 11,
+    price: 44.99,
+    isLocked: true,
+    category: "Chakras",
+    duration: "3h 30m"
+  },
+  {
+    id: "8",
+    title: "Manifestation Mastery",
+    description: "Powerful techniques to manifest your desires and goals",
+    lessonCount: 8,
+    price: 32.99,
+    isLocked: true,
+    category: "Manifestation",
+    duration: "2h 20m"
+  },
+  {
+    id: "9",
+    title: "Angel Numbers Decoded",
+    description: "Understand the messages from the divine realm",
+    lessonCount: 6,
+    price: 26.99,
+    isLocked: true,
+    category: "Angel Numbers",
+    duration: "1h 50m"
+  },
+  {
+    id: "10",
+    title: "Past Life Regression",
+    description: "Explore your soul's journey through time and space",
+    lessonCount: 10,
+    price: 42.99,
+    isLocked: true,
+    category: "Spiritual Guides",
+    duration: "3h 15m"
   }
 ];
 
@@ -71,7 +121,7 @@ export const Courses = () => {
 
   const handleCourseClick = (course: Course) => {
     // Navigate to course detail/payment page
-    navigate(`/discovery/courses/${course.id}`);
+    navigate(`/discovery/courses/${course.id}`, { state: { referrer: "/discovery" } });
   };
 
   const handleViewAll = () => {

@@ -72,7 +72,7 @@ export const CategoryGrid = ({ selectedCategory }: CategoryGridProps) => {
     : featuredItems;
 
   const handleItemClick = (itemId: string) => {
-    navigate(`/discovery/article/${itemId}`);
+    navigate(`/discovery/article/${itemId}`, { state: { referrer: "/discovery" } });
   };
 
   return (

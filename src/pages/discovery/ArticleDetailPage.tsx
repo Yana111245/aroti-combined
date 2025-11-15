@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft, Share2, Bookmark } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
@@ -100,6 +100,8 @@ const articles: Record<string, {
 const ArticleDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const referrer = (location.state as { referrer?: string })?.referrer || "/discovery";
   
   const article = id ? articles[id] : null;
 
@@ -110,8 +112,8 @@ const ArticleDetailPage = () => {
           title="Article Not Found"
           leftAction={{
             icon: <ChevronLeft className="w-5 h-5" />,
-            onClick: () => navigate("/discovery"),
-            label: "Back to Discovery"
+            onClick: () => navigate(referrer),
+            label: "Back"
           }}
         />
         <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-screen pb-24">
@@ -132,8 +134,8 @@ const ArticleDetailPage = () => {
         subtitle={article.category}
         leftAction={{
           icon: <ChevronLeft className="w-5 h-5" />,
-          onClick: () => navigate("/discovery"),
-          label: "Back to Discovery"
+          onClick: () => navigate(referrer),
+          label: "Back"
         }}
         rightActions={
           <div className="flex items-center gap-2">
@@ -202,7 +204,7 @@ const ArticleDetailPage = () => {
                   return (
                     <div
                       key={related.id}
-                      onClick={() => navigate(`/discovery/article/${related.id}`)}
+                      onClick={() => navigate(`/discovery/article/${related.id}`, { state: { referrer } })}
                       className="flex-shrink-0 w-[320px] h-[200px] flex apple-material-card-interactive liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group p-6"
                     >
                       {/* Content */}

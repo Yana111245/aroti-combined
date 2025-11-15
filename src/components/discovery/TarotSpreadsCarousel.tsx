@@ -39,7 +39,7 @@ export const TarotSpreadsCarousel = () => {
   const navigate = useNavigate();
 
   const handleSpreadClick = (spreadId: string) => {
-    navigate(`/discovery/spread/${spreadId}`);
+    navigate(`/discovery/spread/${spreadId}`, { state: { referrer: "/discovery" } });
   };
 
   const handleViewAll = () => {
