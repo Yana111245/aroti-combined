@@ -36,20 +36,20 @@ export const BaseHeader = ({
       }}
     >
       <div className="px-6 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between">
           {/* Left side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-start gap-3">
             {leftAction && (
               <button
                 onClick={leftAction.onClick}
-                className="apple-touch-target-comfortable p-2 rounded-[16px] transition-all duration-300 hover:bg-white/5 hover:scale-105 active:scale-95"
+                className="apple-touch-target-comfortable p-2 rounded-[16px] transition-all duration-300 hover:bg-white/5 hover:scale-105 active:scale-95 self-stretch flex items-center"
                 style={{ color: 'rgba(255, 255, 255, 0.6)' }}
                 aria-label={leftAction.label}
               >
                 {leftAction.icon}
               </button>
             )}
-            <div>
+            <div className="flex flex-col gap-2">
               <h1 className="text-large-title text-foreground font-normal">{title}</h1>
               {subtitle && (
                 <p className="text-subhead text-muted-foreground">{subtitle}</p>
@@ -59,7 +59,7 @@ export const BaseHeader = ({
           
           {/* Right side */}
           {rightActions && (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 self-stretch">
               {rightActions}
             </div>
           )}

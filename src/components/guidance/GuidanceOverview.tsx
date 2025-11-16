@@ -13,7 +13,7 @@ interface GuidanceOverviewProps {
 const specialists = [
   {
     id: "astrologer" as Specialist,
-    name: "Luna",
+    name: "Aroti",
     icon: Sparkles,
     description: "Cosmic insights & astrology guidance",
     cost: 5,

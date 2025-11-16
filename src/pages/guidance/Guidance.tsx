@@ -44,6 +44,22 @@ const Guidance = () => {
               setChatKey((prev) => prev + 1);
               setCurrentView("chat");
             }}
+            onShareSession={(sessionId) => {
+              // TODO: Implement share functionality
+              console.log("Share session:", sessionId);
+            }}
+            onRenameSession={(sessionId, newName) => {
+              // TODO: Implement rename functionality
+              console.log("Rename session:", sessionId, "to", newName);
+            }}
+            onArchiveSession={(sessionId) => {
+              // TODO: Implement archive functionality
+              console.log("Archive session:", sessionId);
+            }}
+            onDeleteSession={(sessionId) => {
+              // TODO: Implement delete functionality
+              console.log("Delete session:", sessionId);
+            }}
           />
         );
       default:

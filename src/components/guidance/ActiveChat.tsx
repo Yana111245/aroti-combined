@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { FrostedCard } from "@/components/ui/frosted-card";
-import { Sparkles, Heart, Hash, Mic, Send, Star, History, Plus, MessageSquare } from "lucide-react";
+import { Sparkles, Heart, Hash, Mic, Send, Star, Menu } from "lucide-react";
 import { Specialist } from "@/pages/Guidance";
 import { BaseHeader } from "@/components/layout/BaseHeader";
+import { GuidanceSideMenu } from "@/components/guidance/GuidanceSideMenu";
 import {
   LiquidGlassDialog,
   LiquidGlassDialogContent,
@@ -28,7 +29,7 @@ interface ActiveChatProps {
 
 const specialistData = {
   astrologer: {
-    name: "Luna",
+    name: "Aroti",
     icon: Sparkles,
     description: "Cosmic insights & astrology guidance",
     gradient: "from-primary-gold to-primary-gold-end",
@@ -51,7 +52,7 @@ const specialistData = {
 };
 
 const welcomeMessages = {
-  astrologer: "Hello! I'm Luna, your cosmic guide. I can help you understand your astrological chart, daily energy, and life timing. What would you like to explore?",
+  astrologer: "Hello! I'm Aroti, your cosmic guide. I can help you understand your astrological chart, daily energy, and life timing. What would you like to explore?",
   therapist: "Hi there! I'm Elyon, here to offer mindful support and gentle guidance. How are you feeling today?",
   numerologist: "Welcome! I'm Orin, a numbers mystic. I can help decode the patterns in your life path. What would you like to discover?",
 };
@@ -87,6 +88,7 @@ export const ActiveChat = ({
   const [isTyping, setIsTyping] = useState(false);
   const [pointsUsed, setPointsUsed] = useState(0);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -167,31 +169,47 @@ export const ActiveChat = ({
       {/* Fixed Header with Title and Actions */}
       <BaseHeader 
         title="Guidance"
-        subtitle={`${currentSpecialist.cost} pts per message`}
+        subtitle="Each insight costs 5 pts"
+        leftAction={{
+          icon: <Menu className="w-5 h-5" />,
+          onClick: () => setSideMenuOpen(true),
+          label: "Open menu"
+        }}
         rightActions={
-          <div className="flex items-center gap-2">
-            {onStartNewChat && (
-              <button
-                onClick={onStartNewChat}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors"
-                aria-label="Start new chat"
-              >
-                <MessageSquare className="w-5 h-5 text-accent" />
-              </button>
-            )}
-            <button
-              onClick={onViewHistory}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors"
-              aria-label="View chat history"
-            >
-              <History className="w-5 h-5 text-accent" />
-            </button>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/10">
-              <Star className="w-5 h-5 text-accent" />
-              <span className="text-subhead font-body font-medium text-accent">{userPoints}</span>
-            </div>
+          <div className="flex items-center gap-1 self-stretch">
+            <Star className="w-2.5 h-2.5 text-accent" />
+            <span className="text-footnote font-body font-medium text-accent">{userPoints}</span>
           </div>
         }
+      />
+
+      {/* Side Menu */}
+      <GuidanceSideMenu
+        open={sideMenuOpen}
+        onOpenChange={setSideMenuOpen}
+        onNewChat={() => {
+          if (onStartNewChat) {
+            onStartNewChat();
+          }
+        }}
+        onResumeSession={(specialist) => {
+          onSpecialistChange(specialist);
+          if (onStartNewChat) {
+            onStartNewChat();
+          }
+        }}
+        onShareSession={(sessionId) => {
+          // TODO: Implement share functionality
+          console.log("Share session:", sessionId);
+        }}
+        onRenameSession={(sessionId, newName) => {
+          // TODO: Implement rename functionality
+          console.log("Rename session:", sessionId, "to", newName);
+        }}
+        onDeleteSession={(sessionId) => {
+          // TODO: Implement delete functionality
+          console.log("Delete session:", sessionId);
+        }}
       />
 
       {/* Messages Area */}
@@ -286,14 +304,6 @@ export const ActiveChat = ({
           {/* Main Input Bar */}
           <FrostedCard className="p-4">
             <div className="flex items-center gap-3">
-              {/* Attachment Button */}
-              <button 
-                className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-secondary/30 transition-colors active:scale-95 flex-shrink-0"
-                aria-label="Attach file"
-              >
-                <Plus className="w-4.5 h-4.5 text-muted-foreground" />
-              </button>
-
               {/* Input Field */}
               <input
                 ref={inputRef}
