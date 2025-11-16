@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { specialists } from "@/data/specialists";
+import { useState, useMemo } from "react";
+import { specialists, Specialist } from "@/data/specialists";
 import { SpecialistCard } from "@/components/booking/SpecialistCard";
 import { CategoryChip } from "@/components/booking/CategoryChip";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
 import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
-import { ChevronDown, Filter } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { SortDropdown, SortOption } from "@/components/booking/SortDropdown";
+import { FilterSheet, FilterState } from "@/components/booking/FilterSheet";
 
 const categories = [
   "All",
@@ -20,18 +20,92 @@ const categories = [
 export default function BookingHome() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortOption, setSortOption] = useState<SortOption>(null);
+  const [filters, setFilters] = useState<FilterState>({});
 
-  const filteredSpecialists = specialists.filter((specialist) => {
-    const matchesCategory =
-      activeCategory === "All" ||
-      specialist.categories.some((cat) =>
-        cat.toLowerCase().includes(activeCategory.toLowerCase())
-      );
-    const matchesSearch =
-      specialist.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      specialist.specialty.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  // Filter specialists
+  const filteredSpecialists = useMemo(() => {
+    let result = specialists.filter((specialist) => {
+      // Category filter
+      const matchesCategory =
+        activeCategory === "All" ||
+        specialist.categories.some((cat) =>
+          cat.toLowerCase().includes(activeCategory.toLowerCase())
+        );
+      
+      // Search filter
+      const matchesSearch =
+        specialist.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        specialist.specialty.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      if (!matchesCategory || !matchesSearch) return false;
+
+      // Availability filter
+      if (filters.availability) {
+        if (filters.availability === "today" && !specialist.available) {
+          return false;
+        }
+        // For "week", we assume all available specialists are available this week
+        if (filters.availability === "week" && !specialist.available) {
+          return false;
+        }
+      }
+
+      // Price range filter - only apply if explicitly set
+      if (filters.priceMin !== undefined || filters.priceMax !== undefined) {
+        const priceMin = filters.priceMin ?? 0;
+        const priceMax = filters.priceMax ?? 120;
+        if (specialist.price < priceMin || specialist.price > priceMax) {
+          return false;
+        }
+      }
+
+      // Rating filter
+      if (filters.rating) {
+        const threshold = parseFloat(filters.rating);
+        if (specialist.rating < threshold) {
+          return false;
+        }
+      }
+
+      // Language filter
+      if (filters.languages && filters.languages.length > 0) {
+        const matchesLanguage = specialist.languages?.some(lang =>
+          filters.languages!.includes(lang)
+        );
+        if (!matchesLanguage) return false;
+      }
+
+      return true;
+    });
+
+    // Apply sorting
+    if (sortOption) {
+      result = [...result].sort((a, b) => {
+        switch (sortOption) {
+          case "price-low":
+            return a.price - b.price;
+          case "price-high":
+            return b.price - a.price;
+          case "rating":
+            return b.rating - a.rating;
+          case "sessions":
+            return b.sessionCount - a.sessionCount;
+          case "newest":
+            // Sort by addedDate (newest first) or yearsOfPractice (fewer years = newer)
+            if (a.addedDate && b.addedDate) {
+              return new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime();
+            }
+            // Fallback: fewer years of practice = newer
+            return (a.yearsOfPractice || 0) - (b.yearsOfPractice || 0);
+          default:
+            return 0;
+        }
+      });
+    }
+
+    return result;
+  }, [activeCategory, searchQuery, sortOption, filters]);
 
   // Get recommended specialists (first 2)
   const recommendedSpecialists = filteredSpecialists.slice(0, 2);
@@ -41,6 +115,20 @@ export default function BookingHome() {
   const allSpecialists = filteredSpecialists.filter(
     specialist => !recommendedIds.includes(specialist.id)
   );
+
+  // Calculate active filter count
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    if (filters.availability) count++;
+    // Count price filter if min or max differs from default (20-80)
+    if ((filters.priceMin !== undefined && filters.priceMin !== 20) || 
+        (filters.priceMax !== undefined && filters.priceMax !== 80)) {
+      count++;
+    }
+    if (filters.rating) count++;
+    if (filters.languages && filters.languages.length > 0) count += filters.languages.length;
+    return count;
+  }, [filters]);
 
   return (
     <PageWrapper showBottomNav={true} showTabBar={false}>
@@ -60,31 +148,19 @@ export default function BookingHome() {
           {/* Sort + Filter Bar */}
           <div className="home-tab-celestial mb-1">
             <div className="px-0 py-3 flex items-center gap-3">
-              <button
-                className="relative px-4 py-2 rounded-full flex items-center justify-center whitespace-nowrap transition-all duration-300 overflow-hidden liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground hover:bg-white/10 hover:border-glass-highlight hover:text-foreground backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%] hover:shadow-glass"
-                aria-label="Sort specialists"
-              >
-                {/* Liquid glass highlight */}
-                <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
-                <span className="text-footnote font-medium relative z-10 flex items-center gap-2">
-                  <span>Sort</span>
-                  <ChevronDown className="w-4 h-4" />
-                </span>
-              </button>
-              <button
-                className="relative px-4 py-2 rounded-full flex items-center justify-center whitespace-nowrap transition-all duration-300 overflow-hidden liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground hover:bg-white/10 hover:border-glass-highlight hover:text-foreground backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%] hover:shadow-glass"
-                aria-label="Filter specialists"
-              >
-                {/* Liquid glass highlight */}
-                <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
-                <span className="text-footnote font-medium relative z-10 flex items-center gap-2">
-                  <Filter className="w-4 h-4" />
-                  <span>Filter</span>
-                </span>
-              </button>
+              <SortDropdown
+                value={sortOption}
+                onValueChange={setSortOption}
+              />
+              <FilterSheet
+                specialists={specialists}
+                filters={filters}
+                onFiltersChange={setFilters}
+                activeFilterCount={activeFilterCount}
+              />
             </div>
           </div>
-          <section className="space-y-" aria-labelledby="booking-content">
+          <section className="space-y-6" aria-labelledby="booking-content">
             <h2 id="booking-content" className="sr-only">Booking Content</h2>
 
             {/* Category Filters - Below Sort/Filter */}

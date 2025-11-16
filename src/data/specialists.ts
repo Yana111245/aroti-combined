@@ -18,6 +18,8 @@ export interface Specialist {
   yearsOfPractice: number;
   photo: string;
   available: boolean;
+  languages: string[];
+  addedDate?: string; // For "Newest Specialists" sorting
 }
 
 export const specialists: Specialist[] = [
@@ -36,6 +38,8 @@ export const specialists: Specialist[] = [
     yearsOfPractice: 15,
     photo: specialist1,
     available: true,
+    languages: ["Romanian", "English"],
+    addedDate: "2024-01-15",
   },
   {
     id: "2",
@@ -52,6 +56,8 @@ export const specialists: Specialist[] = [
     yearsOfPractice: 12,
     photo: specialist2,
     available: true,
+    languages: ["English", "Spanish"],
+    addedDate: "2024-03-20",
   },
   {
     id: "3",
@@ -68,6 +74,8 @@ export const specialists: Specialist[] = [
     yearsOfPractice: 18,
     photo: specialist3,
     available: true,
+    languages: ["Greek", "English"],
+    addedDate: "2023-11-10",
   },
   {
     id: "4",
@@ -84,6 +92,8 @@ export const specialists: Specialist[] = [
     yearsOfPractice: 10,
     photo: specialist4,
     available: true,
+    languages: ["Japanese", "English"],
+    addedDate: "2024-06-05",
   },
 ];
 
