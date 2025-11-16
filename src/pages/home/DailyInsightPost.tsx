@@ -21,8 +21,8 @@ const DailyInsightPost = () => {
         subtitle="New beginnings • Innocence • Adventure"
       />
       
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
-        <main className="px-4 pb-24 animate-fade-in" role="main" aria-label="Daily insight content">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
+        <main className="px-4 pb-4 animate-fade-in" role="main" aria-label="Daily insight content">
           <section className="space-y-6" aria-labelledby="insight-content">
             <h2 id="insight-content" className="sr-only">Insight Content</h2>
 

@@ -57,8 +57,8 @@ export default function PaymentSummary() {
       />
       
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
-        <main className="px-4 pb-24 mt-4" role="main" aria-label="Payment content">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
+        <main className="px-4 pb-4 mt-4" role="main" aria-label="Payment content">
           <section className="space-y-6" aria-labelledby="payment-content">
             <h2 id="payment-content" className="sr-only">Payment Content</h2>
 

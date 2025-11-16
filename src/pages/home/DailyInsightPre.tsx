@@ -20,8 +20,8 @@ const DailyInsightPre = () => {
     <PageWrapper showBottomNav={true} showTabBar={false}>
       <BaseHeader title="Your Card Awaits" subtitle="Take a moment to center yourself. What question weighs on your heart today?" />
       
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
-        <main className="flex-1 flex flex-col items-center justify-center px-4 pb-24 animate-fade-in" role="main" aria-label="Daily insight content">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
+        <main className="flex-1 flex flex-col items-center justify-center px-4 pb-4 animate-fade-in" role="main" aria-label="Daily insight content">
         <div className="relative">
           <div 
             className={`transition-all duration-700 ${

@@ -51,8 +51,8 @@ export default function BookingHistory() {
       />
       
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
-        <main className="px-4 pb-24 mt-4" role="main" aria-label="Booking history content">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
+        <main className="px-4 pb-4 mt-4" role="main" aria-label="Booking history content">
           <section className="space-y-6" aria-labelledby="history-content">
             <h2 id="history-content" className="sr-only">Booking History Content</h2>
 

@@ -40,8 +40,8 @@ export default function BookingHome() {
       />
 
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
-        <main className="px-4 pb-24 mt-4" role="main" aria-label="Booking content">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
+        <main className="px-4 pb-4 mt-4" role="main" aria-label="Booking content">
           <section className="space-y-6" aria-labelledby="booking-content">
             <h2 id="booking-content" className="sr-only">Booking Content</h2>
 

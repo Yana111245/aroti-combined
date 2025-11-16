@@ -54,8 +54,8 @@ export default function ScheduleSession() {
       />
       
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
-        <main className="px-4 pb-24 mt-4" role="main" aria-label="Schedule content">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
+        <main className="px-4 pb-4 mt-4" role="main" aria-label="Schedule content">
           <section className="space-y-6" aria-labelledby="schedule-content">
             <h2 id="schedule-content" className="sr-only">Schedule Content</h2>
 

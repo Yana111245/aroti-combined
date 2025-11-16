@@ -1,4 +1,4 @@
-import { Home, Compass, MessageCircle, Calendar, User } from "lucide-react";
+import { Home, Compass, Calendar, User } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -70,11 +70,6 @@ export const UnifiedBottomNav = () => {
       icon: Compass, 
       label: "Discovery", 
       path: "/discovery"
-    },
-    { 
-      icon: MessageCircle, 
-      label: "Guidance", 
-      path: "/guidance"
     },
     { 
       icon: Calendar, 

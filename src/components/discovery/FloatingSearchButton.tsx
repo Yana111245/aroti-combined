@@ -103,10 +103,6 @@ export const FloatingSearchButton = () => {
   // Only show on discovery and booking routes
   const shouldShow = location.pathname.startsWith('/discovery') || location.pathname.startsWith('/booking');
 
-  if (!shouldShow) {
-    return null;
-  }
-
   // Load saved fixed position on mount
   useEffect(() => {
     (async () => {
@@ -253,6 +249,11 @@ export const FloatingSearchButton = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [fabKey]);
+
+  // Only show on discovery and booking routes
+  if (!shouldShow) {
+    return null;
+  }
 
   const handleClick = () => {
     if (!isDragging) {

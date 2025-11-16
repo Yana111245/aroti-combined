@@ -22,18 +22,18 @@ export default function ProfileOverview() {
         rightActions={
           <button
             onClick={() => navigate("/profile/settings")}
-            className="apple-touch-target-comfortable p-2 rounded-[16px] transition-all duration-300 hover:bg-white/5 hover:scale-105 active:scale-95"
+            className="apple-touch-target-comfortable p-2 rounded-[16px] transition-all duration-300 hover:bg-white/5"
             style={{ color: 'rgba(255, 255, 255, 0.6)' }}
             aria-label="Open settings"
           >
-            <Settings className="h-6 w-6" />
+            <Settings className="w-5 h-5" />
           </button>
         }
       />
 
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
-        <main className="px-4 pb-24 mt-4" role="main" aria-label="Profile content">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
+        <main className="px-4 pb-4 mt-4" role="main" aria-label="Profile content">
           <section className="space-y-6" aria-labelledby="profile-content">
             <h2 id="profile-content" className="sr-only">Profile Content</h2>
 

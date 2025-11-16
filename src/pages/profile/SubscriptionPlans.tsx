@@ -38,7 +38,7 @@ export default function SubscriptionPlans() {
         }}
       />
       
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
         <main className="px-4 max-w-[420px] mx-auto animate-fade-in" role="main" aria-label="Subscription plans">
           <p className="text-subhead text-muted-foreground mb-8 text-center pt-6">
             Premium opens deeper insights and priority sessions

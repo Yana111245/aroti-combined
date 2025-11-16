@@ -31,7 +31,7 @@ export default function SpecialistProfile() {
       />
       
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
         {/* Header Image */}
         <div className="relative h-48 overflow-hidden">
           <img
@@ -42,7 +42,7 @@ export default function SpecialistProfile() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         </div>
 
-        <main className="px-4 pb-24 mt-4" role="main" aria-label="Specialist profile">
+        <main className="px-4 pb-4 mt-4" role="main" aria-label="Specialist profile">
           <section className="space-y-6" aria-labelledby="profile-content">
             <h2 id="profile-content" className="sr-only">Profile Content</h2>
             

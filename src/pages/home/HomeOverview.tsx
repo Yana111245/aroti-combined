@@ -309,7 +309,7 @@ const HomeOverview = () => {
       </div>
 
       {/* Main content container with background */}
-      <div className="home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
+      <div className="home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
         {/* Header Section - Apple HIG Navigation Pattern */}
         <div className="px-4 pt-8 pb-4 text-center space-y-1">
           {/* Navigation Context - Apple Style */}
@@ -335,7 +335,7 @@ const HomeOverview = () => {
         </div>
 
         {/* Main Content - Apple HIG Visual Hierarchy */}
-        <main className="px-4 pb-24 mt-4" role="main" aria-label="Daily insights content">
+        <main className="px-4 pb-4 mt-4" role="main" aria-label="Daily insights content">
           <section className="space-y-4" aria-labelledby="daily-insights-section">
             <h2 id="daily-insights-section" className="sr-only">Daily Insights</h2>
             

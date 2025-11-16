@@ -52,19 +52,19 @@ export default function MessageThread() {
         }}
         rightActions={[
           {
-            icon: <Phone className="h-5 w-5" />,
+            icon: <Phone className="w-5 h-5" />,
             onClick: () => {},
             label: "Call"
           },
           {
-            icon: <MoreVertical className="h-5 w-5" />,
+            icon: <MoreVertical className="w-5 h-5" />,
             onClick: () => {},
             label: "More options"
           }
         ]}
       />
       
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
         <main className="max-w-[420px] mx-auto flex flex-col h-full px-4" role="main" aria-label="Message thread">
           {/* Messages */}
           <div className="flex-1 px-4 py-6 space-y-4 overflow-y-auto">

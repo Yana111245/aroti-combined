@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -82,6 +82,7 @@ const writeFabPosition = async (key: FabPosition) => {
 
 export const FloatingGuidanceButton = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   // Pixel position while dragging
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -89,6 +90,9 @@ export const FloatingGuidanceButton = () => {
   const [fabKey, setFabKey] = useState<FabPosition>(DEFAULT_FAB_POSITION);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const FAB_SIZE = 56; // 14rem = 56px
+
+  // Only show when not on guidance route
+  const shouldShow = !location.pathname.startsWith('/guidance');
 
   // Load saved fixed position on mount
   useEffect(() => {
@@ -242,6 +246,10 @@ export const FloatingGuidanceButton = () => {
       navigate('/guidance');
     }
   };
+
+  if (!shouldShow) {
+    return null;
+  }
 
   return (
     <button

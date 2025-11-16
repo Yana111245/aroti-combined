@@ -33,7 +33,7 @@ export default function BillingPayment() {
         }}
       />
       
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-24">
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
         <main className="px-4 max-w-[420px] mx-auto animate-fade-in pt-6" role="main" aria-label="Billing and payment">
           {/* Payment Methods */}
           <SectionHeader title="Payment Methods" className="mb-4" />

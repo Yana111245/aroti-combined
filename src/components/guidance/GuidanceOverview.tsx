@@ -1,5 +1,4 @@
-import { FrostedCard } from "@/components/ui/frosted-card";
-import { Sparkles, Heart, Hash, MessageCircle, Mic, Send, Star } from "lucide-react";
+import { Sparkles, Heart, Hash, Star, History } from "lucide-react";
 import { Specialist } from "@/pages/Guidance";
 import { BaseHeader } from "@/components/layout/BaseHeader";
 import { BaseCard } from "@/components/layout/BaseCard";
@@ -14,31 +13,29 @@ interface GuidanceOverviewProps {
 const specialists = [
   {
     id: "astrologer" as Specialist,
-    name: "Astrologer",
+    name: "Luna",
     icon: Sparkles,
-    description: "Cosmic insights",
+    description: "Cosmic insights & astrology guidance",
     cost: 5,
     gradient: "from-primary-gold to-primary-gold-end",
   },
   {
     id: "therapist" as Specialist,
-    name: "Therapist",
+    name: "Elyon",
     icon: Heart,
-    description: "Mindful support",
+    description: "Mindful support & emotional guidance",
     cost: 10,
     gradient: "from-accent to-accent",
   },
   {
     id: "numerologist" as Specialist,
-    name: "Numerologist",
+    name: "Orin",
     icon: Hash,
-    description: "Life path clarity",
+    description: "Life path clarity & numerology",
     cost: 5,
     gradient: "from-primary to-primary",
   },
 ];
-
-const quickPills = ["Daily Energy", "Ask about my chart", "Free Topic"];
 
 export const GuidanceOverview = ({ onStartChat, onViewHistory, onViewPoints, userPoints }: GuidanceOverviewProps) => {
   return (
@@ -59,27 +56,25 @@ export const GuidanceOverview = ({ onStartChat, onViewHistory, onViewPoints, use
       />
 
       {/* Main Content */}
-      <div className="pt-[80px] min-h-full pb-24">
-        <main className="px-6 pb-24 mt-4" role="main" aria-label="Guidance content">
-          <section className="space-y-6" aria-labelledby="guidance-content">
+      <div className="pt-[80px] min-h-full pb-4">
+        <main className="px-6 pb-4 mt-8" role="main" aria-label="Guidance content">
+          <section className="space-y-8" aria-labelledby="guidance-content">
             <h2 id="guidance-content" className="sr-only">Guidance Content</h2>
 
-            {/* Quick Pills */}
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-              {quickPills.map((pill) => (
-                <button
-                  key={pill}
-                  className="px-5 py-2.5 rounded-full bg-card/70 backdrop-blur-frosted border border-primary/20 text-foreground text-sm font-medium whitespace-nowrap hover:bg-card hover:border-primary/40 transition-all hover:shadow-glow"
-                >
-                  {pill}
-                </button>
-              ))}
+            {/* Welcome Hero Section */}
+            <div className="text-center space-y-4">
+              <h1 className="text-title-1 font-title font-bold text-foreground">
+                Start Your Journey
+              </h1>
+              <p className="text-body text-muted-foreground max-w-md mx-auto">
+                Connect with AI specialists who understand your unique path. Get personalized guidance whenever you need it.
+              </p>
             </div>
 
-            {/* AI Specialists */}
-            <div>
+            {/* Quick Specialist Selection */}
+            <div className="space-y-3">
               <h2 className="text-title-2 font-title font-semibold text-foreground mb-4">
-                AI Specialists
+                Choose Your Guide
               </h2>
               <div className="space-y-3">
                 {specialists.map((specialist) => {
@@ -116,30 +111,16 @@ export const GuidanceOverview = ({ onStartChat, onViewHistory, onViewPoints, use
               </div>
             </div>
 
-            {/* View Past Sessions */}
-            <button
-              onClick={onViewHistory}
-              className="w-full mb-6 text-primary text-body font-semibold hover:underline transition-all"
-            >
-              View Past Sessions
-            </button>
-
-            {/* Quick Message Input */}
-            <BaseCard className="sticky bottom-24 p-4">
-              <div className="flex items-center gap-3">
-                <button className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center hover:bg-secondary transition-colors">
-                  <Mic className="w-5 h-5 text-foreground" />
-                </button>
-                <input
-                  type="text"
-                  placeholder="Type your message…"
-                  className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground"
-                />
-                <button className="w-10 h-10 rounded-full bg-gradient-gold flex items-center justify-center shadow-glow hover:shadow-soft transition-all">
-                  <Send className="w-5 h-5 text-primary-foreground" />
-                </button>
-              </div>
-            </BaseCard>
+            {/* Secondary Actions */}
+            <div className="flex flex-col gap-3 pt-4">
+              <button
+                onClick={onViewHistory}
+                className="flex items-center justify-center gap-2 text-primary text-body font-semibold hover:underline transition-all"
+              >
+                <History className="w-5 h-5" />
+                View Past Sessions
+              </button>
+            </div>
           </section>
         </main>
       </div>
