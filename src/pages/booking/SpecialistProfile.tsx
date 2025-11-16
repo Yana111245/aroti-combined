@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
 import { BaseCard } from "@/components/layout/BaseCard";
+import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
 import { buttonVariants } from "@/components/ui/button-variants";
 
 export default function SpecialistProfile() {
@@ -43,11 +44,11 @@ export default function SpecialistProfile() {
         </div>
 
         <main className="px-4 pb-4 mt-4" role="main" aria-label="Specialist profile">
-          <section className="space-y-6" aria-labelledby="profile-content">
+          <section className="space-y-8" aria-labelledby="profile-content">
             <h2 id="profile-content" className="sr-only">Profile Content</h2>
             
             {/* Profile Info Card */}
-            <div className="liquid-glass-card p-6 animate-slide-up">
+            <BaseCard className="p-6 animate-fade-in">
               {/* Stats */}
               <div className="flex items-center gap-4 mb-4 text-body">
                 <div className="flex items-center gap-1">
@@ -89,14 +90,14 @@ export default function SpecialistProfile() {
               >
                 Book a Session • ${specialist.price}
               </Button>
-            </div>
+            </BaseCard>
 
             {/* Reviews */}
-            <div>
-              <h2 className="text-title-2 font-semibold text-foreground mb-4">
-                What Clients Say
-              </h2>
-              <div className="space-y-4">
+            <div className="animate-fade-in">
+              <BaseSectionHeader 
+                title="What Clients Say"
+              />
+              <div className="space-y-4 mt-6">
                 {specialistReviews.map((review) => (
                   <BaseCard key={review.id} className="p-4">
                     <div className="flex items-center gap-2 mb-2">
@@ -119,11 +120,11 @@ export default function SpecialistProfile() {
             </div>
 
             {/* Similar Specialists */}
-            <div>
-              <h2 className="text-title-2 font-semibold text-foreground mb-4">
-                Similar Specialists
-              </h2>
-              <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+            <div className="animate-fade-in">
+              <BaseSectionHeader 
+                title="Similar Specialists"
+              />
+              <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide mt-6">
                 {specialists
                   .filter((s) => s.id !== specialist.id)
                   .slice(0, 3)

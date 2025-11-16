@@ -5,6 +5,8 @@ import { CategoryChip } from "@/components/booking/CategoryChip";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
 import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
+import { ChevronDown, Filter } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const categories = [
   "All",
@@ -31,6 +33,15 @@ export default function BookingHome() {
     return matchesCategory && matchesSearch;
   });
 
+  // Get recommended specialists (first 2)
+  const recommendedSpecialists = filteredSpecialists.slice(0, 2);
+  const recommendedIds = recommendedSpecialists.map(s => s.id);
+  
+  // All specialists excluding recommended ones
+  const allSpecialists = filteredSpecialists.filter(
+    specialist => !recommendedIds.includes(specialist.id)
+  );
+
   return (
     <PageWrapper showBottomNav={true} showTabBar={false}>
       {/* Fixed Header */}
@@ -40,13 +51,44 @@ export default function BookingHome() {
       />
 
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
-        <main className="px-4 pb-4 mt-4" role="main" aria-label="Booking content">
-          <section className="space-y-6" aria-labelledby="booking-content">
+      <div className="home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
+        <main 
+          className="px-4 pb-4 mt-4" 
+          role="main" 
+          aria-label="Booking content"
+        >
+          {/* Sort + Filter Bar */}
+          <div className="home-tab-celestial mb-1">
+            <div className="px-0 py-3 flex items-center gap-3">
+              <button
+                className="relative px-4 py-2 rounded-full flex items-center justify-center whitespace-nowrap transition-all duration-300 overflow-hidden liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground hover:bg-white/10 hover:border-glass-highlight hover:text-foreground backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%] hover:shadow-glass"
+                aria-label="Sort specialists"
+              >
+                {/* Liquid glass highlight */}
+                <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+                <span className="text-footnote font-medium relative z-10 flex items-center gap-2">
+                  <span>Sort</span>
+                  <ChevronDown className="w-4 h-4" />
+                </span>
+              </button>
+              <button
+                className="relative px-4 py-2 rounded-full flex items-center justify-center whitespace-nowrap transition-all duration-300 overflow-hidden liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground hover:bg-white/10 hover:border-glass-highlight hover:text-foreground backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%] hover:shadow-glass"
+                aria-label="Filter specialists"
+              >
+                {/* Liquid glass highlight */}
+                <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+                <span className="text-footnote font-medium relative z-10 flex items-center gap-2">
+                  <Filter className="w-4 h-4" />
+                  <span>Filter</span>
+                </span>
+              </button>
+            </div>
+          </div>
+          <section className="space-y-" aria-labelledby="booking-content">
             <h2 id="booking-content" className="sr-only">Booking Content</h2>
 
-            {/* Category Filters */}
-            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+            {/* Category Filters - Below Sort/Filter */}
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide animate-fade-in">
               {categories.map((category) => (
                 <CategoryChip
                   key={category}
@@ -58,28 +100,36 @@ export default function BookingHome() {
             </div>
 
             {/* Recommended Section */}
-            <div>
+            <div className="pt-8">
               <BaseSectionHeader 
                 title="Recommended for You"
                 subtitle="Based on your interests and preferences"
               />
-              <div className="space-y-4 animate-fade-in">
-                {filteredSpecialists.slice(0, 2).map((specialist) => (
-                  <SpecialistCard key={specialist.id} specialist={specialist} />
-                ))}
+              <div className="space-y-4 mt-6 animate-fade-in">
+                {recommendedSpecialists.length > 0 ? (
+                  recommendedSpecialists.map((specialist) => (
+                    <SpecialistCard key={specialist.id} specialist={specialist} />
+                  ))
+                ) : (
+                  <p className="text-body text-muted-foreground">No recommendations available</p>
+                )}
               </div>
             </div>
 
-            {/* All Specialists */}
-            <div>
+            {/* All Specialists - Spacing and no duplicates */}
+            <div className="pt-8">
               <BaseSectionHeader 
                 title="All Specialists"
                 subtitle="Browse our complete directory"
               />
-              <div className="space-y-4 animate-fade-in">
-                {filteredSpecialists.map((specialist) => (
-                  <SpecialistCard key={specialist.id} specialist={specialist} />
-                ))}
+              <div className="space-y-4 mt-6 animate-fade-in">
+                {allSpecialists.length > 0 ? (
+                  allSpecialists.map((specialist) => (
+                    <SpecialistCard key={specialist.id} specialist={specialist} />
+                  ))
+                ) : (
+                  <p className="text-body text-muted-foreground">No specialists found</p>
+                )}
               </div>
             </div>
           </section>

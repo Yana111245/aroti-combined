@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
 import { BaseCard } from "@/components/layout/BaseCard";
+import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
@@ -59,7 +60,7 @@ export default function PaymentSummary() {
       {/* Main Content */}
       <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
         <main className="px-4 pb-4 mt-4" role="main" aria-label="Payment content">
-          <section className="space-y-6" aria-labelledby="payment-content">
+          <section className="space-y-8" aria-labelledby="payment-content">
             <h2 id="payment-content" className="sr-only">Payment Content</h2>
 
             {/* Session Details */}
@@ -109,11 +110,11 @@ export default function PaymentSummary() {
             </div>
 
             {/* Payment Method */}
-            <div>
-              <h2 className="text-headline font-semibold text-foreground mb-4">
-                Payment Method
-              </h2>
-              <div className="space-y-3">
+            <div className="animate-fade-in">
+              <BaseSectionHeader 
+                title="Payment Method"
+              />
+              <div className="space-y-3 mt-6">
                 <button
                   onClick={() => setPaymentMethod("apple")}
                   className={`w-full liquid-glass-card p-4 flex items-center gap-4 transition-smooth ${

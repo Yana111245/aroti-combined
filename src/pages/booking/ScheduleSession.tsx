@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
 import { BaseCard } from "@/components/layout/BaseCard";
+import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 
@@ -56,136 +57,138 @@ export default function ScheduleSession() {
       {/* Main Content */}
       <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
         <main className="px-4 pb-4 mt-4" role="main" aria-label="Schedule content">
-          <section className="space-y-6" aria-labelledby="schedule-content">
+          <section className="space-y-8" aria-labelledby="schedule-content">
             <h2 id="schedule-content" className="sr-only">Schedule Content</h2>
 
             {/* Date Selection */}
-            <div>
-              <h2 className="text-headline font-semibold text-foreground mb-4">
-                Select Date
-              </h2>
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-          {dates.map((date) => {
-            const isSelected =
-              selectedDate?.toDateString() === date.toDateString();
-            return (
-              <button
-                key={date.toISOString()}
-                onClick={() => setSelectedDate(date)}
-                  className={cn(
-                  "flex flex-col items-center min-w-[70px] px-4 py-3 rounded-2xl transition-smooth",
-                  isSelected
-                    ? "bg-gradient-gold text-white shadow-lg scale-105"
-                    : "liquid-glass-card text-foreground"
-                )}
-              >
-                <span className="text-footnote font-medium mb-1">
-                  {date.toLocaleDateString("en-US", { weekday: "short" })}
-                </span>
-                <span className="text-title-2 font-bold">
-                  {date.getDate()}
-                </span>
-                <span className="text-footnote mt-1">
-                  {date.toLocaleDateString("en-US", { month: "short" })}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+            <div className="animate-fade-in">
+              <BaseSectionHeader 
+                title="Select Date"
+              />
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide mt-6">
+                {dates.map((date) => {
+                  const isSelected =
+                    selectedDate?.toDateString() === date.toDateString();
+                  return (
+                    <button
+                      key={date.toISOString()}
+                      onClick={() => setSelectedDate(date)}
+                      className={cn(
+                        "flex flex-col items-center min-w-[70px] px-4 py-3 rounded-2xl transition-smooth",
+                        isSelected
+                          ? "bg-gradient-gold text-white shadow-lg scale-105"
+                          : "liquid-glass-card text-foreground"
+                      )}
+                    >
+                      <span className="text-footnote font-medium mb-1">
+                        {date.toLocaleDateString("en-US", { weekday: "short" })}
+                      </span>
+                      <span className="text-title-2 font-bold">
+                        {date.getDate()}
+                      </span>
+                      <span className="text-footnote mt-1">
+                        {date.toLocaleDateString("en-US", { month: "short" })}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
       {/* Time Selection */}
       {selectedDate && (
-        <div className="px-4 mb-8 animate-fade-in">
-          <h2 className="text-headline font-semibold text-foreground mb-4">
-            Select Time
-          </h2>
+        <div className="animate-fade-in">
+          <BaseSectionHeader 
+            title="Select Time"
+          />
 
-          {/* Morning */}
-          <div className="mb-6">
-            <h3 className="text-subhead text-muted-foreground mb-3">Morning</h3>
-            <div className="grid grid-cols-3 gap-2">
-              {timeSlots.morning.map((time) => (
-              <button
-                key={time}
-                onClick={() => setSelectedTime(time)}
-                className={cn(
-                  "py-3 rounded-full text-subhead font-medium transition-smooth",
-                  selectedTime === time
-                    ? "bg-gradient-gold text-white shadow-md"
-                    : "liquid-glass-card text-foreground"
-                )}
-              >
-                {time}
-              </button>
-              ))}
+          <div className="mt-6 space-y-6">
+            {/* Morning */}
+            <div>
+              <h3 className="text-subhead text-muted-foreground mb-3">Morning</h3>
+              <div className="grid grid-cols-3 gap-2">
+                {timeSlots.morning.map((time) => (
+                  <button
+                    key={time}
+                    onClick={() => setSelectedTime(time)}
+                    className={cn(
+                      "py-3 rounded-full text-subhead font-medium transition-smooth",
+                      selectedTime === time
+                        ? "bg-gradient-gold text-white shadow-md"
+                        : "liquid-glass-card text-foreground"
+                    )}
+                  >
+                    {time}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Afternoon */}
-          <div className="mb-6">
-            <h3 className="text-subhead text-muted-foreground mb-3">Afternoon</h3>
-            <div className="grid grid-cols-3 gap-2">
-              {timeSlots.afternoon.map((time) => (
-              <button
-                key={time}
-                onClick={() => setSelectedTime(time)}
-                className={cn(
-                  "py-3 rounded-full text-subhead font-medium transition-smooth",
-                  selectedTime === time
-                    ? "bg-gradient-gold text-white shadow-md"
-                    : "liquid-glass-card text-foreground"
-                )}
-              >
-                {time}
-              </button>
-              ))}
+            {/* Afternoon */}
+            <div>
+              <h3 className="text-subhead text-muted-foreground mb-3">Afternoon</h3>
+              <div className="grid grid-cols-3 gap-2">
+                {timeSlots.afternoon.map((time) => (
+                  <button
+                    key={time}
+                    onClick={() => setSelectedTime(time)}
+                    className={cn(
+                      "py-3 rounded-full text-subhead font-medium transition-smooth",
+                      selectedTime === time
+                        ? "bg-gradient-gold text-white shadow-md"
+                        : "liquid-glass-card text-foreground"
+                    )}
+                  >
+                    {time}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Evening */}
-          <div className="mb-6">
-            <h3 className="text-subhead text-muted-foreground mb-3">Evening</h3>
-            <div className="grid grid-cols-3 gap-2">
-              {timeSlots.evening.map((time) => (
-              <button
-                key={time}
-                onClick={() => setSelectedTime(time)}
-                className={cn(
-                  "py-3 rounded-full text-subhead font-medium transition-smooth",
-                  selectedTime === time
-                    ? "bg-gradient-gold text-white shadow-md"
-                    : "liquid-glass-card text-foreground"
-                )}
-              >
-                {time}
-              </button>
-              ))}
+            {/* Evening */}
+            <div>
+              <h3 className="text-subhead text-muted-foreground mb-3">Evening</h3>
+              <div className="grid grid-cols-3 gap-2">
+                {timeSlots.evening.map((time) => (
+                  <button
+                    key={time}
+                    onClick={() => setSelectedTime(time)}
+                    className={cn(
+                      "py-3 rounded-full text-subhead font-medium transition-smooth",
+                      selectedTime === time
+                        ? "bg-gradient-gold text-white shadow-md"
+                        : "liquid-glass-card text-foreground"
+                    )}
+                  >
+                    {time}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-            {/* Summary */}
-            {selectedDate && selectedTime && (
-              <div className="animate-slide-up">
-                <BaseCard className="p-6">
-                  <div className="flex items-start gap-4 mb-4">
+      {/* Summary */}
+      {selectedDate && selectedTime && (
+        <div className="animate-fade-in">
+          <BaseCard className="p-6">
+            <div className="flex items-start gap-4 mb-4">
               <img
                 src={specialist.photo}
                 alt={specialist.name}
                 className="w-16 h-16 rounded-full object-cover ring-2 ring-primary/20"
               />
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-foreground text-headline">
-                        {specialist.name}
-                      </h3>
-                      <p className="text-muted-foreground text-subhead">
-                        {specialist.specialty}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="space-y-2 text-subhead">
+              <div className="flex-1">
+                <h3 className="font-semibold text-foreground text-headline">
+                  {specialist.name}
+                </h3>
+                <p className="text-muted-foreground text-subhead">
+                  {specialist.specialty}
+                </p>
+              </div>
+            </div>
+            <div className="space-y-2 text-subhead">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Date</span>
                 <span className="font-medium text-foreground">
@@ -203,25 +206,25 @@ export default function ScheduleSession() {
                 <span className="text-muted-foreground">Duration</span>
                 <span className="font-medium text-foreground">50 min</span>
               </div>
-                    <div className="flex justify-between text-headline font-semibold pt-2 border-t border-border">
-                      <span>Total</span>
-                      <span className="text-gradient-gold">${specialist.price}</span>
-                    </div>
-                  </div>
-                </BaseCard>
-                
-                <Button
-                  onClick={handleContinue}
-                  disabled={!selectedDate || !selectedTime}
-                  className={cn(
-                    buttonVariants({ variant: "gold", size: "lg" }),
-                    "w-full mt-4"
-                  )}
-                >
-                  Continue to Payment
-                </Button>
+              <div className="flex justify-between text-headline font-semibold pt-2 border-t border-border">
+                <span>Total</span>
+                <span className="text-gradient-gold">${specialist.price}</span>
               </div>
+            </div>
+          </BaseCard>
+          
+          <Button
+            onClick={handleContinue}
+            disabled={!selectedDate || !selectedTime}
+            className={cn(
+              buttonVariants({ variant: "gold", size: "lg" }),
+              "w-full mt-4"
             )}
+          >
+            Continue to Payment
+          </Button>
+        </div>
+      )}
           </section>
         </main>
       </div>

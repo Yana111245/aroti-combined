@@ -53,11 +53,11 @@ export default function BookingHistory() {
       {/* Main Content */}
       <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
         <main className="px-4 pb-4 mt-4" role="main" aria-label="Booking history content">
-          <section className="space-y-6" aria-labelledby="history-content">
+          <section className="space-y-8" aria-labelledby="history-content">
             <h2 id="history-content" className="sr-only">Booking History Content</h2>
 
             {/* Tabs */}
-            <div>
+            <div className="animate-fade-in">
               <div className="liquid-glass-card p-1 flex gap-1">
                 <button
                   onClick={() => setActiveTab("upcoming")}
@@ -87,7 +87,7 @@ export default function BookingHistory() {
             {/* Sessions List */}
             <div>
               {activeTab === "upcoming" && (
-                <div className="space-y-4 animate-fade-in">
+                <div className="space-y-4 animate-fade-in mt-6">
                   {upcomingSessions.length === 0 ? (
                     <BaseCard className="p-12 text-center">
                       <CalendarIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
@@ -154,7 +154,7 @@ export default function BookingHistory() {
               )}
 
               {activeTab === "past" && (
-                <div className="space-y-4 animate-fade-in">
+                <div className="space-y-4 animate-fade-in mt-6">
                   {pastSessions.length === 0 ? (
                     <BaseCard className="p-12 text-center">
                       <CalendarIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
