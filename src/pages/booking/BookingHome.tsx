@@ -1,9 +1,11 @@
 import { useState, useMemo } from "react";
-import { specialists, Specialist } from "@/data/specialists";
+import { useNavigate } from "react-router-dom";
+import { specialists, Specialist, mockSessions } from "@/data/specialists";
 import { SpecialistCard } from "@/components/booking/SpecialistCard";
 import { CategoryChip } from "@/components/booking/CategoryChip";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
+import { BaseCard } from "@/components/layout/BaseCard";
 import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
 import { SortDropdown, SortOption } from "@/components/booking/SortDropdown";
 import { FilterSheet, FilterState } from "@/components/booking/FilterSheet";
@@ -18,10 +20,16 @@ const categories = [
 ];
 
 export default function BookingHome() {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState<SortOption>(null);
   const [filters, setFilters] = useState<FilterState>({});
+
+  // Filter upcoming sessions
+  const upcomingSessions = useMemo(() => {
+    return mockSessions.filter(s => s.status === "upcoming");
+  }, []);
 
   // Filter specialists
   const filteredSpecialists = useMemo(() => {
@@ -183,6 +191,128 @@ export default function BookingHome() {
                 />
               ))}
             </div>
+
+            {/* Upcoming Sessions - Only show if there are any */}
+            {upcomingSessions.length > 0 && (
+              <div className="pt-6 animate-fade-in">
+                <BaseSectionHeader 
+                  title="Upcoming Sessions"
+                  subtitle="Your scheduled appointments"
+                />
+                <div className="space-y-3 mt-6">
+                  {upcomingSessions.map((session) => (
+                    <BaseCard 
+                      key={session.id}
+                      className="p-3 sm:p-4 liquid-glass-card border border-glass-border/70 shadow-glass"
+                    >
+                      <div className="flex flex-col gap-2">
+                        {/* Avatar + Session Info - Clickable Area */}
+                        <div 
+                          className="flex items-start gap-3 sm:gap-4 cursor-pointer hover:opacity-90 transition-opacity duration-200 active:scale-[0.99]"
+                          onClick={() => navigate(`/booking/specialist/${session.specialistId}`)}
+                        >
+                          {/* Avatar - Same size as SpecialistCard */}
+                          <img
+                            src={session.specialistPhoto}
+                            alt={session.specialistName}
+                            className="w-20 h-20 sm:w-24 sm:h-24 rounded-[12px] object-cover ring-2 ring-primary/20 flex-shrink-0"
+                          />
+                          
+                          {/* Session Info */}
+                          <div className="flex-1 min-w-0 flex flex-col gap-2">
+                            {/* Row 1: Name */}
+                            <h3 className="font-bold text-foreground text-title-3 leading-tight">
+                              {session.specialistName}
+                            </h3>
+                            
+                            {/* Row 2: Specialty */}
+                            <span className="font-medium text-body text-muted-foreground">
+                              {session.specialty}
+                            </span>
+                            
+                            {/* Row 3: Session Details - Clear format */}
+                            <div className="flex items-center gap-1 flex-wrap text-subhead text-muted-foreground">
+                              {(() => {
+                                const sessionDate = new Date(session.date);
+                                const today = new Date();
+                                const tomorrow = new Date(today);
+                                tomorrow.setDate(tomorrow.getDate() + 1);
+                                
+                                const resetTime = (date: Date) => {
+                                  const d = new Date(date);
+                                  d.setHours(0, 0, 0, 0);
+                                  return d;
+                                };
+                                
+                                const sessionDay = resetTime(sessionDate);
+                                const todayDay = resetTime(today);
+                                const tomorrowDay = resetTime(tomorrow);
+                                
+                                let dateLabel: string;
+                                if (sessionDay.getTime() === todayDay.getTime()) {
+                                  dateLabel = "Today";
+                                } else if (sessionDay.getTime() === tomorrowDay.getTime()) {
+                                  dateLabel = "Tomorrow";
+                                } else {
+                                  dateLabel = sessionDate.toLocaleDateString("en-US", {
+                                    weekday: "short",
+                                    month: "short",
+                                    day: "numeric"
+                                  });
+                                }
+                                
+                                // Convert to 12-hour format
+                                const [hours, minutes] = session.time.split(':');
+                                const hour = parseInt(hours);
+                                const ampm = hour >= 12 ? 'PM' : 'AM';
+                                const hour12 = hour % 12 || 12;
+                                const timeLabel = `${hour12}:${minutes} ${ampm}`;
+                                
+                                return (
+                                  <>
+                                    <span className="whitespace-nowrap font-medium">{dateLabel}</span>
+                                    <span className="mx-1">at</span>
+                                    <span className="whitespace-nowrap font-medium">{timeLabel}</span>
+                                    <span className="mx-1">•</span>
+                                    <span className="whitespace-nowrap">{session.duration} min</span>
+                                  </>
+                                );
+                              })()}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Action Buttons - Same spacing as SpecialistCard */}
+                        <div className="mt-2 flex gap-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              // Handle cancel - show confirmation dialog
+                              console.log("Cancel session:", session.id);
+                            }}
+                            className="flex-1 px-4 py-2 rounded-[10px] liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground text-subhead font-body font-medium hover:bg-white/10 hover:border-glass-highlight hover:text-foreground hover:shadow-glass transition-all duration-200 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              // Handle join - open meeting link
+                              if (session.meetingLink) {
+                                window.open(session.meetingLink, '_blank');
+                              }
+                            }}
+                            className="flex-1 px-4 py-2 rounded-[10px] bg-accent text-white text-subhead font-body font-medium hover:bg-accent/90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 active:shadow-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+                          >
+                            Join
+                          </button>
+                        </div>
+                      </div>
+                    </BaseCard>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Recommended Section */}
             <div className="pt-8">

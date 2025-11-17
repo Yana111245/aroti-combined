@@ -51,6 +51,7 @@ import BookingHome from "./pages/booking/BookingHome";
 import SpecialistProfile from "./pages/booking/SpecialistProfile";
 import ScheduleSession from "./pages/booking/ScheduleSession";
 import PaymentSummary from "./pages/booking/PaymentSummary";
+import BookingConfirmation from "./pages/booking/BookingConfirmation";
 import BookingHistory from "./pages/booking/BookingHistory";
 
 // Profile pages
@@ -118,6 +119,7 @@ const App = () => (
           <Route path="/booking/specialist/:id" element={<SpecialistProfile />} />
           <Route path="/booking/schedule/:id" element={<ScheduleSession />} />
           <Route path="/booking/payment/:id" element={<PaymentSummary />} />
+          <Route path="/booking/confirmation/:id" element={<BookingConfirmation />} />
           <Route path="/booking/history" element={<BookingHistory />} />
           
           {/* Profile pages */}
