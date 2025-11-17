@@ -1,165 +1,337 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Settings, Sun, Moon, ChevronRight, Star, Bookmark, MessageCircle, Calendar } from "lucide-react";
-import { SerifTitle } from "@/components/profile/SerifTitle";
-import { SoftCard } from "@/components/profile/SoftCard";
-import { GradientButton } from "@/components/profile/GradientButton";
-import { SectionHeader } from "@/components/profile/SectionHeader";
+import {
+  Settings,
+  Sun,
+  Moon,
+  Star,
+  Bookmark,
+  MessageCircle,
+  Calendar,
+  ChevronRight,
+  BookOpen,
+  Sparkles,
+  Target,
+  Bell,
+  Globe,
+  Shield
+} from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { BaseHeader } from "@/components/layout/BaseHeader";
 import { BaseCard } from "@/components/layout/BaseCard";
+import { YourJourney } from "@/components/discovery/YourJourney";
+import { TabPills } from "@/components/profile/TabPills";
+import profileAvatar from "@/assets/specialist-1.jpg";
+
+const savedLibrary = {
+  Readings: [
+    "Celtic Cross Spread",
+    "Moonlit Reflection",
+    "Solar Alignment"
+  ],
+  Guides: [
+    "Lunar Living",
+    "Tarot Foundations",
+    "Chakra Reset"
+  ],
+  Practices: [
+    "Morning Mantra",
+    "Gratitude Flow",
+    "Evening Integration"
+  ],
+  Sessions: [
+    "Energy Tuning with Maia",
+    "Dream Work Circle",
+    "Sound Bath Ritual"
+  ]
+};
+
+const accountTools = [
+  { label: "Settings", icon: Settings },
+  { label: "Notifications", icon: Bell },
+  { label: "Language", icon: Globe },
+  { label: "Privacy & Terms", icon: Shield }
+];
+
+const astrologyPlacements = [
+  {
+    title: "Sun — Virgo",
+    description: "Identity • How you move through the world"
+  },
+  {
+    title: "Moon — Pisces",
+    description: "Inner world • How you feel and process emotion"
+  },
+  {
+    title: "Rising — Leo",
+    description: "First impression • The energy you project to others"
+  }
+];
 
 export default function ProfileOverview() {
   const navigate = useNavigate();
-  const [streak, setStreak] = useState(5);
+  const [activeTab, setActiveTab] = useState<keyof typeof savedLibrary>("Readings");
 
   return (
     <PageWrapper showBottomNav={true} showTabBar={false}>
-      {/* Fixed Header */}
-      <BaseHeader 
+      <BaseHeader
         title="Profile"
         subtitle="Your cosmic journey and personal insights"
-        rightActions={
-          <button
-            onClick={() => navigate("/profile/settings")}
-            className="apple-touch-target-comfortable p-2 rounded-[16px] transition-all duration-300 hover:bg-white/5"
-            style={{ color: 'rgba(255, 255, 255, 0.6)' }}
-            aria-label="Open settings"
-          >
-            <Settings className="w-5 h-5" />
-          </button>
-        }
       />
 
-      {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
-        <main className="px-4 pb-4 mt-4" role="main" aria-label="Profile content">
-          <section className="space-y-6" aria-labelledby="profile-content">
-            <h2 id="profile-content" className="sr-only">Profile Content</h2>
-
-            {/* Profile Header */}
-            <div className="flex items-center gap-4 animate-fade-in">
-              <div className="relative">
-                <div className="h-16 w-16 rounded-full bg-gradient-accent flex items-center justify-center text-white text-title-2 font-title">
-                  A
+      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-safe pb-6">
+        <main className="px-4 pb-10 mt-4 space-y-8" role="main" aria-label="Profile content">
+          {/* Profile Header */}
+          <section className="space-y-4">
+            <div className="liquid-glass-card rounded-[16px] border border-glass-border shadow-glass p-4">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-[78px] h-[96px] rounded-[18px] border border-white/10 shadow-glass overflow-hidden bg-gradient-to-br from-white/10 to-white/5">
+                    <img
+                      src={profileAvatar}
+                      alt="Alexandra Moon"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-caption-2 uppercase tracking-[0.2em] text-muted-foreground">Explorer</p>
+                    <h1 className="text-headline font-semibold text-foreground mt-1">Alexandra Moon</h1>
+                    <p className="text-body text-muted-foreground mt-1">San Francisco, CA</p>
+                  </div>
                 </div>
-                <button className="absolute bottom-0 right-0 h-5 w-5 rounded-full bg-white shadow-md flex items-center justify-center">
-                  <span className="text-footnote">✏️</span>
+                <button
+                  onClick={() => navigate("/profile/settings")}
+                  className="p-2 rounded-[12px] border border-white/10 hover:bg-white/5 transition-colors"
+                  aria-label="Open settings"
+                >
+                  <Settings className="w-5 h-5 text-muted-foreground" />
                 </button>
               </div>
+            </div>
+          </section>
+
+          {/* Cosmic Blueprint */}
+          <section className="space-y-4">
+            <div className="liquid-glass-card rounded-[16px] border border-glass-border shadow-glass p-5 space-y-6">
               <div>
-                <h2 className="font-semibold text-headline text-foreground">Alexandra Moon</h2>
-                <p className="text-body text-muted-foreground">San Francisco, CA</p>
+                <p className="text-caption-2 uppercase tracking-[0.3em] text-muted-foreground">Your Cosmic Blueprint</p>
+                <p className="text-subhead text-muted-foreground mt-1">Your core traits based on your birth details.</p>
+              </div>
+
+              <div className="grid gap-4">
+                <BaseCard className="p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-title-4 font-title text-foreground">Astrology</h3>
+                      <p className="text-footnote text-muted-foreground mt-1">
+                        Your essential placements based on your birth date, time, and location.
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2 text-accent">
+                      <Sun className="w-4 h-4" />
+                      <Moon className="w-4 h-4" />
+                      <Star className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    {astrologyPlacements.map((placement) => (
+                      <div key={placement.title} className="rounded-[12px] border border-white/5 bg-white/2 p-3">
+                        <p className="text-body font-medium text-foreground">{placement.title}</p>
+                        <p className="text-footnote text-muted-foreground mt-1">{placement.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <button
+                    onClick={() => navigate("/profile/astrology")}
+                    className="text-accent flex items-center gap-2 text-body font-medium hover:opacity-80 transition"
+                  >
+                    View Full Birth Chart
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </BaseCard>
+
+                <BaseCard className="p-5 space-y-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-title-4 font-title text-foreground">Numerology</h3>
+                      <p className="text-footnote text-muted-foreground mt-1">
+                        Your life path number calculated from your birth date.
+                      </p>
+                    </div>
+                    <Bookmark className="w-5 h-5 text-accent" />
+                  </div>
+                  <div className="rounded-[12px] border border-white/5 bg-white/2 p-4">
+                    <p className="text-title-3 font-semibold text-foreground">Life Path 3 — The Connector</p>
+                    <p className="text-footnote text-muted-foreground mt-2">
+                      Creative energy • Expression • Communication
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => navigate("/profile/numerology")}
+                    className="text-accent flex items-center gap-2 text-body font-medium hover:opacity-80 transition"
+                  >
+                    Learn More About Your Number
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </BaseCard>
               </div>
             </div>
+          </section>
 
-            {/* Cosmic Snapshot */}
-            <BaseCard className="animate-fade-in">
-              <div className="mb-4">
-                <h3 className="font-title text-title-3 font-semibold mb-1 text-foreground">Your Cosmic Snapshot</h3>
-                <p className="text-footnote text-muted-foreground">Updates as the sky moves</p>
+          {/* Practice & Progress */}
+          <section>
+            <YourJourney
+              title="Practice & Progress"
+              subtitle="Your daily activity and milestones."
+              streakLabel="Current Streak"
+              streakUnit="days"
+              streakValue={5}
+              nextMilestone={{
+                title: "14-Day Reflection",
+                progress: 5,
+                total: 14,
+                reward: "Daily Insight Boost"
+              }}
+              stats={[
+                {
+                  id: "reflection",
+                  label: "Reflection Streak",
+                  value: "5 days",
+                  icon: Target,
+                  iconColorClass: "text-emerald-300",
+                  iconBgClass: "bg-emerald-500/20",
+                  iconBorderClass: "border-emerald-500/30"
+                },
+                {
+                  id: "reading",
+                  label: "Last Reading",
+                  value: "2 hours ago",
+                  icon: BookOpen,
+                  iconColorClass: "text-amber-300",
+                  iconBgClass: "bg-amber-500/20",
+                  iconBorderClass: "border-amber-500/30"
+                },
+                {
+                  id: "stars",
+                  label: "Stars Earned",
+                  value: "127",
+                  icon: Sparkles,
+                  iconColorClass: "text-purple-300",
+                  iconBgClass: "bg-purple-500/20",
+                  iconBorderClass: "border-purple-500/30"
+                }
+              ]}
+              ctaLabel="View All Activity"
+              ctaHref="/profile/activity"
+            />
+          </section>
+
+          {/* Saved */}
+          <section className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-title-3 font-title text-foreground">Saved</h2>
+                <p className="text-footnote text-muted-foreground">Your personal library of readings and tools.</p>
               </div>
-              <div className="flex items-center justify-around mb-4">
-                <div className="text-center">
-                  <Sun className="h-8 w-8 mx-auto mb-2 text-accent-gold" />
-                  <p className="text-footnote font-medium text-foreground">Virgo</p>
-                  <p className="text-footnote text-muted-foreground">Sun</p>
+              <button
+                onClick={() => navigate("/profile/saved")}
+                className="text-accent text-body font-medium hover:opacity-80 transition"
+              >
+                View All
+              </button>
+            </div>
+            <TabPills
+              tabs={Object.keys(savedLibrary)}
+              activeTab={activeTab}
+              onTabChange={(tab) => setActiveTab(tab as keyof typeof savedLibrary)}
+            />
+            <div className="grid grid-cols-2 gap-3">
+              {savedLibrary[activeTab].map((item) => (
+                <BaseCard
+                  key={item}
+                  variant="interactive"
+                  className="p-4 space-y-2 min-h-[120px]"
+                >
+                  <Bookmark className="w-5 h-5 text-accent" />
+                  <p className="text-body font-medium text-foreground">{item}</p>
+                </BaseCard>
+              ))}
+            </div>
+          </section>
+
+          {/* Your Connections */}
+          <section>
+            <div className="relative apple-material-card-interactive liquid-glass-card rounded-[16px] border border-glass-border shadow-glass p-5 space-y-4">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-title-3 font-title text-foreground">Your Connections</h3>
+                  <p className="text-footnote text-muted-foreground mt-1">
+                    Messages, sessions, and interactions with specialists.
+                  </p>
                 </div>
-                <div className="text-center">
-                  <Moon className="h-8 w-8 mx-auto mb-2 text-accent-gold" />
-                  <p className="text-footnote font-medium text-foreground">Pisces</p>
-                  <p className="text-footnote text-muted-foreground">Moon</p>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-[12px] border border-white/5 bg-white/2 p-4 flex items-center justify-between">
+                  <div>
+                    <p className="text-body font-medium text-foreground">Messages</p>
+                    <p className="text-footnote text-muted-foreground mt-1">2 unread</p>
+                  </div>
+                  <MessageCircle className="w-6 h-6 text-accent" />
                 </div>
-                <div className="text-center">
-                  <Star className="h-8 w-8 mx-auto mb-2 text-accent-gold" />
-                  <p className="text-footnote font-medium text-foreground">Leo</p>
-                  <p className="text-footnote text-muted-foreground">Rising</p>
+                <div className="rounded-[12px] border border-white/5 bg-white/2 p-4 flex items-center justify-between">
+                  <div>
+                    <p className="text-body font-medium text-foreground">Next Session</p>
+                    <p className="text-footnote text-muted-foreground mt-1">Tomorrow</p>
+                  </div>
+                  <Calendar className="w-6 h-6 text-accent" />
                 </div>
               </div>
               <button
-                onClick={() => navigate("/profile/astrology")}
-                className="w-full text-center text-body font-medium text-accent-gold hover:opacity-80 transition-opacity flex items-center justify-center gap-1"
+                onClick={() => navigate("/profile/sessions")}
+                className="w-full mt-2 px-4 py-3 rounded-[10px] border border-accent/40 bg-accent/10 text-accent text-subhead font-body hover:bg-accent/20 transition-all flex items-center justify-center gap-2"
               >
-                View Astrology Details
-                <ChevronRight className="h-4 w-4" />
+                View History
+                <ChevronRight className="w-4 h-4" />
               </button>
-            </BaseCard>
+            </div>
+          </section>
 
-            {/* Life Path */}
-            <BaseCard className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-title text-title-3 font-semibold mb-1 text-foreground">Life Path 3</h3>
-                  <p className="text-body text-muted-foreground">Connector • Creative</p>
-                </div>
-                <button
-                  onClick={() => navigate("/profile/numerology")}
-                  className="text-accent-gold hover:opacity-80 transition-opacity"
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </button>
-              </div>
-            </BaseCard>
+          {/* Membership */}
+          <section>
+            <div className="rounded-[18px] border border-accent/40 bg-gradient-to-r from-accent/25 via-accent/10 to-transparent p-5 shadow-elevated">
+              <p className="text-title-4 font-title text-foreground">Membership</p>
+              <p className="text-footnote text-muted-foreground mt-1">
+                You’re on the Free Plan — enjoy basic guidance anytime.
+              </p>
+              <button
+                onClick={() => navigate("/profile/subscription")}
+                className="mt-4 w-full rounded-[12px] bg-white/90 text-accent px-4 py-3 font-semibold hover:bg-white transition"
+              >
+                Unlock Full Access
+              </button>
+            </div>
+          </section>
 
-            {/* Practice & Streaks */}
-            <BaseCard className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <h3 className="font-title text-title-3 font-semibold mb-4 text-foreground">Practice & Streaks</h3>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-body text-muted-foreground">Reflection Streak</span>
-                  <span className="font-semibold text-accent-gold">{streak} days 🔥</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-body text-muted-foreground">Last Reading</span>
-                  <span className="font-medium text-body text-foreground">2 hours ago</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-body text-muted-foreground">Stars Earned</span>
-                  <span className="font-medium text-body text-foreground">127 ⭐</span>
-                </div>
-              </div>
-            </BaseCard>
-
-            {/* Saved Content */}
-            <div className="animate-fade-in" style={{ animationDelay: "0.3s" }}>
-              <SectionHeader title="Saved" onViewAll={() => navigate("/profile/saved")} />
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-                {[1, 2, 3].map((i) => (
-                  <BaseCard key={i} variant="interactive" className="min-w-[140px] p-4">
-                    <Bookmark className="h-6 w-6 fill-accent text-accent mb-2" />
-                    <p className="text-body font-medium line-clamp-1 text-foreground">Celtic Cross Spread</p>
-                  </BaseCard>
-                ))}
+          {/* Account Tools */}
+          <section>
+            <div className="liquid-glass-card rounded-[16px] border border-glass-border shadow-glass p-4">
+              <p className="text-caption-2 uppercase tracking-[0.3em] text-muted-foreground mb-3">Account Tools</p>
+              <div className="grid grid-cols-2 gap-3">
+                {accountTools.map((tool) => {
+                  const Icon = tool.icon;
+                  return (
+                    <div
+                      key={tool.label}
+                      className="flex items-center gap-3 rounded-[12px] border border-white/5 bg-white/2 px-3 py-2 text-muted-foreground"
+                    >
+                      <Icon className="w-4 h-4 opacity-80" />
+                      <span className="text-footnote">{tool.label}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-
-            {/* Quick Actions */}
-            <div className="grid grid-cols-2 gap-4 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-              <BaseCard variant="interactive" onClick={() => navigate("/profile/messages")} className="p-5">
-                <MessageCircle className="h-6 w-6 text-accent-gold mb-2" />
-                <p className="text-body font-medium mb-1 text-foreground">Messages</p>
-                <p className="text-footnote text-muted-foreground">2 unread</p>
-              </BaseCard>
-              <BaseCard variant="interactive" onClick={() => navigate("/profile/sessions")} className="p-5">
-                <Calendar className="h-6 w-6 text-accent-gold mb-2" />
-                <p className="text-body font-medium mb-1 text-foreground">Sessions</p>
-                <p className="text-footnote text-muted-foreground">Next: Tomorrow</p>
-              </BaseCard>
-            </div>
-
-            {/* Subscription */}
-            <BaseCard className="animate-fade-in" style={{ animationDelay: "0.5s" }}>
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <h3 className="font-title text-title-3 font-semibold text-foreground">Free Plan</h3>
-                  <p className="text-footnote text-muted-foreground mt-1">Limited access</p>
-                </div>
-                <span className="text-title-2">✨</span>
-              </div>
-              <GradientButton onClick={() => navigate("/profile/subscription")} className="w-full">
-                Upgrade to Premium
-              </GradientButton>
-            </BaseCard>
           </section>
         </main>
       </div>

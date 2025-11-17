@@ -1,25 +1,50 @@
-import { Calendar, Target, BookOpen, Trophy, ChevronRight, Sparkles, Flame, Award } from "lucide-react";
+import {
+  Calendar,
+  Target,
+  BookOpen,
+  Trophy,
+  ChevronRight,
+  Sparkles,
+  Flame,
+  Award,
+  type LucideIcon
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
-interface JourneyData {
-  streak: number;
-  readings: number;
-  guides: number;
-  reflections: number;
-  nextMilestone?: {
-    title: string;
-    progress: number;
-    total: number;
-    reward: string;
-  };
+interface NextMilestone {
+  title: string;
+  progress: number;
+  total: number;
+  reward?: string;
 }
 
-// Mock data - in production, this would come from state/API
-const journeyData: JourneyData = {
+interface JourneyStat {
+  id: string;
+  label: string;
+  value: string | number;
+  icon: LucideIcon;
+  iconColorClass?: string;
+  iconBgClass?: string;
+  iconBorderClass?: string;
+}
+
+interface YourJourneyProps {
+  title?: string;
+  subtitle?: string;
+  streakLabel?: string;
+  streakUnit?: string;
+  streakValue?: number;
+  nextMilestone?: NextMilestone;
+  stats?: JourneyStat[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  onCtaClick?: () => void;
+  className?: string;
+}
+
+const defaultJourneyData = {
   streak: 7,
-  readings: 24,
-  guides: 8,
-  reflections: 12,
   nextMilestone: {
     title: "30-Day Journey",
     progress: 12,
@@ -28,17 +53,68 @@ const journeyData: JourneyData = {
   }
 };
 
-export const YourJourney = () => {
+const defaultStats: JourneyStat[] = [
+  {
+    id: "readings",
+    label: "Readings",
+    value: 24,
+    icon: Target,
+    iconColorClass: "text-emerald-300",
+    iconBgClass: "bg-emerald-500/20",
+    iconBorderClass: "border-emerald-500/30"
+  },
+  {
+    id: "guides",
+    label: "Guides",
+    value: 8,
+    icon: BookOpen,
+    iconColorClass: "text-amber-300",
+    iconBgClass: "bg-amber-500/20",
+    iconBorderClass: "border-amber-500/30"
+  },
+  {
+    id: "reflections",
+    label: "Reflections",
+    value: 12,
+    icon: Sparkles,
+    iconColorClass: "text-purple-300",
+    iconBgClass: "bg-purple-500/20",
+    iconBorderClass: "border-purple-500/30"
+  }
+];
+
+export const YourJourney = ({
+  title = "Your Journey",
+  subtitle = "Track your progress and achievements",
+  streakLabel = "Current Streak",
+  streakUnit = "days",
+  streakValue = defaultJourneyData.streak,
+  nextMilestone = defaultJourneyData.nextMilestone,
+  stats = defaultStats,
+  ctaLabel = "View Full Journey",
+  ctaHref = "/discovery/unlocks",
+  onCtaClick,
+  className
+}: YourJourneyProps = {}) => {
   const navigate = useNavigate();
-  const { streak, readings, guides, reflections, nextMilestone } = journeyData;
   const progressPercentage = nextMilestone ? Math.round((nextMilestone.progress / nextMilestone.total) * 100) : 0;
 
+  const handleCta = () => {
+    if (onCtaClick) {
+      onCtaClick();
+      return;
+    }
+    if (ctaHref) {
+      navigate(ctaHref);
+    }
+  };
+
   return (
-    <div className="space-y-4 pt-6">
+    <div className={cn("space-y-4 pt-6", className)}>
       <div className="flex items-end justify-between">
         <div>
-          <h2 className="text-title-3 font-title font-medium text-foreground">Your Journey</h2>
-          <p className="text-footnote text-muted-foreground mt-1">Track your progress and achievements</p>
+          <h2 className="text-title-3 font-title font-medium text-foreground">{title}</h2>
+          <p className="text-footnote text-muted-foreground mt-1">{subtitle}</p>
         </div>
       </div>
 
@@ -58,10 +134,10 @@ export const YourJourney = () => {
                 </div>
               </div>
               <div>
-                <p className="text-caption-2 text-muted-foreground uppercase tracking-wider">Current Streak</p>
+                <p className="text-caption-2 text-muted-foreground uppercase tracking-wider">{streakLabel}</p>
                 <div className="flex items-center gap-2 mt-0.5">
-                  <p className="text-headline font-medium text-foreground">{streak}</p>
-                  <p className="text-subhead text-muted-foreground">days</p>
+                  <p className="text-headline font-medium text-foreground">{streakValue}</p>
+                  <p className="text-subhead text-muted-foreground">{streakUnit}</p>
                 </div>
               </div>
             </div>
@@ -135,36 +211,33 @@ export const YourJourney = () => {
 
           {/* Stats Grid - Enhanced */}
           <div className="grid grid-cols-3 gap-3">
-            <div className="text-center p-4 rounded-[10px] bg-white/5 border border-white/10 hover:bg-white/10 transition-colors liquid-glass-secondary">
-              <div className="w-10 h-10 rounded-[8px] bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mx-auto mb-2 liquid-glass-secondary">
-                <Target className="w-5 h-5 text-emerald-300" />
-              </div>
-              <p className="text-headline font-semibold text-foreground">{readings}</p>
-              <p className="text-caption-2 text-muted-foreground mt-0.5">Readings</p>
-            </div>
-            <div className="text-center p-4 rounded-[10px] bg-white/5 border border-white/10 hover:bg-white/10 transition-colors liquid-glass-secondary">
-              <div className="w-10 h-10 rounded-[8px] bg-amber-500/20 border border-amber-500/30 flex items-center justify-center mx-auto mb-2 liquid-glass-secondary">
-                <BookOpen className="w-5 h-5 text-amber-300" />
-              </div>
-              <p className="text-headline font-semibold text-foreground">{guides}</p>
-              <p className="text-caption-2 text-muted-foreground mt-0.5">Guides</p>
-            </div>
-            <div className="text-center p-4 rounded-[10px] bg-white/5 border border-white/10 hover:bg-white/10 transition-colors liquid-glass-secondary">
-              <div className="w-10 h-10 rounded-[8px] bg-purple-500/20 border border-purple-500/30 flex items-center justify-center mx-auto mb-2 liquid-glass-secondary">
-                <Sparkles className="w-5 h-5 text-purple-300" />
-              </div>
-              <p className="text-headline font-semibold text-foreground">{reflections}</p>
-              <p className="text-caption-2 text-muted-foreground mt-0.5">Reflections</p>
-            </div>
+            {stats.map((stat) => {
+              const Icon = stat.icon;
+              return (
+                <div key={stat.id} className="text-center p-4 rounded-[10px] bg-white/5 border border-white/10 hover:bg-white/10 transition-colors liquid-glass-secondary">
+                  <div
+                    className={cn(
+                      "w-10 h-10 rounded-[8px] flex items-center justify-center mx-auto mb-2 liquid-glass-secondary",
+                      stat.iconBgClass ?? "bg-accent/15",
+                      stat.iconBorderClass ?? "border border-accent/30"
+                    )}
+                  >
+                    <Icon className={cn("w-5 h-5", stat.iconColorClass ?? "text-accent")} />
+                  </div>
+                  <p className="text-headline font-semibold text-foreground">{stat.value}</p>
+                  <p className="text-caption-2 text-muted-foreground mt-0.5">{stat.label}</p>
+                </div>
+              );
+            })}
           </div>
 
           {/* Action Button - Enhanced */}
           <button 
-            onClick={() => navigate("/discovery/unlocks")}
+            onClick={handleCta}
             className="w-full mt-2 px-4 py-3 rounded-[10px] border border-accent/50 bg-accent/10 text-accent text-subhead font-body hover:bg-accent/20 hover:border-accent transition-all backdrop-blur-sm flex items-center justify-center gap-2 group liquid-glass-secondary"
           >
             <Trophy className="w-4 h-4" />
-            <span>View Full Journey</span>
+            <span>{ctaLabel}</span>
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>

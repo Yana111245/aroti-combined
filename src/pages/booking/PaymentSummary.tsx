@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { ArrowLeft, Check, CreditCard, Smartphone } from "lucide-react";
+import { ArrowLeft, Check, CreditCard, Smartphone, Star } from "lucide-react";
 import { specialists } from "@/data/specialists";
 import { Button } from "@/components/ui/button";
 import { PageWrapper } from "@/components/layout/PageWrapper";
@@ -10,6 +10,7 @@ import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 export default function PaymentSummary() {
   const { id } = useParams();
@@ -58,124 +59,147 @@ export default function PaymentSummary() {
       />
       
       {/* Main Content */}
-      <div className="bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
-        <main className="px-4 pb-4 mt-4" role="main" aria-label="Payment content">
+      <div className="home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
+        <main className="px-4 pb-32 mt-4" role="main" aria-label="Payment content">
           <section className="space-y-8" aria-labelledby="payment-content">
             <h2 id="payment-content" className="sr-only">Payment Content</h2>
 
-            {/* Session Details */}
-            <div className="animate-fade-in">
-              <BaseCard className="p-6">
-          <div className="flex items-start gap-4 mb-6">
-            <img
-              src={specialist.photo}
-              alt={specialist.name}
-              className="w-20 h-20 rounded-[12px] object-cover ring-2 ring-primary/20"
-            />
-            <div className="flex-1">
-              <h3 className="font-semibold text-foreground text-title-3 mb-1">
-                {specialist.name}
-              </h3>
-              <p className="text-muted-foreground">{specialist.specialty}</p>
-            </div>
-          </div>
-
-          <div className="space-y-3 text-subhead">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Date & Time</span>
-              <span className="font-medium text-foreground">
-                {new Date(date).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })}{" "}
-                at {time}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Duration</span>
-              <span className="font-medium text-foreground">50 minutes</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Session Price</span>
-              <span className="font-medium text-foreground">
-                ${specialist.price}
-              </span>
-            </div>
-            <div className="flex justify-between text-headline font-semibold pt-3 border-t border-border">
-              <span>Total</span>
-              <span className="text-gradient-gold">${specialist.price}</span>
-            </div>
-          </div>
-              </BaseCard>
-            </div>
+            {/* Specialist Summary */}
+            <BaseCard className="p-6 liquid-glass-card border border-glass-border/70 shadow-glass animate-fade-in">
+              <div className="flex items-start gap-4 mb-4">
+                <img
+                  src={specialist.photo}
+                  alt={specialist.name}
+                  className="w-20 h-20 rounded-[14px] object-cover ring-2 ring-primary/20"
+                />
+                <div className="flex-1">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <h3 className="text-headline font-semibold text-foreground">{specialist.name}</h3>
+                      <p className="text-subhead text-muted-foreground">{specialist.specialty}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-footnote text-muted-foreground/70">From</p>
+                      <p className="text-headline font-semibold text-foreground">${specialist.price} <span className="text-subhead font-normal text-muted-foreground">/ session</span></p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 mt-3">
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 fill-accent text-accent" />
+                      <span className="text-body font-semibold text-foreground">{specialist.rating}</span>
+                    </div>
+                    <span className="text-subhead text-muted-foreground/70">{specialist.reviewCount} reviews</span>
+                  </div>
+                </div>
+              </div>
+              <div className="grid gap-3 text-subhead">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground/70">Scheduled for</span>
+                  <span className="font-medium text-foreground">
+                    {new Date(date).toLocaleDateString("en-US", {
+                      weekday: "short",
+                      month: "long",
+                      day: "numeric",
+                    })}{" "}
+                    at {time}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground/70">Duration</span>
+                  <span className="font-medium text-foreground">50 minutes</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground/70">Location</span>
+                  <span className="font-medium text-foreground">Secure video call</span>
+                </div>
+                <div className="flex justify-between pt-3 border-t border-white/5 text-headline font-semibold">
+                  <span>Total due</span>
+                  <span className="text-accent">${specialist.price}</span>
+                </div>
+                <p className="text-footnote text-muted-foreground/70">
+                  We'll send the meeting link and reminder email as soon as your payment is confirmed.
+                </p>
+              </div>
+            </BaseCard>
 
             {/* Payment Method */}
-            <div className="animate-fade-in">
+            <div className="animate-fade-in stagger-fade-up" style={{ animationDelay: "150ms" }}>
               <BaseSectionHeader 
                 title="Payment Method"
               />
               <div className="space-y-3 mt-6">
                 <button
                   onClick={() => setPaymentMethod("apple")}
-                  className={`w-full liquid-glass-card p-4 flex items-center gap-4 transition-smooth ${
-                    paymentMethod === "apple"
-                      ? "ring-2 ring-primary shadow-lg"
-                      : ""
-                  }`}
+                  className={cn(
+                    "w-full liquid-glass-card p-4 flex items-center gap-4 rounded-[16px] border border-transparent transition-smooth",
+                    paymentMethod === "apple" ? "border-accent/60 shadow-glass" : "hover:border-white/10"
+                  )}
                 >
-                  <Smartphone className="w-5 h-5 text-foreground" />
-                  <span className="font-medium text-body text-foreground">Apple Pay</span>
+                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                    <Smartphone className="w-5 h-5 text-foreground" />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <p className="text-body font-medium text-foreground">Apple Pay</p>
+                    <p className="text-footnote text-muted-foreground/70">Fast checkout with saved cards</p>
+                  </div>
                   {paymentMethod === "apple" && (
-                    <Check className="w-5 h-5 text-primary ml-auto" />
+                    <Check className="w-5 h-5 text-accent" />
                   )}
                 </button>
                 <button
                   onClick={() => setPaymentMethod("card")}
-                  className={`w-full liquid-glass-card p-4 flex items-center gap-4 transition-smooth ${
-                    paymentMethod === "card"
-                      ? "ring-2 ring-primary shadow-lg"
-                      : ""
-                  }`}
+                  className={cn(
+                    "w-full liquid-glass-card p-4 flex items-center gap-4 rounded-[16px] border border-transparent transition-smooth",
+                    paymentMethod === "card" ? "border-accent/60 shadow-glass" : "hover:border-white/10"
+                  )}
                 >
-                  <CreditCard className="w-5 h-5 text-foreground" />
-                  <span className="font-medium text-body text-foreground">Credit Card</span>
+                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                    <CreditCard className="w-5 h-5 text-foreground" />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <p className="text-body font-medium text-foreground">Credit Card</p>
+                    <p className="text-footnote text-muted-foreground/70">Visa, Mastercard, AmEx supported</p>
+                  </div>
                   {paymentMethod === "card" && (
-                    <Check className="w-5 h-5 text-primary ml-auto" />
+                    <Check className="w-5 h-5 text-accent" />
                   )}
                 </button>
               </div>
             </div>
 
             {/* Agreement */}
-            <div>
-              <BaseCard className="p-4">
-          <label className="flex items-start gap-3 cursor-pointer">
-            <Checkbox
-              checked={agreed}
-              onCheckedChange={(checked) => setAgreed(checked as boolean)}
-              className="mt-1"
-            />
-            <span className="text-subhead text-foreground">
-              I agree to Aroti's{" "}
-              <a href="#" className="text-primary underline">
-                session policies
-              </a>{" "}
-              and{" "}
-              <a href="#" className="text-primary underline">
-                cancellation terms
-              </a>
-              .
-            </span>
-          </label>
+            <div className="stagger-fade-up" style={{ animationDelay: "200ms" }}>
+              <BaseCard className="p-4 liquid-glass-card border border-white/5">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <Checkbox
+                    checked={agreed}
+                    onCheckedChange={(checked) => setAgreed(checked as boolean)}
+                    className="mt-1"
+                  />
+                  <span className="text-subhead text-foreground leading-relaxed">
+                    I agree to Aroti's{" "}
+                    <a href="#" className="text-accent underline underline-offset-2">
+                      session policies
+                    </a>{" "}
+                    and{" "}
+                    <a href="#" className="text-accent underline underline-offset-2">
+                      cancellation terms
+                    </a>
+                    .
+                  </span>
+                </label>
               </BaseCard>
             </div>
 
             {/* Confirm Button */}
-            <div>
+            <div className="stagger-fade-up" style={{ animationDelay: "250ms" }}>
               <Button
                 onClick={handlePayment}
                 disabled={!agreed || isProcessing}
-                className={buttonVariants({ variant: "gold", size: "lg" }) + " w-full"}
+                className={cn(
+                  buttonVariants({ variant: "gold", size: "lg" }),
+                  "w-full"
+                )}
               >
                 {isProcessing ? (
                   <span className="flex items-center gap-2">
