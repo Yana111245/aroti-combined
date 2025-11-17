@@ -70,7 +70,7 @@ export default function PaymentSummary() {
             <img
               src={specialist.photo}
               alt={specialist.name}
-              className="w-20 h-20 rounded-full object-cover ring-2 ring-primary/20"
+              className="w-20 h-20 rounded-[12px] object-cover ring-2 ring-primary/20"
             />
             <div className="flex-1">
               <h3 className="font-semibold text-foreground text-title-3 mb-1">

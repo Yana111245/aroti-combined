@@ -62,7 +62,7 @@ export const ForYouCarousel = () => {
           <div 
             key={item.id}
             onClick={() => handleItemClick(item.id)}
-            className="flex-shrink-0 w-[320px] h-[200px] flex apple-material-card-interactive liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group p-6"
+            className="flex-shrink-0 w-[320px] h-[200px] flex apple-material-card-interactive liquid-glass-card rounded-[12px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group p-6"
           >
             {/* Content */}
             <div className="relative z-10 flex flex-col h-full justify-between">

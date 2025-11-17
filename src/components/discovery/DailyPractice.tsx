@@ -54,7 +54,7 @@ export const DailyPractice = () => {
           <div 
             key={practice.id}
             onClick={() => handlePracticeClick(practice.id)}
-            className="flex-shrink-0 w-[260px] flex apple-material-card-interactive liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group p-5"
+            className="flex-shrink-0 w-[260px] flex apple-material-card-interactive liquid-glass-card rounded-[12px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 cursor-pointer group p-5"
           >
             <div className="flex items-center gap-3 mb-3 relative z-10">
               {/* Subtle liquid glass highlight */}

@@ -95,7 +95,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                 Results for "<span className="text-accent">{searchQuery}</span>"
               </h3>
               <div className="text-center py-12">
-                <div className="liquid-glass-card rounded-[16px] p-8 border border-glass-border">
+                <div className="liquid-glass-card rounded-[12px] p-8 border border-glass-border">
                   <p className="font-body text-body text-muted-foreground">
                     Search functionality coming soon...
                   </p>

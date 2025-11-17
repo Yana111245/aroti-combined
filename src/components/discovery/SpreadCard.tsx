@@ -29,7 +29,7 @@ export const SpreadCard = ({
       onClick={onClick}
     >
       {/* Enhanced card with dark celestial gradient */}
-      <div className="relative h-40 flex apple-material-card-interactive liquid-glass-card rounded-[16px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 mb-3 group-hover:scale-105">
+      <div className="relative h-40 flex apple-material-card-interactive liquid-glass-card rounded-[12px] overflow-hidden border border-glass-border shadow-glass hover:shadow-elevated transition-all duration-300 mb-3 group-hover:scale-105">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
             <h3 className="text-lg font-title font-medium text-foreground mb-2 drop-shadow-lg">{title}</h3>
