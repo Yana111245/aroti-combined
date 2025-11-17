@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Star } from "lucide-react";
 import { specialists } from "@/data/specialists";
@@ -20,17 +20,42 @@ export default function ScheduleSession() {
   const specialist = specialists.find((s) => s.id === id);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>("");
+  const [animationsComplete, setAnimationsComplete] = useState(false);
+  const summaryRef = useRef<HTMLDivElement>(null);
 
   if (!specialist) {
     return <div>Specialist not found</div>;
   }
 
-  // Generate next 14 days
-  const dates = Array.from({ length: 14 }, (_, i) => {
-    const date = new Date();
-    date.setDate(date.getDate() + i);
-    return date;
-  });
+  // Generate next 14 days - memoized to prevent regeneration on every render
+  const dates = useMemo(() => {
+    return Array.from({ length: 14 }, (_, i) => {
+      const date = new Date();
+      date.setDate(date.getDate() + i);
+      return date;
+    });
+  }, []);
+
+  // Set animations as complete after a delay to ensure they've finished
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationsComplete(true);
+    }, 1000); // Wait 1 second for all animations to complete (longest animation is 0.8s + delays)
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Scroll to summary when time is selected
+  useEffect(() => {
+    if (selectedTime && selectedDate && summaryRef.current) {
+      // Small delay to ensure the summary card has rendered
+      setTimeout(() => {
+        summaryRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }, 300);
+    }
+  }, [selectedTime, selectedDate]);
 
   const handleContinue = () => {
     if (selectedDate && selectedTime) {
@@ -44,7 +69,7 @@ export default function ScheduleSession() {
     <PageWrapper showBottomNav={true} showTabBar={false}>
       {/* Fixed Header */}
       <BaseHeader 
-        title="Choose Your Session Time"
+        title="Pick Your Time"
         leftAction={{
           icon: <ArrowLeft className="w-5 h-5" />,
           onClick: () => navigate(-1),
@@ -53,13 +78,23 @@ export default function ScheduleSession() {
       />
       
       {/* Main Content */}
-      <div className="home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
-        <main className="px-4 pb-32 mt-4" role="main" aria-label="Schedule content">
+      <div className="home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[64px] min-h-full pb-4">
+        <main className="px-4 pb-32" role="main" aria-label="Schedule content">
           <section className="space-y-8" aria-labelledby="schedule-content">
             <h2 id="schedule-content" className="sr-only">Schedule Content</h2>
 
             {/* Specialist Hero */}
-            <BaseCard className="p-5 flex items-center gap-4 liquid-glass-card stagger-fade-up" style={{ animationDelay: "100ms" }}>
+            <BaseCard 
+              className={cn(
+                "p-5 flex items-center gap-4 liquid-glass-card",
+                !animationsComplete && "stagger-fade-up"
+              )} 
+              style={{ 
+                animationDelay: "100ms",
+                ...(animationsComplete && { opacity: 1 })
+              }}
+              onAnimationEnd={() => setAnimationsComplete(true)}
+            >
               <img
                 src={specialist.photo}
                 alt={specialist.name}
@@ -88,7 +123,17 @@ export default function ScheduleSession() {
             </BaseCard>
 
             {/* Date Selection */}
-            <div className="animate-fade-in stagger-fade-up" style={{ animationDelay: "150ms" }}>
+            <div 
+              className={cn(
+                "animate-fade-in",
+                !animationsComplete && "stagger-fade-up"
+              )} 
+              style={{ 
+                animationDelay: "150ms",
+                ...(animationsComplete && { opacity: 1 })
+              }}
+              onAnimationEnd={() => setAnimationsComplete(true)}
+            >
               <BaseSectionHeader 
                 title="Select Date"
               />
@@ -101,24 +146,24 @@ export default function ScheduleSession() {
                       key={date.toISOString()}
                       onClick={() => setSelectedDate(date)}
                       className={cn(
-                        "flex flex-col items-center min-w-[76px] px-4 py-3 rounded-2xl transition-smooth border border-transparent liquid-glass-card",
+                        "relative flex flex-col items-center min-w-[76px] px-4 py-3 rounded-2xl transition-all duration-300 overflow-hidden",
                         isSelected
-                          ? "bg-accent/15 border-accent/60 text-foreground shadow-glass scale-105"
-                          : "text-foreground/90 hover:border-white/10"
+                          ? "liquid-glass-card bg-accent/20 border border-accent/50 text-accent shadow-glow backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%]"
+                          : "liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground hover:bg-white/10 hover:border-glass-highlight hover:text-foreground backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%] hover:shadow-glass"
                       )}
                     >
-                      <span className="text-footnote font-medium mb-1">
+                      {/* Liquid glass highlight */}
+                      <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+                      
+                      <span className="text-footnote font-medium mb-1 relative z-10">
                         {date.toLocaleDateString("en-US", { weekday: "short" })}
                       </span>
-                      <span className="text-title-2 font-bold">
+                      <span className="text-title-2 font-bold relative z-10">
                         {date.getDate()}
                       </span>
-                      <span className="text-footnote mt-1">
+                      <span className="text-footnote mt-1 relative z-10">
                         {date.toLocaleDateString("en-US", { month: "short" })}
                       </span>
-                      {isSelected && (
-                        <span className="mt-2 text-footnote text-accent font-medium">Selected</span>
-                      )}
                     </button>
                   );
                 })}
@@ -127,7 +172,17 @@ export default function ScheduleSession() {
 
       {/* Time Selection */}
       {selectedDate && (
-        <div className="animate-fade-in stagger-fade-up" style={{ animationDelay: "200ms" }}>
+        <div 
+          className={cn(
+            "animate-fade-in",
+            !animationsComplete && "stagger-fade-up"
+          )} 
+          style={{ 
+            animationDelay: "200ms",
+            ...(animationsComplete && { opacity: 1 })
+          }}
+          onAnimationEnd={() => setAnimationsComplete(true)}
+        >
           <BaseSectionHeader 
             title="Select Time"
           />
@@ -142,13 +197,15 @@ export default function ScheduleSession() {
                     key={time}
                     onClick={() => setSelectedTime(time)}
                     className={cn(
-                      "py-3 rounded-full text-subhead font-medium transition-smooth border border-transparent liquid-glass-card",
+                      "relative py-3 rounded-full text-subhead font-medium transition-all duration-300 overflow-hidden",
                       selectedTime === time
-                        ? "bg-accent text-white shadow-glass border-accent/60"
-                        : "text-foreground hover:border-white/10"
+                        ? "liquid-glass-card bg-accent/20 border border-accent/50 text-accent shadow-glow backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%]"
+                        : "liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground hover:bg-white/10 hover:border-glass-highlight hover:text-foreground backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%] hover:shadow-glass"
                     )}
                   >
-                    {time}
+                    {/* Liquid glass highlight */}
+                    <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+                    <span className="relative z-10">{time}</span>
                   </button>
                 ))}
               </div>
@@ -163,13 +220,15 @@ export default function ScheduleSession() {
                     key={time}
                     onClick={() => setSelectedTime(time)}
                     className={cn(
-                      "py-3 rounded-full text-subhead font-medium transition-smooth border border-transparent liquid-glass-card",
+                      "relative py-3 rounded-full text-subhead font-medium transition-all duration-300 overflow-hidden",
                       selectedTime === time
-                        ? "bg-accent text-white shadow-glass border-accent/60"
-                        : "text-foreground hover:border-white/10"
+                        ? "liquid-glass-card bg-accent/20 border border-accent/50 text-accent shadow-glow backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%]"
+                        : "liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground hover:bg-white/10 hover:border-glass-highlight hover:text-foreground backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%] hover:shadow-glass"
                     )}
                   >
-                    {time}
+                    {/* Liquid glass highlight */}
+                    <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+                    <span className="relative z-10">{time}</span>
                   </button>
                 ))}
               </div>
@@ -184,13 +243,15 @@ export default function ScheduleSession() {
                     key={time}
                     onClick={() => setSelectedTime(time)}
                     className={cn(
-                      "py-3 rounded-full text-subhead font-medium transition-smooth border border-transparent liquid-glass-card",
+                      "relative py-3 rounded-full text-subhead font-medium transition-all duration-300 overflow-hidden",
                       selectedTime === time
-                        ? "bg-accent text-white shadow-glass border-accent/60"
-                        : "text-foreground hover:border-white/10"
+                        ? "liquid-glass-card bg-accent/20 border border-accent/50 text-accent shadow-glow backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%]"
+                        : "liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground hover:bg-white/10 hover:border-glass-highlight hover:text-foreground backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%] hover:shadow-glass"
                     )}
                   >
-                    {time}
+                    {/* Liquid glass highlight */}
+                    <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+                    <span className="relative z-10">{time}</span>
                   </button>
                 ))}
               </div>
@@ -201,7 +262,18 @@ export default function ScheduleSession() {
 
       {/* Summary */}
       {selectedDate && selectedTime && (
-        <div className="animate-fade-in stagger-fade-up" style={{ animationDelay: "250ms" }}>
+        <div 
+          ref={summaryRef}
+          className={cn(
+            "animate-fade-in",
+            !animationsComplete && "stagger-fade-up"
+          )} 
+          style={{ 
+            animationDelay: "250ms",
+            ...(animationsComplete && { opacity: 1 })
+          }}
+          onAnimationEnd={() => setAnimationsComplete(true)}
+        >
           <BaseCard className="p-6 liquid-glass-card border border-glass-border/70 shadow-glass">
             <div className="flex items-start gap-4 mb-4">
               <img
@@ -258,7 +330,7 @@ export default function ScheduleSession() {
       </div>
 
       {/* Sticky CTA */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 pb-[80px] pt-[env(safe-area-inset-bottom)]">
+      <div className="home-tab-celestial fixed bottom-0 left-0 right-0 z-40 pb-[80px] pt-[env(safe-area-inset-bottom)]">
         <div
           className="liquid-glass-elevated border-t border-glass-highlight"
           style={{
@@ -283,9 +355,9 @@ export default function ScheduleSession() {
               onClick={handleContinue}
               disabled={!selectedDate || !selectedTime}
               className={cn(
-                "px-5 py-2.5 rounded-[12px] text-subhead font-medium transition-all duration-200",
+                "px-5 py-2.5 rounded-[10px] text-subhead font-body font-medium transition-all duration-200",
                 selectedDate && selectedTime
-                  ? "bg-accent text-white hover:bg-accent/90 hover:shadow-lg"
+                  ? "bg-accent text-white hover:bg-accent/90 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
                   : "bg-white/10 text-muted-foreground cursor-not-allowed"
               )}
             >

@@ -91,9 +91,10 @@ export const FloatingGuidanceButton = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const FAB_SIZE = 56; // 14rem = 56px
 
-  // Only show when not on guidance route and not on specialist profile page
+  // Only show when not on guidance route and not on specialist profile page or schedule page
   const shouldShow = !location.pathname.startsWith('/guidance') 
-    && !location.pathname.startsWith('/booking/specialist/');
+    && !location.pathname.startsWith('/booking/specialist/')
+    && !location.pathname.startsWith('/booking/schedule/');
 
   // Load saved fixed position on mount
   useEffect(() => {

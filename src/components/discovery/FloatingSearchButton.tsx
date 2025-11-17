@@ -100,9 +100,10 @@ export const FloatingSearchButton = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const FAB_SIZE = 56; // 14rem = 56px
 
-  // Only show on discovery and booking routes, but not on specialist profile page
+  // Only show on discovery and booking routes, but not on specialist profile page or schedule page
   const shouldShow = (location.pathname.startsWith('/discovery') || location.pathname.startsWith('/booking')) 
-    && !location.pathname.startsWith('/booking/specialist/');
+    && !location.pathname.startsWith('/booking/specialist/')
+    && !location.pathname.startsWith('/booking/schedule/');
 
   // Load saved fixed position on mount
   useEffect(() => {
