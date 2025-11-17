@@ -36,9 +36,9 @@ export const BaseHeader = ({
       }}
     >
       <div className="px-6 py-4">
-        <div className="flex items-start justify-between">
+        <div className="flex items-center justify-between">
           {/* Left side */}
-          <div className="flex items-start gap-3">
+          <div className="flex items-center gap-3">
             {leftAction && (
               <button
                 onClick={leftAction.onClick}

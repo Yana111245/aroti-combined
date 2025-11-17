@@ -126,7 +126,7 @@ export default function ProfileOverview() {
               <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
                 {[1, 2, 3].map((i) => (
                   <BaseCard key={i} variant="interactive" className="min-w-[140px] p-4">
-                    <Bookmark className="h-6 w-6 text-accent-gold mb-2" />
+                    <Bookmark className="h-6 w-6 fill-accent text-accent mb-2" />
                     <p className="text-body font-medium line-clamp-1 text-foreground">Celtic Cross Spread</p>
                   </BaseCard>
                 ))}

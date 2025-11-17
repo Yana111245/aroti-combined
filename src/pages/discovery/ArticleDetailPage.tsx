@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft, Share2, Bookmark } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
@@ -102,6 +103,7 @@ const ArticleDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const referrer = (location.state as { referrer?: string })?.referrer || "/discovery";
+  const [isSaved, setIsSaved] = useState(false);
   
   const article = id ? articles[id] : null;
 
@@ -140,18 +142,24 @@ const ArticleDetailPage = () => {
         rightActions={
           <div className="flex items-center gap-2">
             <button
-              onClick={() => {/* Handle bookmark */}}
+              onClick={() => setIsSaved(!isSaved)}
               className="apple-touch-target-comfortable p-2 rounded-[16px] transition-all duration-300 hover:bg-white/5"
-              aria-label="Bookmark article"
+              aria-label={isSaved ? "Remove from saved" : "Save article"}
             >
-              <Bookmark className="w-5 h-5" style={{ color: 'rgba(255, 255, 255, 0.6)' }} />
+              <Bookmark 
+                className={`w-5 h-5 transition-all duration-200 ${
+                  isSaved 
+                    ? 'fill-accent text-accent' 
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              />
             </button>
             <button
               onClick={() => {/* Handle share */}}
               className="apple-touch-target-comfortable p-2 rounded-[16px] transition-all duration-300 hover:bg-white/5"
               aria-label="Share article"
             >
-              <Share2 className="w-5 h-5" style={{ color: 'rgba(255, 255, 255, 0.6)' }} />
+              <Share2 className="w-5 h-5 text-muted-foreground hover:text-foreground" />
             </button>
           </div>
         }
