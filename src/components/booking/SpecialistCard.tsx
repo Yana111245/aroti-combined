@@ -25,7 +25,12 @@ export const SpecialistCard = ({ specialist }: SpecialistCardProps) => {
 
   const handleButtonClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click
-    navigate(`/booking/specialist/${specialist.id}`);
+    navigate(`/booking/schedule/${specialist.id}`);
+  };
+
+  const handleTextClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent card click
+    navigate(`/profile/messages`);
   };
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
@@ -110,13 +115,21 @@ export const SpecialistCard = ({ specialist }: SpecialistCardProps) => {
           </div>
         </div>
 
-        {/* Row 4: CTA Button - Full Width */}
-        <button
-          onClick={handleButtonClick}
-          className="mt-2 px-4 py-2 rounded-[10px] bg-accent text-white text-subhead font-body font-medium hover:bg-accent/90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 active:shadow-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 w-full"
-        >
-          Book session
-        </button>
+        {/* Row 4: CTA Buttons - Text and Book Session */}
+        <div className="mt-2 flex gap-2">
+          <button
+            onClick={handleTextClick}
+            className="flex-1 px-4 py-2 rounded-[10px] liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground text-subhead font-body font-medium hover:bg-white/10 hover:border-glass-highlight hover:text-foreground hover:shadow-glass transition-all duration-200 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+          >
+            Text
+          </button>
+          <button
+            onClick={handleButtonClick}
+            className="flex-1 px-4 py-2 rounded-[10px] bg-accent text-white text-subhead font-body font-medium hover:bg-accent/90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 active:shadow-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+          >
+            Book session
+          </button>
+        </div>
       </div>
     </BaseCard>
   );

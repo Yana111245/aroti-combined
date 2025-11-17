@@ -58,6 +58,10 @@ export default function SpecialistProfile() {
     reviewsSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const handleTextClick = () => {
+    navigate(`/profile/messages`);
+  };
+
   if (!specialist) {
     return (
       <PageWrapper showBottomNav={true} showTabBar={false}>
@@ -135,7 +139,23 @@ export default function SpecialistProfile() {
           {/* Overlay Content (bottom-left) */}
           <div className="absolute bottom-6 left-6 right-6">
             <h2 className="text-title-2 text-foreground font-normal mb-1">{specialist.name}</h2>
-            <p className="text-subhead text-foreground/90">{specialist.specialty}</p>
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-subhead text-foreground/90">{specialist.specialty}</p>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
+                  <Star className="w-4 h-4 fill-primary text-primary flex-shrink-0" />
+                  <span className="text-body font-semibold text-foreground">
+                    {specialist.rating}
+                  </span>
+                </div>
+                <button
+                  onClick={scrollToReviews}
+                  className="text-subhead text-accent underline underline-offset-2 hover:text-accent/80 active:text-accent transition-colors"
+                >
+                  {specialist.reviewCount} reviews
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -143,8 +163,44 @@ export default function SpecialistProfile() {
           <section className="space-y-8" aria-labelledby="profile-content">
             <h2 id="profile-content" className="sr-only">Profile Content</h2>
             
+            {/* About Section */}
+            <div className="stagger-fade-up" style={{ animationDelay: "150ms" }}>
+              <div className="mb-4">
+                <h2 className="text-subhead font-semibold text-foreground mb-2">About {specialist.name}</h2>
+                <div className="h-px bg-white/10 mb-4"></div>
+              </div>
+              <div className="liquid-glass-card rounded-[12px] p-4 border border-glass-border/50">
+                <p className="text-body text-foreground/80 leading-relaxed">
+                  {(() => {
+                    const sentences = specialist.bio.split('.').filter(s => s.trim());
+                    return sentences.slice(0, 2).join('.') + (sentences.length > 0 ? '.' : '');
+                  })()}
+                </p>
+              </div>
+            </div>
+
+            {/* Areas of Expertise */}
+            <div className="stagger-fade-up" style={{ animationDelay: "200ms" }}>
+              <div>
+                <h2 className="text-subhead font-semibold text-foreground mb-2">Areas of expertise</h2>
+                <div className="h-px bg-white/10 mb-4"></div>
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                {specialist.categories.map((category) => (
+                  <button
+                    key={category}
+                    className="relative px-4 py-2 rounded-full flex items-center justify-center whitespace-nowrap transition-all duration-300 overflow-hidden flex-shrink-0 liquid-glass-card bg-accent/20 border border-accent/50 text-accent backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%]"
+                    aria-label={`Category: ${category}`}
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+                    <span className="text-footnote font-medium relative z-10">{category}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Key Summary Card */}
-            <BaseCard className="p-6 stagger-fade-up" style={{ animationDelay: "150ms" }}>
+            <BaseCard className="p-6 stagger-fade-up" style={{ animationDelay: "250ms" }}>
               {/* Row 1 - Social Proof (Top Priority) */}
               <div className="mb-3">
                 <div className="flex items-center gap-2">
@@ -205,42 +261,6 @@ export default function SpecialistProfile() {
                 </div>
               )}
             </BaseCard>
-
-            {/* Areas of Expertise */}
-            <div className="stagger-fade-up" style={{ animationDelay: "200ms" }}>
-              <div>
-                <h2 className="text-subhead font-semibold text-foreground mb-2">Areas of expertise</h2>
-                <div className="h-px bg-white/10 mb-4"></div>
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                {specialist.categories.map((category) => (
-                  <button
-                    key={category}
-                    className="relative px-4 py-2 rounded-full flex items-center justify-center whitespace-nowrap transition-all duration-300 overflow-hidden flex-shrink-0 liquid-glass-card bg-accent/20 border border-accent/50 text-accent backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%]"
-                    aria-label={`Category: ${category}`}
-                  >
-                    <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
-                    <span className="text-footnote font-medium relative z-10">{category}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* About Section */}
-            <div className="stagger-fade-up" style={{ animationDelay: "250ms" }}>
-              <div className="mb-4">
-                <h2 className="text-subhead font-semibold text-foreground mb-2">About {specialist.name}</h2>
-                <div className="h-px bg-white/10 mb-4"></div>
-              </div>
-              <div className="liquid-glass-card rounded-[12px] p-4 border border-glass-border/50">
-                <p className="text-body text-foreground/80 leading-relaxed">
-                  {(() => {
-                    const sentences = specialist.bio.split('.').filter(s => s.trim());
-                    return sentences.slice(0, 2).join('.') + (sentences.length > 0 ? '.' : '');
-                  })()}
-                </p>
-              </div>
-            </div>
 
             {/* Client Experiences (Reviews) */}
             <div 
@@ -368,8 +388,9 @@ export default function SpecialistProfile() {
               WebkitBackdropFilter: 'blur(60px) saturate(180%)',
             }}
           >
-            <div className="px-4 py-4 flex items-center justify-between gap-4">
-              <div className="flex-1 min-w-0">
+            <div className="px-4 py-4 flex flex-col gap-3">
+              {/* Text Content on Top */}
+              <div>
                 <p className="text-subhead font-medium text-foreground">
                   Book a session with {specialist.name}
                 </p>
@@ -377,12 +398,21 @@ export default function SpecialistProfile() {
                   ${displayPrice} • {displayDuration}
                 </p>
               </div>
-              <button
-                onClick={() => navigate(`/booking/schedule/${specialist.id}`)}
-                className="px-5 py-2.5 rounded-[10px] bg-accent text-white text-subhead font-body font-medium hover:bg-accent/90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 active:shadow-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 whitespace-nowrap"
-              >
-                Book session
-              </button>
+              {/* Buttons in a Row Below */}
+              <div className="flex gap-2">
+                <button
+                  onClick={handleTextClick}
+                  className="flex-1 px-5 py-2.5 rounded-[10px] liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground text-subhead font-body font-medium hover:bg-white/10 hover:border-glass-highlight hover:text-foreground hover:shadow-glass transition-all duration-200 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+                >
+                  Text
+                </button>
+                <button
+                  onClick={() => navigate(`/booking/schedule/${specialist.id}`)}
+                  className="flex-1 px-5 py-2.5 rounded-[10px] bg-accent text-white text-subhead font-body font-medium hover:bg-accent/90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 active:shadow-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+                >
+                  Book session
+                </button>
+              </div>
             </div>
           </div>
         </div>
