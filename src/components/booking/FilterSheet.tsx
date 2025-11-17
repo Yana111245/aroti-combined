@@ -6,7 +6,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Filter, Check } from "lucide-react";
+import { Filter, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
@@ -18,6 +18,7 @@ export interface FilterState {
   priceMax?: number;
   rating?: string;
   languages?: string[];
+  yearsOfExperience?: string;
 }
 
 interface FilterSheetProps {
@@ -41,6 +42,14 @@ const PRICE_STEP = 10;
 const ratingOptions = [
   { value: "4.0", label: "4.0+" },
   { value: "4.5", label: "4.5+" },
+] as const;
+
+const yearsOfExperienceOptions = [
+  { value: "1", label: "1+ years" },
+  { value: "3", label: "3+ years" },
+  { value: "5", label: "5+ years" },
+  { value: "10", label: "10+ years" },
+  { value: "15", label: "15+ years" },
 ] as const;
 
 export const FilterSheet = ({
@@ -125,6 +134,13 @@ export const FilterSheet = ({
     }));
   };
 
+  const setYearsOfExperience = (value: string) => {
+    setLocalFilters(prev => ({
+      ...prev,
+      yearsOfExperience: prev.yearsOfExperience === value ? undefined : value,
+    }));
+  };
+
   const hasActiveFilters = Object.entries(localFilters).some(([key, value]) => {
     if (key === 'priceMin' || key === 'priceMax') {
       // Check if price differs from default
@@ -158,15 +174,22 @@ export const FilterSheet = ({
         </SheetTrigger>
         <SheetContent
           side="bottom"
-          className="home-tab-celestial liquid-glass-elevated bg-[rgba(23,20,31,0.92)] backdrop-filter backdrop-blur-[40px] backdrop-saturate-[200%] border-t border-glass-highlight rounded-t-[24px] max-h-[85vh] overflow-y-auto"
+          className="home-tab-celestial liquid-glass-elevated bg-[rgba(23,20,31,0.92)] backdrop-filter backdrop-blur-[40px] backdrop-saturate-[200%] border-t border-glass-highlight rounded-t-[24px] max-h-[85vh] overflow-y-auto [&>button]:hidden p-0"
         >
-          <SheetHeader className="text-left mb-6">
-            <SheetTitle className="text-title-2 text-foreground font-apple-display">
+          <SheetHeader className="sticky top-0 z-10 flex flex-row items-center justify-between bg-[rgba(23,20,31,0.92)] backdrop-blur-[40px] backdrop-saturate-[200%] pb-4 pt-6 mb-6 px-6 border-b border-glass-border rounded-t-[24px]">
+            <SheetTitle className="text-headline font-semibold text-foreground text-[17px]">
               Filter Specialists
             </SheetTitle>
+            <button
+              onClick={() => setOpen(false)}
+              className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none p-2"
+              aria-label="Close"
+            >
+              <X className="h-4 w-4" />
+            </button>
           </SheetHeader>
 
-          <div className="space-y-8 pb-4">
+          <div className="space-y-8 pb-4 px-6">
             {/* Availability Section */}
             <div>
               <h3 className="text-headline font-semibold text-foreground mb-4">
@@ -255,6 +278,39 @@ export const FilterSheet = ({
               </div>
             </div>
 
+            {/* Years of Experience Section */}
+            <div>
+              <h3 className="text-headline font-semibold text-foreground mb-4">
+                Years of Experience
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {yearsOfExperienceOptions.map((option) => {
+                  const isSelected = localFilters.yearsOfExperience === option.value;
+                  return (
+                    <button
+                      key={option.value}
+                      onClick={() => setYearsOfExperience(option.value)}
+                      className={cn(
+                        "relative px-4 py-2 rounded-full flex items-center gap-2 whitespace-nowrap transition-all duration-300 overflow-hidden",
+                        "liquid-glass-card backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%]",
+                        isSelected
+                          ? "bg-accent/20 border border-accent/50 text-accent shadow-glow"
+                          : "bg-white/5 border border-glass-border text-muted-foreground hover:bg-white/10 hover:border-glass-highlight hover:text-foreground hover:shadow-glass"
+                      )}
+                      aria-pressed={isSelected}
+                    >
+                      {/* Liquid glass highlight */}
+                      <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+                      {isSelected && (
+                        <Check className="w-4 h-4 text-accent relative z-10" />
+                      )}
+                      <span className="text-footnote font-medium relative z-10">{option.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Language Section */}
             <div>
               <h3 className="text-headline font-semibold text-foreground mb-4">
@@ -291,9 +347,9 @@ export const FilterSheet = ({
 
           {/* Bottom Action Buttons - Sticky */}
           <div 
-            className="sticky bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[rgba(23,20,31,0.98)] via-[rgba(23,20,31,0.95)] to-transparent backdrop-blur-[20px] border-t border-glass-border mt-6"
+            className="sticky bottom-0 left-0 right-0 pt-5 px-6 bg-gradient-to-t from-[rgba(23,20,31,0.98)] via-[rgba(23,20,31,0.95)] to-transparent backdrop-blur-[20px] border-t border-glass-border mt-5"
             style={{
-              paddingBottom: 'calc(1rem + 5rem + env(safe-area-inset-bottom))', // 1rem (p-4) + 5rem (nav height) + safe area
+              paddingBottom: 'calc(1rem + 5rem + env(safe-area-inset-bottom))', // 1rem (16px) spacing below buttons + 5rem (nav height) + safe area
             }}
           >
             <div className="flex gap-3 max-w-md mx-auto">

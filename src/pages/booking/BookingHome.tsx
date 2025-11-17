@@ -76,6 +76,14 @@ export default function BookingHome() {
         if (!matchesLanguage) return false;
       }
 
+      // Years of experience filter
+      if (filters.yearsOfExperience) {
+        const threshold = parseInt(filters.yearsOfExperience);
+        if (specialist.yearsOfPractice < threshold) {
+          return false;
+        }
+      }
+
       return true;
     });
 
@@ -126,6 +134,7 @@ export default function BookingHome() {
       count++;
     }
     if (filters.rating) count++;
+    if (filters.yearsOfExperience) count++;
     if (filters.languages && filters.languages.length > 0) count += filters.languages.length;
     return count;
   }, [filters]);
@@ -164,7 +173,7 @@ export default function BookingHome() {
             <h2 id="booking-content" className="sr-only">Booking Content</h2>
 
             {/* Category Filters - Below Sort/Filter */}
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide animate-fade-in">
+            <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide animate-fade-in">
               {categories.map((category) => (
                 <CategoryChip
                   key={category}
