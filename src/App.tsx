@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UnifiedBottomNav } from "@/components/navigation/UnifiedBottomNav";
 import { FloatingGuidanceButton } from "@/components/guidance/FloatingGuidanceButton";
 import { FloatingSearchButton } from "@/components/discovery/FloatingSearchButton";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 // Core pages
 import Index from "./pages/Index";
@@ -52,6 +53,7 @@ import SpecialistProfile from "./pages/booking/SpecialistProfile";
 import ScheduleSession from "./pages/booking/ScheduleSession";
 import PaymentSummary from "./pages/booking/PaymentSummary";
 import BookingConfirmation from "./pages/booking/BookingConfirmation";
+import UpcomingSessionDetail from "./pages/booking/UpcomingSessionDetail";
 import BookingHistory from "./pages/booking/BookingHistory";
 
 // Profile pages
@@ -76,6 +78,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           {/* Entry point - Welcome/Login */}
           <Route path="/" element={<Welcome />} />
@@ -120,6 +123,7 @@ const App = () => (
           <Route path="/booking/schedule/:id" element={<ScheduleSession />} />
           <Route path="/booking/payment/:id" element={<PaymentSummary />} />
           <Route path="/booking/confirmation/:id" element={<BookingConfirmation />} />
+          <Route path="/booking/session/:id" element={<UpcomingSessionDetail />} />
           <Route path="/booking/history" element={<BookingHistory />} />
           
           {/* Profile pages */}

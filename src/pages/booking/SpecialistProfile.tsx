@@ -229,7 +229,6 @@ export default function SpecialistProfile() {
               {/* Row 3 - Price & Duration (Decision Row) */}
               <div className="mb-3">
                 <div className="text-body">
-                  <span className="text-subhead text-muted-foreground/70">From </span>
                   <span className="font-semibold text-foreground">
                     ${displayPrice}
                   </span>
@@ -344,7 +343,6 @@ export default function SpecialistProfile() {
                         />
                         <div className="text-right">
                           <div className="text-body">
-                            <span className="text-subhead text-muted-foreground/70">From </span>
                             <span className="font-semibold text-foreground">
                               ${s.price}
                             </span>

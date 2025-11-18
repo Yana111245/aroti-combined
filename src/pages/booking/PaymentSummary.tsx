@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { StripeCardForm } from "@/components/payment/StripeCardForm";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { addBookedSession } from "@/utils/sessionUpdates";
 
 export default function PaymentSummary() {
   const { id } = useParams();
@@ -57,9 +58,24 @@ export default function PaymentSummary() {
 
     // Simulate payment processing
     setTimeout(() => {
+      // Create and save the booked session
+      const sessionId = addBookedSession({
+        specialistId: specialist.id,
+        specialistName: specialist.name,
+        specialistPhoto: specialist.photo,
+        specialty: specialist.specialty,
+        date: typeof date === 'string' ? date : date.toISOString().split('T')[0],
+        time: time,
+        duration: 50,
+        price: specialist.price,
+        status: "upcoming",
+        meetingLink: `https://meet.aroti.app/${specialist.id}-${Date.now()}`,
+        preparationNotes: "Please be in a quiet space with a stable internet connection. Have a journal ready if you'd like to take notes.",
+      });
+      
       setIsProcessing(false);
       navigate(`/booking/confirmation/${specialist.id}`, {
-        state: { specialist, date, time }
+        state: { specialist, date, time, sessionId }
       });
     }, 2000);
   };
@@ -98,7 +114,7 @@ export default function PaymentSummary() {
                       <p className="text-subhead text-muted-foreground">{specialist.specialty}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-footnote text-muted-foreground/70">From</p>
+                      <p className="text-footnote text-muted-foreground/70">Price</p>
                       <p className="text-headline font-semibold text-foreground">${specialist.price} <span className="text-subhead font-normal text-muted-foreground">/ session</span></p>
                     </div>
                   </div>

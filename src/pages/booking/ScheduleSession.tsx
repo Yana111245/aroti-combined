@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft, Star } from "lucide-react";
 import { specialists } from "@/data/specialists";
 import { PageWrapper } from "@/components/layout/PageWrapper";
@@ -7,6 +7,8 @@ import { BaseHeader } from "@/components/layout/BaseHeader";
 import { BaseCard } from "@/components/layout/BaseCard";
 import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
+import { updateSession } from "@/utils/sessionUpdates";
 
 const timeSlots = {
   morning: ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30"],
@@ -17,9 +19,19 @@ const timeSlots = {
 export default function ScheduleSession() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const specialist = specialists.find((s) => s.id === id);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string>("");
+  
+  // Check if this is a reschedule flow
+  const { session, isReschedule } = location.state || {};
+  
+  // Initialize with existing session data if rescheduling
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    isReschedule && session?.date ? new Date(session.date) : null
+  );
+  const [selectedTime, setSelectedTime] = useState<string>(
+    isReschedule && session?.time ? session.time : ""
+  );
   const [animationsComplete, setAnimationsComplete] = useState(false);
   const summaryRef = useRef<HTMLDivElement>(null);
 
@@ -59,9 +71,22 @@ export default function ScheduleSession() {
 
   const handleContinue = () => {
     if (selectedDate && selectedTime) {
-      navigate(`/booking/payment/${specialist.id}`, {
-        state: { date: selectedDate, time: selectedTime },
-      });
+      if (isReschedule && session) {
+        // Save the reschedule to localStorage
+        updateSession(
+          session.id, 
+          selectedDate.toISOString().split('T')[0], 
+          selectedTime
+        );
+        
+        toast.success("Session rescheduled successfully!");
+        navigate(`/booking/session/${session.id}`);
+      } else {
+        // For new booking, proceed to payment
+        navigate(`/booking/payment/${specialist.id}`, {
+          state: { date: selectedDate, time: selectedTime },
+        });
+      }
     }
   };
 
@@ -69,7 +94,7 @@ export default function ScheduleSession() {
     <PageWrapper showBottomNav={true} showTabBar={false}>
       {/* Fixed Header */}
       <BaseHeader 
-        title="Pick Your Time"
+        title={isReschedule ? "Reschedule Session" : "Pick Your Time"}
         leftAction={{
           icon: <ArrowLeft className="w-5 h-5" />,
           onClick: () => navigate(-1),
@@ -107,7 +132,7 @@ export default function ScheduleSession() {
                     <p className="text-subhead text-muted-foreground">{specialist.specialty}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-footnote text-muted-foreground/70">From</p>
+                    <p className="text-footnote text-muted-foreground/70">Price</p>
                     <p className="text-headline font-semibold text-foreground">${specialist.price} <span className="text-subhead font-normal text-muted-foreground">/ session</span></p>
                   </div>
                 </div>
@@ -361,7 +386,7 @@ export default function ScheduleSession() {
                   : "bg-white/10 text-muted-foreground cursor-not-allowed"
               )}
             >
-              Continue
+              {isReschedule ? "Confirm Reschedule" : "Continue"}
             </button>
           </div>
         </div>

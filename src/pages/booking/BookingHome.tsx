@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { Bookmark } from "lucide-react";
 import { specialists, Specialist, mockSessions } from "@/data/specialists";
 import { SpecialistCard } from "@/components/booking/SpecialistCard";
 import { CategoryChip } from "@/components/booking/CategoryChip";
@@ -9,6 +10,9 @@ import { BaseCard } from "@/components/layout/BaseCard";
 import { BaseSectionHeader } from "@/components/layout/BaseSectionHeader";
 import { SortDropdown, SortOption } from "@/components/booking/SortDropdown";
 import { FilterSheet, FilterState } from "@/components/booking/FilterSheet";
+import { getFavorites } from "@/utils/favorites";
+import { getSessionsWithUpdates } from "@/utils/sessionHelpers";
+import { cn } from "@/lib/utils";
 
 const categories = [
   "All",
@@ -25,10 +29,12 @@ export default function BookingHome() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState<SortOption>(null);
   const [filters, setFilters] = useState<FilterState>({});
+  const [showSavedOnly, setShowSavedOnly] = useState(false);
 
-  // Filter upcoming sessions
+  // Filter upcoming sessions with updates
   const upcomingSessions = useMemo(() => {
-    return mockSessions.filter(s => s.status === "upcoming");
+    const upcoming = mockSessions.filter(s => s.status === "upcoming");
+    return getSessionsWithUpdates(upcoming);
   }, []);
 
   // Filter specialists
@@ -47,6 +53,14 @@ export default function BookingHome() {
         specialist.specialty.toLowerCase().includes(searchQuery.toLowerCase());
       
       if (!matchesCategory || !matchesSearch) return false;
+
+      // Saved filter
+      if (showSavedOnly) {
+        const savedIds = getFavorites();
+        if (!savedIds.includes(specialist.id)) {
+          return false;
+        }
+      }
 
       // Availability filter
       if (filters.availability) {
@@ -121,7 +135,7 @@ export default function BookingHome() {
     }
 
     return result;
-  }, [activeCategory, searchQuery, sortOption, filters]);
+  }, [activeCategory, searchQuery, sortOption, filters, showSavedOnly]);
 
   // Get recommended specialists (first 2)
   const recommendedSpecialists = filteredSpecialists.slice(0, 2);
@@ -162,8 +176,20 @@ export default function BookingHome() {
           role="main" 
           aria-label="Booking content"
         >
-          {/* Sort + Filter Bar */}
-          <div className="home-tab-celestial mb-1">
+          {/* Category Filters - First */}
+          <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide animate-fade-in mb-3">
+            {categories.map((category) => (
+              <CategoryChip
+                key={category}
+                label={category}
+                active={activeCategory === category}
+                onClick={() => setActiveCategory(category)}
+              />
+            ))}
+          </div>
+
+          {/* Sort + Filter + Saved Bar - Second */}
+          <div className="home-tab-celestial">
             <div className="px-0 py-3 flex items-center gap-3">
               <SortDropdown
                 value={sortOption}
@@ -175,26 +201,32 @@ export default function BookingHome() {
                 onFiltersChange={setFilters}
                 activeFilterCount={activeFilterCount}
               />
+              
+              {/* Saved Filter Chip */}
+              <button
+                onClick={() => setShowSavedOnly(!showSavedOnly)}
+                className={cn(
+                  "relative px-4 py-2 rounded-full flex items-center justify-center whitespace-nowrap transition-all duration-300 overflow-hidden",
+                  showSavedOnly
+                    ? "liquid-glass-card bg-accent/20 border border-accent/50 text-accent shadow-glow backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%]"
+                    : "liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground hover:bg-white/10 hover:border-glass-highlight hover:text-foreground backdrop-filter backdrop-blur-[12px] backdrop-saturate-[150%] hover:shadow-glass"
+                )}
+              >
+                <div className="absolute top-0 left-0 right-0 h-px liquid-glass-highlight opacity-50" />
+                <span className="text-footnote font-medium relative z-10 flex items-center gap-2">
+                  <Bookmark className={cn("w-4 h-4", showSavedOnly && "fill-accent")} />
+                  <span>Saved</span>
+                </span>
+              </button>
             </div>
           </div>
-          <section className="space-y-6" aria-labelledby="booking-content">
+          
+          <section className="space-y-2" aria-labelledby="booking-content">
             <h2 id="booking-content" className="sr-only">Booking Content</h2>
-
-            {/* Category Filters - Below Sort/Filter */}
-            <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide animate-fade-in">
-              {categories.map((category) => (
-                <CategoryChip
-                  key={category}
-                  label={category}
-                  active={activeCategory === category}
-                  onClick={() => setActiveCategory(category)}
-                />
-              ))}
-            </div>
 
             {/* Upcoming Sessions - Only show if there are any */}
             {upcomingSessions.length > 0 && (
-              <div className="pt-6 animate-fade-in">
+              <div className="pt-2 animate-fade-in">
                 <BaseSectionHeader 
                   title="Upcoming Sessions"
                   subtitle="Your scheduled appointments"
@@ -209,7 +241,7 @@ export default function BookingHome() {
                         {/* Avatar + Session Info - Clickable Area */}
                         <div 
                           className="flex items-start gap-3 sm:gap-4 cursor-pointer hover:opacity-90 transition-opacity duration-200 active:scale-[0.99]"
-                          onClick={() => navigate(`/booking/specialist/${session.specialistId}`)}
+                          onClick={() => navigate(`/booking/session/${session.id}`)}
                         >
                           {/* Avatar - Same size as SpecialistCard */}
                           <img
@@ -287,12 +319,13 @@ export default function BookingHome() {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              // Handle cancel - show confirmation dialog
-                              console.log("Cancel session:", session.id);
+                              navigate(`/booking/schedule/${session.specialistId}`, {
+                                state: { session, isReschedule: true }
+                              });
                             }}
                             className="flex-1 px-4 py-2 rounded-[10px] liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground text-subhead font-body font-medium hover:bg-white/10 hover:border-glass-highlight hover:text-foreground hover:shadow-glass transition-all duration-200 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
                           >
-                            Cancel
+                            Reschedule
                           </button>
                           <button
                             onClick={(e) => {
@@ -315,7 +348,7 @@ export default function BookingHome() {
             )}
 
             {/* Recommended Section */}
-            <div className="pt-8">
+            <div className="pt-2">
               <BaseSectionHeader 
                 title="Recommended for You"
                 subtitle="Based on your interests and preferences"
@@ -332,7 +365,7 @@ export default function BookingHome() {
             </div>
 
             {/* All Specialists - Spacing and no duplicates */}
-            <div className="pt-8">
+            <div className="pt-2">
               <BaseSectionHeader 
                 title="All Specialists"
                 subtitle="Browse our complete directory"

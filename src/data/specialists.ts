@@ -317,6 +317,7 @@ export interface Session {
   price: number;
   status: "upcoming" | "completed" | "pending";
   meetingLink?: string;
+  preparationNotes?: string;
 }
 
 export const mockSessions: Session[] = [
@@ -332,6 +333,7 @@ export const mockSessions: Session[] = [
     price: 40,
     status: "upcoming",
     meetingLink: "https://meet.aroti.app/session-123",
+    preparationNotes: "Please have your birth chart details ready (date, time, and place of birth). Find a quiet, comfortable space where you can reflect openly. I recommend having a notebook to write down insights during our session.",
   },
   {
     id: "s2",
@@ -344,5 +346,6 @@ export const mockSessions: Session[] = [
     duration: 60,
     price: 35,
     status: "completed",
+    preparationNotes: "Think about specific areas of your life where you seek guidance. Having your full birth name and current concerns ready will help us dive deeper into your numerology reading.",
   },
 ];
