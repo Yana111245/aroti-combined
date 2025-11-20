@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { DaySelector } from "@/components/home/DaySelector";
+import { useNavigate } from "react-router-dom";
+import { Calendar } from "lucide-react";
 import { TarotPreReveal } from "@/components/home/TarotPreReveal";
 import { TarotPostReveal } from "@/components/home/TarotPostReveal";
 import { AstrologyInsights } from "@/components/home/AstrologyInsights";
@@ -8,9 +9,9 @@ import { ReflectionSection } from "@/components/home/ReflectionSection";
 import { DailyAffirmation } from "@/components/home/DailyAffirmation";
 import { RecentlyViewed } from "@/components/home/RecentlyViewed";
 import { ReflectionModal } from "@/components/home/ReflectionModal";
-import { CalendarModal } from "@/components/home/CalendarModal";
 import { RevealTransition } from "@/components/home/RevealTransition";
 import { PageWrapper } from "@/components/layout/PageWrapper";
+import { BaseHeader } from "@/components/layout/BaseHeader";
 
 // New components
 import { TarotCardPreReveal } from "@/components/home/TarotCardPreReveal";
@@ -21,6 +22,8 @@ import { RevealedInsightCard } from "@/components/home/RevealedInsightCard";
 import { TarotOverflowModal } from "@/components/home/TarotOverflowModal";
 import { HoroscopeOverflowModal } from "@/components/home/HoroscopeOverflowModal";
 import { NumerologyOverflowModal } from "@/components/home/NumerologyOverflowModal";
+import { TodaysRitual } from "@/components/home/TodaysRitual";
+import { RitualOverflowModal } from "@/components/home/RitualOverflowModal";
 
 import tarotMoon from "@/assets/tarot-moon.jpg";
 import tarotFool from "@/assets/tarot-fool.png";
@@ -52,6 +55,17 @@ interface NumerologyContent {
   preview: string;
 }
 
+interface Ritual {
+  id: string;
+  title: string;
+  description: string;
+  duration: string;
+  type: string;
+  intention: string;
+  steps: string[];
+  affirmation?: string;
+}
+
 interface InsightState {
   tarot: {
     revealed: boolean;
@@ -65,6 +79,10 @@ interface InsightState {
     revealed: boolean;
     content: NumerologyContent | null;
   };
+  ritual: {
+    completed: boolean;
+    ritual: Ritual | null;
+  };
 }
 
 interface StoredInsightState {
@@ -73,30 +91,87 @@ interface StoredInsightState {
 }
 
 const HomeOverview = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const navigate = useNavigate();
   const [isRevealed, setIsRevealed] = useState(false);
   const [isRevealing, setIsRevealing] = useState(false);
   const [reflection, setReflection] = useState<string>("");
   const [showReflectionModal, setShowReflectionModal] = useState(false);
-  const [showCalendarModal, setShowCalendarModal] = useState(false);
 
   // New insight state management
   const [insightStates, setInsightStates] = useState<InsightState>({
     tarot: { revealed: false, card: null },
     horoscope: { revealed: false, content: null },
-    numerology: { revealed: false, content: null }
+    numerology: { revealed: false, content: null },
+    ritual: { completed: false, ritual: null }
   });
 
   // Modal states
   const [showTarotModal, setShowTarotModal] = useState(false);
   const [showHoroscopeModal, setShowHoroscopeModal] = useState(false);
   const [showNumerologyModal, setShowNumerologyModal] = useState(false);
+  const [showRitualModal, setShowRitualModal] = useState(false);
 
   // View toggle for post-reveal state
   const [showExpandedView, setShowExpandedView] = useState(false);
 
   // localStorage key for insights
   const INSIGHTS_STORAGE_KEY = 'aroti-daily-insights';
+
+  // Select ritual of the day helper
+  const getRitualOfTheDay = (): Ritual => {
+    const today = new Date();
+    const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
+    const rituals: Ritual[] = [
+      {
+        id: "1",
+        title: "Grounding Breath",
+        description: "A simple breathing practice to center yourself and reconnect with your body.",
+        duration: "3 min",
+        type: "Grounding",
+        intention: "This ritual helps you ground your energy and reconnect with your body after a busy day.",
+        steps: [
+          "Find a quiet space and sit comfortably.",
+          "Take three slow, deep breaths.",
+          "Place your hand over your heart and set your intention.",
+          "Repeat the affirmation silently three times."
+        ],
+        affirmation: "I am grounded, centered, and at peace."
+      },
+      {
+        id: "2",
+        title: "Morning Intention",
+        description: "Set a meaningful intention for your day with this gentle morning practice.",
+        duration: "5 min",
+        type: "Intention",
+        intention: "This ritual helps you start your day with clarity and purpose.",
+        steps: [
+          "Sit comfortably with your back straight.",
+          "Take three deep breaths, inhaling through your nose and exhaling through your mouth.",
+          "Bring to mind three things you're grateful for today.",
+          "Ask yourself: 'What is one intention I want to set for today?'",
+          "Visualize yourself embodying this intention throughout your day."
+        ],
+        affirmation: "I move through my day with intention and grace."
+      },
+      {
+        id: "3",
+        title: "Evening Gratitude",
+        description: "End your day with gratitude and reflection.",
+        duration: "4 min",
+        type: "Gratitude",
+        intention: "This ritual helps you reflect on your day and cultivate gratitude.",
+        steps: [
+          "Find a comfortable seated or lying position.",
+          "Close your eyes and take five deep breaths.",
+          "Think of three things from today you're grateful for.",
+          "Allow yourself to feel the warmth of gratitude in your heart.",
+          "Set an intention for restful sleep."
+        ],
+        affirmation: "I am grateful for all the blessings in my life."
+      }
+    ];
+    return rituals[dayOfYear % rituals.length];
+  };
 
   // Daily reset logic
   useEffect(() => {
@@ -108,20 +183,43 @@ const HomeOverview = () => {
         const parsed: StoredInsightState = JSON.parse(stored);
         if (parsed.date === today) {
           // Same day, restore state
-          setInsightStates(parsed.insights);
+          // Ensure ritual is set if missing
+          const restoredState = parsed.insights;
+          if (!restoredState.ritual || !restoredState.ritual.ritual) {
+            restoredState.ritual = {
+              completed: restoredState.ritual?.completed || false,
+              ritual: getRitualOfTheDay()
+            };
+          }
+          setInsightStates(restoredState);
         } else {
           // Different day, reset and clear storage
           localStorage.removeItem(INSIGHTS_STORAGE_KEY);
           setInsightStates({
             tarot: { revealed: false, card: null },
             horoscope: { revealed: false, content: null },
-            numerology: { revealed: false, content: null }
+            numerology: { revealed: false, content: null },
+            ritual: { completed: false, ritual: getRitualOfTheDay() }
           });
         }
       } catch (error) {
         console.error('Error parsing stored insights:', error);
         localStorage.removeItem(INSIGHTS_STORAGE_KEY);
+        setInsightStates({
+          tarot: { revealed: false, card: null },
+          horoscope: { revealed: false, content: null },
+          numerology: { revealed: false, content: null },
+          ritual: { completed: false, ritual: getRitualOfTheDay() }
+        });
       }
+    } else {
+      // No stored data, initialize with today's ritual
+      setInsightStates({
+        tarot: { revealed: false, card: null },
+        horoscope: { revealed: false, content: null },
+        numerology: { revealed: false, content: null },
+        ritual: { completed: false, ritual: getRitualOfTheDay() }
+      });
     }
   }, []);
 
@@ -253,6 +351,18 @@ const HomeOverview = () => {
     }
   };
 
+  const handleBeginRitual = () => {
+    setShowRitualModal(true);
+  };
+
+  const handleCompleteRitual = () => {
+    setInsightStates(prev => ({
+      ...prev,
+      ritual: { ...prev.ritual, completed: true }
+    }));
+    // Update Journey streak if needed
+  };
+
   // Legacy handler for backward compatibility
   const handleReveal = () => {
     setIsRevealing(true);
@@ -272,66 +382,46 @@ const HomeOverview = () => {
   };
 
   const handleCalendarClick = () => {
-    setShowCalendarModal(true);
-  };
-
-  const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
-    // Reset reveal state when changing dates
-    setIsRevealed(false);
-    setIsRevealing(false);
-  };
-
-  const handleDateSelect = (date: Date) => {
-    setSelectedDate(date);
-    // Reset reveal state when changing dates
-    setIsRevealed(false);
-    setIsRevealing(false);
-  };
-
-  const getCurrentDate = () => {
-    return selectedDate.toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric'
-    });
+    navigate('/home/calendar');
   };
 
   return (
     <PageWrapper showBottomNav={true} showTabBar={true} className="home-tab-celestial">
-      {/* Day Selector - Fixed at top */}
-      <div className="home-tab-celestial fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)]">
-        <DaySelector
-          selectedDate={selectedDate}
-          onDateChange={handleDateChange}
-          onCalendarClick={handleCalendarClick}
-        />
-      </div>
+      {/* Fixed Header */}
+      <BaseHeader
+        title="Today's Insights"
+        className="[&_h1]:!text-[22px] [&_h1]:!font-medium [&_h1]:!tracking-normal [&_h1]:!leading-tight"
+        rightActions={
+          <button 
+            onClick={handleCalendarClick}
+            className="apple-touch-target-comfortable p-2 rounded-[16px] transition-all duration-300 hover:bg-white/5 hover:scale-105 active:scale-95"
+            style={{ 
+              color: 'hsl(var(--accent))',
+              filter: 'drop-shadow(0 0 8px rgba(209, 122, 82, 0.4))'
+            }}
+            aria-label="Open calendar timeline"
+          >
+            <Calendar className="w-5 h-5" />
+          </button>
+        }
+      />
 
       {/* Main content container with background */}
       <div className="home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)] pt-[80px] min-h-full pb-4">
-        {/* Header Section - Apple HIG Navigation Pattern */}
-        <div className="px-4 pt-8 pb-4 text-center space-y-1">
-          {/* Navigation Context - Apple Style */}
-          <nav aria-label="Daily insights navigation">
-            <p className="text-callout text-muted-foreground">
-              Hi {userData.name}, it's {getCurrentDate()}
-            </p>
-          </nav>
-
-          {/* Main Title - Apple Large Title */}
-          <header className="mt-2">
-            <h1 className="text-large-title text-foreground font-normal">
-              Today's Insights
-            </h1>
-          </header>
-
-          {/* Subtitle - Apple Subhead */}
-          <div className="mt-2">
-            <p className="text-subhead text-accent truncate">
-              Under {userData.sunSign} skies • Energy Number {userData.energyNumber}
-            </p>
-          </div>
+        {/* Greeting and Daily Energy Summary */}
+        <div className="px-6 pt-6 pb-4 space-y-2">
+          {/* Greeting */}
+          <h2 className="text-title-3 text-foreground font-normal">
+            Hi {userData.name || "there"},
+          </h2>
+          
+          {/* Daily Energy Summary */}
+          <p className="text-subhead text-accent" style={{ opacity: 0.9 }}>
+            {userData.sunSign && userData.traits?.length > 0 
+              ? `Today your energy feels ${userData.traits[0]?.toLowerCase() || 'intuitive'} and ${userData.traits[1]?.toLowerCase() || 'grounded'} under ${userData.sunSign} skies.`
+              : "Your energy today is shifting gently."
+            }
+          </p>
         </div>
 
         {/* Main Content - Apple HIG Visual Hierarchy */}
@@ -418,22 +508,29 @@ const HomeOverview = () => {
                 />
               )}
             </div>
-          </section>
 
-          {/* Daily Affirmation - Full Width */}
-          <section className="mt-12" aria-labelledby="daily-affirmation-section">
-            <h2 id="daily-affirmation-section" className="sr-only">Daily Affirmation</h2>
-            <DailyAffirmation quote={dailyAffirmation} />
+            {/* Today's Ritual - After Numerology */}
+            <TodaysRitual
+              ritual={insightStates.ritual.ritual}
+              isCompleted={insightStates.ritual.completed}
+              onBegin={handleBeginRitual}
+            />
           </section>
 
           {/* Reflection Section */}
-          <section className="mt-8" aria-labelledby="reflection-section">
+          <section className="mt-12" aria-labelledby="reflection-section">
             <h2 id="reflection-section" className="sr-only">Daily Reflection</h2>
             <ReflectionSection
               hasReflection={!!reflection}
               reflection={reflection}
               onAddReflection={handleAddReflection}
             />
+          </section>
+
+          {/* Daily Affirmation - Full Width */}
+          <section className="mt-8" aria-labelledby="daily-affirmation-section">
+            <h2 id="daily-affirmation-section" className="sr-only">Daily Affirmation</h2>
+            <DailyAffirmation quote={dailyAffirmation} />
           </section>
 
           {/* Supporting Content - Minimal Visual Weight */}
@@ -452,13 +549,6 @@ const HomeOverview = () => {
         onClose={() => setShowReflectionModal(false)}
         onSave={handleSaveReflection}
         initialReflection={reflection}
-      />
-
-      <CalendarModal
-        isOpen={showCalendarModal}
-        onClose={() => setShowCalendarModal(false)}
-        onDateSelect={handleDateSelect}
-        selectedDate={selectedDate}
       />
 
       {/* New Insight Modals */}
@@ -483,6 +573,14 @@ const HomeOverview = () => {
           isOpen={showNumerologyModal}
           onClose={() => setShowNumerologyModal(false)}
           content={insightStates.numerology.content}
+        />
+      )}
+
+      {insightStates.ritual.ritual && (
+        <RitualOverflowModal
+          isOpen={showRitualModal}
+          onClose={() => setShowRitualModal(false)}
+          ritual={insightStates.ritual.ritual}
         />
       )}
     </PageWrapper>

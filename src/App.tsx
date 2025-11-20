@@ -27,6 +27,7 @@ import Finish from "./pages/onboarding/Finish";
 
 // Home pages
 import HomeOverview from "./pages/home/HomeOverview";
+import CalendarTimeline from "./pages/home/CalendarTimeline";
 import DailyInsightPre from "./pages/home/DailyInsightPre";
 import DailyInsightPost from "./pages/home/DailyInsightPost";
 
@@ -97,6 +98,7 @@ const App = () => (
           
           {/* Home pages */}
           <Route path="/home" element={<HomeOverview />} />
+          <Route path="/home/calendar" element={<CalendarTimeline />} />
           <Route path="/home/daily-insight-pre" element={<DailyInsightPre />} />
           <Route path="/home/daily-insight-post" element={<DailyInsightPost />} />
           
