@@ -71,6 +71,9 @@ import EditIdentity from "./pages/profile/EditIdentity";
 import SettingsHome from "./pages/profile/SettingsHome";
 import PrivacyData from "./pages/profile/PrivacyData";
 
+// Journey pages
+import JourneyPage from "./pages/journey/JourneyPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -141,6 +144,9 @@ const App = () => (
           <Route path="/profile/edit" element={<EditIdentity />} />
           <Route path="/profile/settings" element={<SettingsHome />} />
           <Route path="/profile/settings/privacy" element={<PrivacyData />} />
+          
+          {/* Journey pages */}
+          <Route path="/journey" element={<JourneyPage />} />
           
           {/* Fallback route */}
           <Route path="*" element={<NotFound />} />

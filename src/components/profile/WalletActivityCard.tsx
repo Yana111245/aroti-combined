@@ -65,3 +65,4 @@ export const WalletActivityCard = ({ credits, stars }: WalletActivityCardProps) 
 };
 
 
+

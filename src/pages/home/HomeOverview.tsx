@@ -7,7 +7,7 @@ import { AstrologyInsights } from "@/components/home/AstrologyInsights";
 import { NumerologyInsights } from "@/components/home/NumerologyInsights";
 import { ReflectionSection } from "@/components/home/ReflectionSection";
 import { DailyAffirmation } from "@/components/home/DailyAffirmation";
-import { RecentlyViewed } from "@/components/home/RecentlyViewed";
+import { DailyAffirmationModal } from "@/components/home/DailyAffirmationModal";
 import { ReflectionModal } from "@/components/home/ReflectionModal";
 import { RevealTransition } from "@/components/home/RevealTransition";
 import { PageWrapper } from "@/components/layout/PageWrapper";
@@ -24,6 +24,9 @@ import { HoroscopeOverflowModal } from "@/components/home/HoroscopeOverflowModal
 import { NumerologyOverflowModal } from "@/components/home/NumerologyOverflowModal";
 import { TodaysRitual } from "@/components/home/TodaysRitual";
 import { RitualOverflowModal } from "@/components/home/RitualOverflowModal";
+
+// Utilities
+import { getTodaysAffirmation, shuffleAffirmation, Affirmation } from "@/utils/dailyAffirmations";
 
 import tarotMoon from "@/assets/tarot-moon.jpg";
 import tarotFool from "@/assets/tarot-fool.png";
@@ -111,6 +114,26 @@ const HomeOverview = () => {
   const [showHoroscopeModal, setShowHoroscopeModal] = useState(false);
   const [showNumerologyModal, setShowNumerologyModal] = useState(false);
   const [showRitualModal, setShowRitualModal] = useState(false);
+  const [showAffirmationModal, setShowAffirmationModal] = useState(false);
+
+  // Daily Affirmation state
+  const [affirmationState, setAffirmationState] = useState(() => getTodaysAffirmation());
+
+  // Refresh affirmation state on day change
+  useEffect(() => {
+    const checkDayChange = () => {
+      const current = getTodaysAffirmation();
+      setAffirmationState(current);
+    };
+
+    // Check on mount
+    checkDayChange();
+
+    // Set up interval to check every minute (in case user leaves app open past midnight)
+    const interval = setInterval(checkDayChange, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // View toggle for post-reveal state
   const [showExpandedView, setShowExpandedView] = useState(false);
@@ -311,8 +334,6 @@ const HomeOverview = () => {
     preview: "Energy number 7 - spiritual focus and introspection"
   };
 
-  const dailyAffirmation = "Every phase of your journey is an opportunity for growth and transformation.";
-
   // Handler functions for new insight system
   const handleRevealInsight = (type: 'tarot' | 'horoscope' | 'numerology') => {
     setInsightStates(prev => ({
@@ -385,6 +406,23 @@ const HomeOverview = () => {
 
   const handleCalendarClick = () => {
     navigate('/home/calendar');
+  };
+
+  // Daily Affirmation handlers
+  const handleShuffleAffirmation = () => {
+    const newAffirmation = shuffleAffirmation();
+    if (newAffirmation) {
+      setAffirmationState(prev => ({
+        ...prev,
+        affirmation: newAffirmation,
+        shuffleCount: prev.shuffleCount + 1,
+        canShuffle: prev.shuffleCount + 1 < 2
+      }));
+    }
+  };
+
+  const handleViewAffirmation = () => {
+    setShowAffirmationModal(true);
   };
 
   return (
@@ -530,19 +568,25 @@ const HomeOverview = () => {
             />
           </section>
 
-          {/* Daily Affirmation - Full Width */}
-          <section className="mt-8" aria-labelledby="daily-affirmation-section">
+          {/* Daily Affirmation */}
+          <section className="mt-4" aria-labelledby="daily-affirmation-section">
             <h2 id="daily-affirmation-section" className="sr-only">Daily Affirmation</h2>
-            <DailyAffirmation quote={dailyAffirmation} />
+            <DailyAffirmation
+              affirmation={affirmationState.affirmation}
+              shuffleCount={affirmationState.shuffleCount}
+              canShuffle={affirmationState.canShuffle}
+              onShuffle={handleShuffleAffirmation}
+              onView={handleViewAffirmation}
+            />
           </section>
 
-          {/* Supporting Content - Minimal Visual Weight */}
-          <section className="mt-12 space-y-6" aria-labelledby="recently-viewed-section">
-            <div className="apple-material-section-header">
-              <h2 id="recently-viewed-section" className="text-headline text-foreground">Recently Viewed</h2>
-            </div>
-            <RecentlyViewed items={userData.recentlyViewed} />
-          </section>
+          {/* Footer Message */}
+          <div className="py-8 text-center">
+            <p className="text-footnote text-muted-foreground opacity-60">
+              Aroti is guiding you today.
+            </p>
+          </div>
+
         </main>
       </div>
 
@@ -588,6 +632,13 @@ const HomeOverview = () => {
           onComplete={handleCompleteRitual}
         />
       )}
+
+      {/* Daily Affirmation Modal */}
+      <DailyAffirmationModal
+        isOpen={showAffirmationModal}
+        onClose={() => setShowAffirmationModal(false)}
+        affirmation={affirmationState.affirmation}
+      />
     </PageWrapper>
   );
 };

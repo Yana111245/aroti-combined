@@ -368,6 +368,15 @@ All colors MUST be HSL.
   }
 }
 
+@keyframes journey-progress-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(199, 176, 126, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(199, 176, 126, 0.6), 0 0 8px rgba(199, 176, 126, 0.4);
+  }
+}
+
 /* Liquid Glass Material Classes */
 
 /* Base Glass */
@@ -709,6 +718,10 @@ nav[class*="fixed"] {
 /* Liquid Glass Shimmer - Animated shimmer effect for decorative dots */
 .home-tab-celestial .liquid-glass-shimmer {
   animation: liquid-shimmer 3s ease-in-out infinite;
+}
+
+.home-tab-celestial .journey-progress-glow {
+  animation: journey-progress-glow 2s ease-in-out infinite;
 }
 
 @keyframes liquid-shimmer {

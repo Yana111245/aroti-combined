@@ -2,7 +2,7 @@
 export interface ShareableContent {
   title: string;
   content: string;
-  type: 'tarot' | 'horoscope' | 'numerology' | 'ritual';
+  type: 'tarot' | 'horoscope' | 'numerology' | 'ritual' | 'affirmation';
   keywords?: string[];
   image?: string;
 }

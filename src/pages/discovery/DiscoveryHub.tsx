@@ -50,7 +50,13 @@ const DiscoveryHub = () => {
             <Courses />
             
             {/* 6. Your Journey */}
-            <YourJourney />
+            <YourJourney 
+              variant="compact"
+              streakValue={7}
+              readings={24}
+              reflections={12}
+              rituals={8}
+            />
             
             {/* 8. Recently Viewed */}
             <div className="apple-material-section-header">

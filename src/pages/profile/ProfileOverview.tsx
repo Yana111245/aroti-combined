@@ -6,9 +6,7 @@ import {
   MessageCircle,
   Calendar,
   ChevronRight,
-  BookOpen,
   Sparkles,
-  Target,
   Bell,
   Globe,
   Shield,
@@ -246,48 +244,17 @@ export default function ProfileOverview() {
           {/* 5. Practice & Progress */}
           <section>
             <YourJourney
-              title="Practice & Progress"
-              subtitle="Your daily activity and milestones"
-              streakLabel="Current Streak"
-              streakUnit="days"
+              variant="compact"
+              title="Your Journey"
               streakValue={5}
+              readings={24}
+              reflections={12}
+              rituals={8}
               nextMilestone={{
-                title: "14-Day Reflection",
+                title: "14 days",
                 progress: 5,
-                total: 14,
-                reward: "Daily Insight Boost"
+                total: 14
               }}
-              stats={[
-                {
-                  id: "reflection",
-                  label: "Reflection Streak",
-                  value: "5 days",
-                  icon: Target,
-                  iconColorClass: "text-emerald-300",
-                  iconBgClass: "bg-emerald-500/20",
-                  iconBorderClass: "border-emerald-500/30"
-                },
-                {
-                  id: "reading",
-                  label: "Last Reading",
-                  value: "2 hours ago",
-                  icon: BookOpen,
-                  iconColorClass: "text-amber-300",
-                  iconBgClass: "bg-amber-500/20",
-                  iconBorderClass: "border-amber-500/30"
-                },
-                {
-                  id: "stars",
-                  label: "Stars Earned",
-                  value: "127",
-                  icon: Sparkles,
-                  iconColorClass: "text-purple-300",
-                  iconBgClass: "bg-purple-500/20",
-                  iconBorderClass: "border-purple-500/30"
-                }
-              ]}
-              ctaLabel="View All Activity"
-              ctaHref="/profile/activity"
             />
           </section>
 
