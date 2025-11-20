@@ -253,12 +253,12 @@ export default function BookingHome() {
                           {/* Session Info */}
                           <div className="flex-1 min-w-0 flex flex-col gap-2">
                             {/* Row 1: Name */}
-                            <h3 className="font-bold text-foreground text-title-3 leading-tight">
+                            <h3 className="text-headline text-foreground font-semibold leading-tight">
                               {session.specialistName}
                             </h3>
                             
                             {/* Row 2: Specialty */}
-                            <span className="font-medium text-body text-muted-foreground">
+                            <span className="text-body text-muted-foreground">
                               {session.specialty}
                             </span>
                             
@@ -323,7 +323,7 @@ export default function BookingHome() {
                                 state: { session, isReschedule: true }
                               });
                             }}
-                            className="flex-1 px-4 py-2 rounded-[10px] liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground text-subhead font-body font-medium hover:bg-white/10 hover:border-glass-highlight hover:text-foreground hover:shadow-glass transition-all duration-200 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+                            className="flex-1 px-4 py-2 rounded-[10px] liquid-glass-card bg-white/5 border border-glass-border text-foreground text-subhead font-body font-medium hover:bg-white/10 hover:border-glass-highlight hover:shadow-glass transition-all duration-200 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
                           >
                             Reschedule
                           </button>

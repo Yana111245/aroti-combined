@@ -52,10 +52,13 @@ export const TodaysRitual = ({ ritual, isCompleted, onBegin }: TodaysRitualProps
               <h3 className="text-headline text-foreground font-semibold leading-tight">
                 Today's Ritual
               </h3>
-              {isCompleted && (
-                <Check className="w-4 h-4 text-accent flex-shrink-0" />
-              )}
             </div>
+            {isCompleted && (
+              <p className="text-footnote text-accent mb-1 flex items-center gap-1">
+                <Check className="w-3 h-3" />
+                Completed today
+              </p>
+            )}
             <p className="text-footnote text-muted-foreground">
               {ritual.description}
             </p>

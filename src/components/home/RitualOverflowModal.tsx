@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Share2, Download, Sparkles } from "lucide-react";
+import { Share2, Sparkles, Check } from "lucide-react";
 import { LiquidGlassDialog, LiquidGlassDialogContent } from "@/components/ui/liquid-glass-dialog";
-import { Button } from "@/components/ui/button";
 import { shareContent, downloadShareImage, ShareableContent } from "@/lib/shareUtils";
 
 interface Ritual {
@@ -19,9 +18,11 @@ interface RitualOverflowModalProps {
   isOpen: boolean;
   onClose: () => void;
   ritual: Ritual;
+  isCompleted: boolean;
+  onComplete: () => void;
 }
 
-export const RitualOverflowModal = ({ isOpen, onClose, ritual }: RitualOverflowModalProps) => {
+export const RitualOverflowModal = ({ isOpen, onClose, ritual, isCompleted, onComplete }: RitualOverflowModalProps) => {
   const [isSharing, setIsSharing] = useState(false);
 
   const handleShare = async () => {
@@ -46,52 +47,52 @@ export const RitualOverflowModal = ({ isOpen, onClose, ritual }: RitualOverflowM
     }
   };
 
-  const handleDownloadImage = async () => {
-    const shareableContent: ShareableContent = {
-      title: `Today's Ritual: ${ritual.title}`,
-      content: `${ritual.intention}\n\n${ritual.steps.join('\n')}${ritual.affirmation ? `\n\n${ritual.affirmation}` : ''}`,
-      type: 'ritual',
-      keywords: [ritual.duration, ritual.type]
-    };
-
-    await downloadShareImage(shareableContent);
+  const handleMarkCompleted = () => {
+    if (!isCompleted) {
+      onComplete();
+    }
   };
 
   return (
     <LiquidGlassDialog open={isOpen} onOpenChange={onClose}>
       <LiquidGlassDialogContent className="!max-w-sm mx-auto p-0 overflow-hidden">
-        {/* Header */}
-        <div className="px-6 pt-14 pb-4 text-center space-y-4">
-          <div className="w-16 h-16 mx-auto bg-gradient-to-br from-accent to-accent/60 rounded-full flex items-center justify-center">
-            <Sparkles className="w-8 h-8 text-white" />
+        {/* Unified Header */}
+        <div className="px-6 pt-6 pb-4 text-center">
+          {/* Hero Icon */}
+          <div className="w-16 h-16 mx-auto mb-2 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 liquid-glass-glow">
+            <Sparkles className="w-6 h-6 text-white" />
           </div>
-          <h2 className="text-title-2 text-gray-200">Today's Ritual</h2>
+          
+          {/* Title */}
+          <h2 className="text-headline text-foreground font-semibold mb-2">Today's Ritual</h2>
+          
+          {/* Chips */}
           <div className="flex flex-wrap justify-center gap-2">
-            <span className="px-4 py-2 bg-accent/20 text-accent text-callout rounded-full">
+            <span className="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full">
               {ritual.duration}
             </span>
-            <span className="px-4 py-2 bg-accent/20 text-accent text-callout rounded-full">
+            <span className="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full">
               {ritual.type}
             </span>
           </div>
         </div>
         
         {/* Content */}
-        <div className="px-6 pb-6 space-y-4">
-          {/* Intention */}
-          <div className="space-y-3">
-            <h3 className="text-headline text-gray-200">Intention</h3>
-            <p className="text-body text-gray-400">{ritual.intention}</p>
+        <div className="px-6 pb-6">
+          {/* Intention Section */}
+          <div className="mt-4 space-y-2">
+            <h3 className="text-headline text-foreground font-semibold">Intention</h3>
+            <p className="text-body text-muted-foreground">{ritual.intention}</p>
           </div>
           
-          {/* Today's Practice */}
-          <div className="space-y-3">
-            <h3 className="text-headline text-gray-200">Today's Practice</h3>
+          {/* Today's Practice Section */}
+          <div className="mt-4 space-y-2">
+            <h3 className="text-headline text-foreground font-semibold">Today's Practice</h3>
             <ul className="space-y-2">
               {ritual.steps.map((step, index) => (
                 <li 
                   key={index} 
-                  className="flex items-start gap-3 text-body text-gray-400"
+                  className="flex items-start gap-3 text-body text-muted-foreground"
                 >
                   <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2.5 flex-shrink-0" />
                   <span>{step}</span>
@@ -100,31 +101,41 @@ export const RitualOverflowModal = ({ isOpen, onClose, ritual }: RitualOverflowM
             </ul>
           </div>
           
-          {/* Affirmation (optional) */}
+          {/* Affirmation Section (optional) */}
           {ritual.affirmation && (
-            <div className="space-y-3">
-              <h3 className="text-headline text-gray-200">Affirmation</h3>
-              <p className="text-body text-gray-400 italic">"{ritual.affirmation}"</p>
+            <div className="mt-4 space-y-2">
+              <h3 className="text-headline text-foreground font-semibold">Affirmation</h3>
+              <p className="text-body text-muted-foreground italic">"{ritual.affirmation}"</p>
             </div>
           )}
           
-          {/* Share Buttons */}
-          <div className="flex gap-3 pt-2">
-            <Button 
-              className="flex-1 bg-[rgba(30,26,40,0.8)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.1)] text-gray-200 hover:bg-[rgba(30,26,40,0.9)] hover:border-[rgba(255,255,255,0.2)]" 
+          {/* Action Buttons - Horizontal Row */}
+          <div className="flex gap-4 pt-6 pb-8">
+            {/* Primary: Complete */}
+            <button
+              onClick={handleMarkCompleted}
+              disabled={isCompleted}
+              className="flex-1 px-4 py-3 rounded-[10px] bg-accent text-white text-subhead font-body font-medium hover:bg-accent/90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 active:shadow-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none flex items-center justify-center"
+            >
+              {isCompleted ? (
+                <>
+                  <Check className="w-4 h-4 mr-2" />
+                  Completed
+                </>
+              ) : (
+                'Complete'
+              )}
+            </button>
+            
+            {/* Secondary: Share */}
+            <button
               onClick={handleShare}
               disabled={isSharing}
+              className="flex-1 px-4 py-3 rounded-[10px] liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground text-subhead font-body font-medium hover:bg-white/10 hover:border-glass-highlight hover:text-foreground hover:shadow-glass transition-all duration-200 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             >
               <Share2 className="w-4 h-4 mr-2" />
               {isSharing ? 'Sharing...' : 'Share'}
-            </Button>
-            <Button 
-              className="flex-1 bg-[rgba(30,26,40,0.6)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.08)] text-gray-300 hover:bg-[rgba(30,26,40,0.8)] hover:border-[rgba(255,255,255,0.15)]" 
-              onClick={handleDownloadImage}
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Image
-            </Button>
+            </button>
           </div>
         </div>
       </LiquidGlassDialogContent>

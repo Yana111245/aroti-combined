@@ -95,6 +95,7 @@ const HomeOverview = () => {
   const [isRevealed, setIsRevealed] = useState(false);
   const [isRevealing, setIsRevealing] = useState(false);
   const [reflection, setReflection] = useState<string>("");
+  const [reflectionTimestamp, setReflectionTimestamp] = useState<Date | undefined>(undefined);
   const [showReflectionModal, setShowReflectionModal] = useState(false);
 
   // New insight state management
@@ -379,6 +380,7 @@ const HomeOverview = () => {
 
   const handleSaveReflection = (newReflection: string) => {
     setReflection(newReflection);
+    setReflectionTimestamp(new Date());
   };
 
   const handleCalendarClick = () => {
@@ -518,12 +520,13 @@ const HomeOverview = () => {
           </section>
 
           {/* Reflection Section */}
-          <section className="mt-12" aria-labelledby="reflection-section">
+          <section className="mt-4" aria-labelledby="reflection-section">
             <h2 id="reflection-section" className="sr-only">Daily Reflection</h2>
             <ReflectionSection
               hasReflection={!!reflection}
               reflection={reflection}
               onAddReflection={handleAddReflection}
+              reflectionTimestamp={reflectionTimestamp}
             />
           </section>
 
@@ -581,6 +584,8 @@ const HomeOverview = () => {
           isOpen={showRitualModal}
           onClose={() => setShowRitualModal(false)}
           ritual={insightStates.ritual.ritual}
+          isCompleted={insightStates.ritual.completed}
+          onComplete={handleCompleteRitual}
         />
       )}
     </PageWrapper>

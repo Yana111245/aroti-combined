@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 
 interface ReflectionModalProps {
@@ -75,30 +74,21 @@ export const ReflectionModal = ({ isOpen, onClose, onSave, initialReflection = "
         </div>
 
         {/* Actions */}
-        <div className="flex gap-3 pt-2">
-          <Button
-            variant="outline"
+        <div className="flex gap-4 pt-2">
+          <button
             onClick={handleCancel}
-            className="flex-1 h-12 text-subhead border-white/20 text-foreground hover:border-accent/50 hover:bg-accent/10 transition-all duration-300 rounded-[24px] apple-touch-target"
             disabled={isSaving}
-            style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.2)'
-            }}
+            className="flex-1 px-4 py-3 rounded-[10px] liquid-glass-card bg-white/5 border border-glass-border text-muted-foreground text-subhead font-body font-medium hover:bg-white/10 hover:border-glass-highlight hover:text-foreground hover:shadow-glass transition-all duration-200 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
-          </Button>
-          <Button
+          </button>
+          <button
             onClick={handleSave}
-            className="flex-1 h-12 text-subhead bg-accent text-accent-foreground hover:bg-accent/90 transition-all duration-300 rounded-[24px] apple-touch-target"
             disabled={isSaving || !reflection.trim()}
-            style={{
-              background: 'linear-gradient(135deg, hsl(42 38% 63%) 0%, hsl(42 38% 57%) 100%)',
-              boxShadow: '0 4px 16px rgba(199, 176, 126, 0.3)'
-            }}
+            className="flex-1 px-4 py-3 rounded-[10px] bg-accent text-white text-subhead font-body font-medium hover:bg-accent/90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 active:shadow-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
           >
             {isSaving ? "Saving..." : "Save Reflection"}
-          </Button>
+          </button>
         </div>
       </div>
     </div>
