@@ -21,7 +21,7 @@ export const BaseSectionHeader = ({
     <div className={cn("apple-material-section-header", className)}>
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-headline text-foreground">{title}</h2>
+          <h2 className="text-title-2 font-semibold text-foreground">{title}</h2>
           {subtitle && (
             <p className="text-footnote text-muted-foreground mt-1">{subtitle}</p>
           )}

@@ -70,6 +70,9 @@ import BillingPayment from "./pages/profile/BillingPayment";
 import EditIdentity from "./pages/profile/EditIdentity";
 import SettingsHome from "./pages/profile/SettingsHome";
 import PrivacyData from "./pages/profile/PrivacyData";
+import WalletCredits from "./pages/profile/WalletCredits";
+import Notifications from "./pages/profile/Notifications";
+import Language from "./pages/profile/Language";
 
 // Journey pages
 import JourneyPage from "./pages/journey/JourneyPage";
@@ -143,7 +146,10 @@ const App = () => (
           <Route path="/profile/billing" element={<BillingPayment />} />
           <Route path="/profile/edit" element={<EditIdentity />} />
           <Route path="/profile/settings" element={<SettingsHome />} />
+          <Route path="/profile/settings/wallet" element={<WalletCredits />} />
           <Route path="/profile/settings/privacy" element={<PrivacyData />} />
+          <Route path="/profile/notifications" element={<Notifications />} />
+          <Route path="/profile/language" element={<Language />} />
           
           {/* Journey pages */}
           <Route path="/journey" element={<JourneyPage />} />
