@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { useSwipeGesture } from "@/hooks/useSwipeGesture";
 import { ProgressBar } from "@/components/onboarding/ProgressBar";
+import { ChevronLeft } from "lucide-react";
 
 interface OnboardingLayoutProps {
   children: ReactNode;
@@ -31,18 +32,17 @@ export const OnboardingLayout = ({
   return (
     <div 
       ref={swipeRef}
-      className={cn("relative flex flex-col overflow-hidden", className)}
+      className={cn("relative flex flex-col overflow-hidden home-tab-celestial", className)}
       style={{ height: '100dvh' }}
     >
-      {/* Full viewport background including safe areas */}
+      {/* Full viewport background with dark celestial theme */}
       <div 
-        className="absolute -z-10"
+        className="absolute -z-10 home-tab-celestial bg-gradient-to-b from-[hsl(235,35%,7%)] to-[hsl(240,30%,9%)]"
         style={{
           top: 'calc(-1 * env(safe-area-inset-top))',
           bottom: 'calc(-1 * env(safe-area-inset-bottom))',
           left: 'calc(-1 * env(safe-area-inset-left))',
           right: 'calc(-1 * env(safe-area-inset-right))',
-          background: 'linear-gradient(180deg, hsl(35 20% 96%) 0%, hsl(30 38% 90%) 100%)'
         }}
       />
       
@@ -53,15 +53,14 @@ export const OnboardingLayout = ({
       >
         {/* Back Button */}
         {showBackButton && onBack && (
-          <div className="flex-shrink-0 px-4 py-2">
+          <div className="flex-shrink-0 px-6 pt-6 pb-3">
             <button
               onClick={onBack}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors apple-touch-target-comfortable p-2 rounded-[16px] hover:bg-white/5"
+              aria-label="Go back"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              <span className="text-sm font-medium">Back</span>
+              <ChevronLeft className="w-5 h-5" />
+              <span className="text-subhead font-medium">Back</span>
             </button>
           </div>
         )}
@@ -75,18 +74,18 @@ export const OnboardingLayout = ({
 
         {/* Title & Subtitle */}
         {(title || subtitle) && (
-          <div className="flex-shrink-0 px-6 pb-4">
+          <div className="flex-shrink-0 px-6 pb-6 pt-4">
             {title && (
-              <h1 className="font-title text-title-xl font-normal mb-2">{title}</h1>
+              <h1 className="font-title text-title-1 text-foreground font-normal mb-3">{title}</h1>
             )}
             {subtitle && (
-              <p className="text-muted-foreground text-body-lg">{subtitle}</p>
+              <p className="text-body text-muted-foreground leading-relaxed">{subtitle}</p>
             )}
           </div>
         )}
         
         {/* Content - Flexible positioning, scrolls when needed */}
-        <div className="flex-1 px-6 min-h-0 flex flex-col justify-start pt-4 overflow-y-auto">
+        <div className="flex-1 px-6 min-h-0 flex flex-col justify-start pt-6 overflow-y-auto">
           {children}
         </div>
         

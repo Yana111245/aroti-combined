@@ -114,10 +114,10 @@ const PaymentMethod = () => {
     <OnboardingLayout 
       showBackButton={true}
       onBack={handleBack}
-      currentStep={9}
-      totalSteps={10}
+      currentStep={13}
+      totalSteps={14}
       title="Add payment method"
-      subtitle="Your 7-day free trial starts now. We'll remind you before charging."
+      subtitle="Your 3-day free trial starts now. We'll remind you before charging."
       ctaButton={
         <div className="space-y-3">
           <CTAButton
@@ -145,7 +145,7 @@ const PaymentMethod = () => {
             <div className="flex items-start gap-3">
               <Info className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <h3 className="font-medium text-foreground">Start your 7-day free trial</h3>
+                <h3 className="font-medium text-foreground">Start your 3-day free trial</h3>
                 <p className="text-sm text-muted-foreground">
                   $0 today, then $9.99/month after trial
                 </p>

@@ -16,10 +16,14 @@ import NotFound from "./pages/NotFound";
 import Welcome from "./pages/onboarding/Welcome";
 import FocusSelection from "./pages/onboarding/FocusSelection";
 import PathType from "./pages/onboarding/PathType";
-import BirthDetails from "./pages/onboarding/BirthDetails";
+import BirthDate from "./pages/onboarding/BirthDate";
+import BirthTime from "./pages/onboarding/BirthTime";
+import BirthPlace from "./pages/onboarding/BirthPlace";
 import Intentions from "./pages/onboarding/Intentions";
-import DailySummary from "./pages/onboarding/DailySummary";
+import DailyReflections from "./pages/onboarding/DailyReflections";
 import PrivacySettings from "./pages/onboarding/PrivacySettings";
+import CheeringScreen from "./pages/onboarding/CheeringScreen";
+import HowToUse from "./pages/onboarding/HowToUse";
 import SubscriptionPlan from "./pages/onboarding/SubscriptionPlan";
 import CreateAccount from "./pages/onboarding/CreateAccount";
 import PaymentMethod from "./pages/onboarding/PaymentMethod";
@@ -77,6 +81,9 @@ import Language from "./pages/profile/Language";
 // Journey pages
 import JourneyPage from "./pages/journey/JourneyPage";
 
+// Design Components page
+import DesignComponents from "./pages/design-components/DesignComponents";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -93,10 +100,14 @@ const App = () => (
           {/* Onboarding flow */}
           <Route path="/onboarding/focus" element={<FocusSelection />} />
           <Route path="/onboarding/path" element={<PathType />} />
-          <Route path="/onboarding/birth-details" element={<BirthDetails />} />
+          <Route path="/onboarding/birth-date" element={<BirthDate />} />
+          <Route path="/onboarding/birth-time" element={<BirthTime />} />
+          <Route path="/onboarding/birth-place" element={<BirthPlace />} />
           <Route path="/onboarding/intentions" element={<Intentions />} />
-          <Route path="/onboarding/daily-summary" element={<DailySummary />} />
+          <Route path="/onboarding/daily-reflections" element={<DailyReflections />} />
           <Route path="/onboarding/privacy" element={<PrivacySettings />} />
+          <Route path="/onboarding/cheering" element={<CheeringScreen />} />
+          <Route path="/onboarding/how-to-use" element={<HowToUse />} />
           <Route path="/onboarding/subscription" element={<SubscriptionPlan />} />
           <Route path="/onboarding/create-account" element={<CreateAccount />} />
           <Route path="/onboarding/payment-method" element={<PaymentMethod />} />
@@ -124,6 +135,9 @@ const App = () => (
           
           {/* Guidance pages */}
           <Route path="/guidance" element={<Guidance />} />
+          
+          {/* Design Components page */}
+          <Route path="/design-components" element={<DesignComponents />} />
           
           {/* Booking pages */}
           <Route path="/booking" element={<BookingHome />} />
@@ -154,7 +168,7 @@ const App = () => (
           {/* Journey pages */}
           <Route path="/journey" element={<JourneyPage />} />
           
-          {/* Fallback route */}
+          {/* Fallback route - must be last */}
           <Route path="*" element={<NotFound />} />
         </Routes>
         <UnifiedBottomNav />

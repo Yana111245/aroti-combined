@@ -96,7 +96,7 @@ export default function SubscriptionPlans() {
               Start Free Trial
             </GradientButton>
             <p className="text-footnote text-center text-muted-foreground">
-              7 days free, then $12/month. Cancel anytime.
+              3 days free, then $12/month. Cancel anytime.
             </p>
           </BaseCard>
 

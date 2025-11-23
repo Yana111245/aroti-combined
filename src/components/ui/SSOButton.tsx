@@ -39,9 +39,7 @@ export const SSOButton = ({
       onClick={onClick}
       disabled={disabled || loading}
       className={cn(
-        "w-full h-12 font-medium transition-all duration-200",
-        // Apply the app's custom radius
-        "rounded-[var(--radius)]",
+        "w-full h-12 font-medium transition-all duration-200 rounded-[10px]",
         isApple 
           ? "bg-black text-white hover:bg-gray-800 border-0" 
           : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300",

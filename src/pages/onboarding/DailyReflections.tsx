@@ -1,58 +1,59 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Bot, User, Users } from "lucide-react";
+import { Sunrise, Sun, Sunset } from "lucide-react";
 import { OnboardingLayout } from "@/components/layout/OnboardingLayout";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { BaseCard } from "@/components/layout/BaseCard";
 import { cn } from "@/lib/utils";
 
-const paths = [
-  {
-    id: "ai",
-    title: "AI Guidance",
-    description: "Instant insights anytime you need clarity.",
-    icon: Bot,
+const times = [
+  { 
+    id: "morning", 
+    label: "Morning", 
+    description: "Start your day with clarity.",
+    icon: Sunrise 
   },
-  {
-    id: "human",
-    title: "Human Mentor",
-    description: "Connect with specialists for deeper wisdom.",
-    icon: User,
+  { 
+    id: "afternoon", 
+    label: "Afternoon", 
+    description: "A moment to reconnect.",
+    icon: Sun 
   },
-  {
-    id: "hybrid",
-    title: "Hybrid",
-    description: "Blend AI clarity with human intuition.",
-    icon: Users,
+  { 
+    id: "evening", 
+    label: "Evening", 
+    description: "Wind down with guidance.",
+    icon: Sunset 
   },
 ];
 
-const PathType = () => {
+const DailyReflections = () => {
   const navigate = useNavigate();
-  const [selectedPath, setSelectedPath] = useState<string>("");
+  const [selectedTime, setSelectedTime] = useState<string>("");
 
   const handleContinue = () => {
-    if (selectedPath) {
-      navigate("/onboarding/birth-date");
+    if (selectedTime) {
+      localStorage.setItem('dailyReflectionTime', selectedTime);
+      navigate("/onboarding/privacy");
     }
   };
 
   const handleBack = () => {
-    navigate("/onboarding/focus");
+    navigate("/onboarding/intentions");
   };
 
   return (
     <OnboardingLayout 
       showBackButton={true}
       onBack={handleBack}
-      currentStep={2}
+      currentStep={7}
       totalSteps={14}
-      title="Choose your path"
-      subtitle="How would you like to receive your guidance?"
+      title="Daily reflections"
+      subtitle="When would you like Aroti to gently check in with you?"
       ctaButton={
         <CTAButton
           onClick={handleContinue}
-          disabled={!selectedPath}
+          disabled={!selectedTime}
         >
           Continue
         </CTAButton>
@@ -61,15 +62,15 @@ const PathType = () => {
       <div className="animate-fade-in">
         <div className="w-full max-w-lg mx-auto">
           <div className="space-y-4">
-            {paths.map(({ id, title, description, icon: Icon }, index) => {
-              const isSelected = selectedPath === id;
+            {times.map(({ id, label, description, icon: Icon }, index) => {
+              const isSelected = selectedTime === id;
               return (
                 <BaseCard
                   key={id}
                   variant="interactive"
-                  onClick={() => setSelectedPath(id)}
+                  onClick={() => setSelectedTime(id)}
                   className={cn(
-                    "w-full p-6 text-left transition-all duration-300 stagger-fade-up relative",
+                    "w-full p-6 transition-all duration-300 stagger-fade-up relative",
                     "hover:scale-[1.01] active:scale-[0.99]",
                     isSelected && "scale-[1.01]",
                     isSelected && "bg-gradient-to-br from-accent/15 to-accent/8 shadow-[0_4px_20px_rgba(209,122,82,0.2)]"
@@ -92,7 +93,7 @@ const PathType = () => {
                       }}
                     />
                   )}
-                  <div className="flex gap-4">
+                  <div className="flex items-center gap-4">
                     <div className={cn(
                       "p-4 rounded-[12px] transition-all duration-300 flex-shrink-0",
                       isSelected 
@@ -109,11 +110,9 @@ const PathType = () => {
                         isSelected ? "text-accent" : "text-muted-foreground"
                       )} />
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-headline font-medium text-foreground mb-2">{title}</h3>
-                      <p className="text-body text-muted-foreground leading-relaxed">
-                        {description}
-                      </p>
+                    <div className="flex-1 text-left">
+                      <h3 className="text-headline font-medium text-foreground mb-2">{label}</h3>
+                      <p className="text-body text-muted-foreground leading-relaxed">{description}</p>
                     </div>
                   </div>
                 </BaseCard>
@@ -126,4 +125,5 @@ const PathType = () => {
   );
 };
 
-export default PathType;
+export default DailyReflections;
+

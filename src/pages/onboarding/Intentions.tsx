@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { OnboardingLayout } from "@/components/layout/OnboardingLayout";
 import { CTAButton } from "@/components/ui/CTAButton";
+import { BaseCard } from "@/components/layout/BaseCard";
+import { cn } from "@/lib/utils";
 
 const intentions = [
   "Insight",
@@ -23,31 +25,34 @@ const Intentions = () => {
   const [selectedIntentions, setSelectedIntentions] = useState<string[]>([]);
 
   const toggleIntention = (intention: string) => {
-    setSelectedIntentions((prev) =>
-      prev.includes(intention)
-        ? prev.filter((i) => i !== intention)
-        : [...prev, intention]
-    );
+    setSelectedIntentions((prev) => {
+      if (prev.includes(intention)) {
+        return prev.filter((i) => i !== intention);
+      } else if (prev.length < 5) {
+        return [...prev, intention];
+      }
+      return prev;
+    });
   };
 
   const handleContinue = () => {
     if (selectedIntentions.length > 0) {
-      navigate("/onboarding/daily-summary");
+      navigate("/onboarding/daily-reflections");
     }
   };
 
   const handleBack = () => {
-    navigate("/onboarding/birth-details");
+    navigate("/onboarding/birth-place");
   };
 
   return (
     <OnboardingLayout 
       showBackButton={true}
       onBack={handleBack}
-      currentStep={4}
-      totalSteps={9}
+      currentStep={6}
+      totalSteps={14}
       title="Set your intentions"
-      subtitle="Choose what you'd like to cultivate in your life"
+      subtitle="What energies would you like to invite into your life?"
       ctaButton={
         <CTAButton
           onClick={handleContinue}
@@ -59,27 +64,47 @@ const Intentions = () => {
     >
       <div className="animate-fade-in">
         <div className="w-full max-w-lg mx-auto">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {intentions.map((intention) => {
+          <div className="flex flex-wrap gap-3 justify-center">
+            {intentions.map((intention, index) => {
               const isSelected = selectedIntentions.includes(intention);
               return (
-                <button
+                <BaseCard
                   key={intention}
+                  variant="interactive"
                   onClick={() => toggleIntention(intention)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 ${
+                  className={cn(
+                    "px-5 py-3 rounded-full transition-all duration-300 hover:scale-105 relative",
+                    "stagger-fade-up",
                     isSelected
-                      ? "bg-gradient-to-r from-secondary to-primary text-primary-foreground shadow-[var(--shadow-glow)]"
-                      : "glass-card border border-accent/20 text-foreground hover:border-accent/40"
-                  }`}
+                      ? "bg-gradient-to-r from-accent/90 to-accent text-white shadow-[0_4px_20px_rgba(209,122,82,0.4)]"
+                      : "liquid-glass-card border border-glass-border text-foreground hover:border-accent/40 hover:bg-white/5"
+                  )}
+                  style={{ 
+                    animationDelay: `${index * 50}ms`,
+                    ...(isSelected && {
+                      border: '2px solid',
+                      borderColor: 'hsl(42 38% 57%)',
+                      boxShadow: '0 0 0 1px rgba(209, 122, 82, 0.4), 0 4px 20px rgba(209, 122, 82, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.1)'
+                    })
+                  }}
                 >
-                  {intention}
-                </button>
+                  {isSelected && (
+                    <div className="absolute inset-0 rounded-full pointer-events-none" 
+                      style={{
+                        border: '1px solid',
+                        borderColor: 'rgba(255, 255, 255, 0.3)',
+                        boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.15), 0 0 15px rgba(209, 122, 82, 0.3)'
+                      }}
+                    />
+                  )}
+                  <span className="text-subhead font-medium">{intention}</span>
+                </BaseCard>
               );
             })}
           </div>
 
-          <div className="text-center text-sm text-muted-foreground mt-4">
-            Selected: {selectedIntentions.length}
+          <div className="text-center text-footnote text-muted-foreground mt-6">
+            Selected: {selectedIntentions.length} of 5
           </div>
         </div>
       </div>

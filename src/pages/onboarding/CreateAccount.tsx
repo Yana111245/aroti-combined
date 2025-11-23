@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 import { OnboardingLayout } from "@/components/layout/OnboardingLayout";
+import { BaseCard } from "@/components/layout/BaseCard";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { SSOButton } from "@/components/ui/SSOButton";
 
@@ -125,10 +126,10 @@ const CreateAccount = () => {
     <OnboardingLayout 
       showBackButton={true}
       onBack={handleBack}
-      currentStep={8}
-      totalSteps={9}
+      currentStep={12}
+      totalSteps={14}
       title="Create your account"
-      subtitle="Join Aroti to begin your journey of self-discovery"
+      subtitle="Your sacred space awaits—sync your journey across all devices"
       ctaButton={
         <CTAButton
           onClick={handleSignUp}
@@ -157,17 +158,17 @@ const CreateAccount = () => {
           {/* Divider */}
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-muted-foreground/20" />
+              <div className="w-full border-t border-glass-border" />
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="bg-background px-4 text-muted-foreground">or</span>
+            <div className="relative flex justify-center">
+              <span className="bg-transparent px-4 text-footnote text-muted-foreground">Or</span>
             </div>
           </div>
 
           {/* Email/Password Form */}
-          <div className="glass-card p-6 space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name" className="text-sm font-medium">
+          <BaseCard className="p-8 space-y-6">
+            <div className="space-y-3">
+              <Label htmlFor="name" className="text-headline font-medium text-foreground">
                 Full Name <span className="text-muted-foreground">(optional)</span>
               </Label>
               <Input
@@ -176,12 +177,12 @@ const CreateAccount = () => {
                 placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="glass-card border-accent/30 focus:border-accent"
+                className="w-full"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium">
+            <div className="space-y-3">
+              <Label htmlFor="email" className="text-headline font-medium text-foreground">
                 Email
               </Label>
               <Input
@@ -190,12 +191,12 @@ const CreateAccount = () => {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="glass-card border-accent/30 focus:border-accent"
+                className="w-full"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium">
+            <div className="space-y-3">
+              <Label htmlFor="password" className="text-headline font-medium text-foreground">
                 Password
               </Label>
               <div className="relative">
@@ -205,24 +206,24 @@ const CreateAccount = () => {
                   placeholder="Create a password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="glass-card border-accent/30 focus:border-accent pr-10"
+                  className="w-full pr-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-footnote text-muted-foreground">
                 At least 6 characters
               </p>
             </div>
-          </div>
+          </BaseCard>
 
           <div className="text-center">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-footnote text-muted-foreground">
               By creating an account, you agree to our Terms & Privacy Policy
             </p>
           </div>

@@ -4,6 +4,7 @@ import { Switch } from "@/components/ui/switch";
 import { Shield, Sparkles } from "lucide-react";
 import { OnboardingLayout } from "@/components/layout/OnboardingLayout";
 import { CTAButton } from "@/components/ui/CTAButton";
+import { BaseCard } from "@/components/layout/BaseCard";
 
 const PrivacySettings = () => {
   const navigate = useNavigate();
@@ -11,21 +12,21 @@ const PrivacySettings = () => {
   const [personalization, setPersonalization] = useState(true);
 
   const handleContinue = () => {
-    navigate("/onboarding/subscription");
+    navigate("/onboarding/cheering");
   };
 
   const handleBack = () => {
-    navigate("/onboarding/daily-summary");
+    navigate("/onboarding/daily-reflections");
   };
 
   return (
     <OnboardingLayout 
       showBackButton={true}
       onBack={handleBack}
-      currentStep={6}
-      totalSteps={9}
+      currentStep={8}
+      totalSteps={14}
       title="Privacy & insights"
-      subtitle="Customize your experience while keeping your data secure"
+      subtitle="Your sacred space, your control"
       ctaButton={
         <CTAButton
           onClick={handleContinue}
@@ -35,54 +36,56 @@ const PrivacySettings = () => {
       }
     >
       <div className="animate-fade-in">
-        <div className="w-full max-w-lg mx-auto">
-          <div className="glass-card p-6 space-y-4">
-            <div className="flex items-start gap-3">
-              <Shield className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-              <div className="flex-1 space-y-2">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-semibold text-base">Analytics</h3>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Help us improve Aroti by sharing anonymous usage data
-                    </p>
+        <div className="w-full max-w-lg mx-auto space-y-6">
+          <BaseCard className="p-8">
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <Shield className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-headline font-medium text-foreground">Analytics</h3>
+                      <p className="text-body text-muted-foreground mt-2 leading-relaxed">
+                        Help us improve Aroti by sharing anonymous data
+                      </p>
+                    </div>
+                    <Switch
+                      checked={analytics}
+                      onCheckedChange={setAnalytics}
+                      className="ml-4"
+                    />
                   </div>
-                  <Switch
-                    checked={analytics}
-                    onCheckedChange={setAnalytics}
-                    className="ml-4"
-                  />
+                </div>
+              </div>
+
+              <div className="h-px bg-glass-border" />
+
+              <div className="flex items-start gap-4">
+                <Sparkles className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-headline font-medium text-foreground">Personalized insights</h3>
+                      <p className="text-body text-muted-foreground mt-2 leading-relaxed">
+                        Tailor your guidance based on patterns
+                      </p>
+                    </div>
+                    <Switch
+                      checked={personalization}
+                      onCheckedChange={setPersonalization}
+                      className="ml-4"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
+          </BaseCard>
 
-            <div className="h-px bg-border" />
-
-            <div className="flex items-start gap-3">
-              <Sparkles className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-              <div className="flex-1 space-y-2">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-semibold text-base">Personalized insights</h3>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Get tailored guidance based on your patterns and preferences
-                    </p>
-                  </div>
-                  <Switch
-                    checked={personalization}
-                    onCheckedChange={setPersonalization}
-                    className="ml-4"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="glass-card p-4 mt-4">
-            <p className="text-sm text-muted-foreground text-center leading-relaxed">
-              Your birth details and readings are encrypted and private. We never share your personal information with third parties.
+          <BaseCard className="p-6">
+            <p className="text-body text-muted-foreground text-center leading-relaxed">
+              Your birth details and readings are encrypted and private
             </p>
-          </div>
+          </BaseCard>
         </div>
       </div>
     </OnboardingLayout>
